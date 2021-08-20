@@ -1,0 +1,43 @@
+{
+  "name": "caycanh",
+  "version": "1.0.0",
+  "description": "cay canh web",
+  "main": "index.js",
+  "scripts": {
+    "start": "node backend/server",
+    "server": "nodemon backend/server",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node backend/seeder",
+    "data:destroy": "node backend/seeder -d",
+    "seeder": "concurrently \"data:destroy\" \"npm run data:import\""
+  },
+  "author": "b1706560",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cloudinary": "^1.25.1",
+    "colors": "^1.4.0",
+    "concurrently": "^5.3.0",
+    "cors": "^2.8.5",
+    "date-fns": "^2.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "express-fileupload": "^1.2.1",
+    "firebase": "^8.3.0",
+    "google-auth-library": "^7.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
+    "mongoose": "^5.11.13",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "nodemon": "^2.0.7",
+    "notistack": "^1.0.3",
+    "react-image-file-resizer": "^0.4.4",
+    "react-toastify": "^7.0.2",
+    "slugify": "^1.5.0",
+    "socket.io": "^4.0.1"
+  }
+}
