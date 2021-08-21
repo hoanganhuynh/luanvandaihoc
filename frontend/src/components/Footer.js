@@ -32,186 +32,28 @@ Footer.propTypes = {}
 function Footer(props) {
   const classes = useStyles()
   return (
-    <footer style={{ backgroundColor: '#edfead' }}>
-      <div className='pl-5 pb-4  pr-5'>
+    <footer style={{ backgroundColor: '#fafafa' }}>
+      <div className='pl-5 pb-4  pr-5 mt-4'>
         <Row>
-          <Col md={2}>
-            <ListGroup className='pt-5 pb-4'>
-              <h5>Hỗ trợ</h5>
-              <ListGroup.Item
-                className='border-0 p-0 pt-2'
-                style={{ backgroundColor: '#edfead' }}
-              >
-                <Link
-                  style={{
-                    color: 'black',
-                    fontSize: '0.875rem',
-                    letterSpacing: '0.05rem',
-                  }}
-                  className={classes.link + 'pt-1'}
-                  href='/'
-                >
-                  Hình thức giao hàng
-                </Link>
-              </ListGroup.Item>
-              <ListGroup.Item
-                className='border-0 p-0 pt-2'
-                style={{ backgroundColor: '#edfead' }}
-              >
-                <Link
-                  style={{
-                    color: 'black',
-                    fontSize: '0.875rem',
-                    letterSpacing: '0.05rem',
-                  }}
-                  className={classes.link + 'pt-1'}
-                  href='/'
-                >
-                  Hình thức thanh toán
-                </Link>
-              </ListGroup.Item>
-              <ListGroup.Item
-                className='border-0 p-0 pt-2'
-                style={{ backgroundColor: '#edfead' }}
-              >
-                <Link
-                  style={{
-                    color: 'black',
-                    fontSize: '0.875rem',
-                    letterSpacing: '0.05rem',
-                  }}
-                  className={classes.link + 'pt-1'}
-                  href='/'
-                >
-                  Chính sách đổi trả
-                </Link>
-              </ListGroup.Item>
-              <ListGroup.Item
-                className='border-0 p-0 pt-2'
-                style={{ backgroundColor: '#edfead' }}
-              >
-                <Link
-                  style={{
-                    color: 'black',
-                    fontSize: '0.875rem',
-                    letterSpacing: '0.05rem',
-                  }}
-                  className={classes.link + 'pt-1'}
-                  href='/'
-                >
-                  Chính sách bảo hành
-                </Link>
-              </ListGroup.Item>
-            </ListGroup>
-          </Col>
-          <Col md={2}>
-            <ListGroup className='pt-5 pb-4'>
-              <h5>Thông tin</h5>
-              <ListGroup.Item
-                className='border-0 p-0 pt-2'
-                style={{ backgroundColor: '#edfead' }}
-              >
-                <Link
-                  style={{
-                    color: 'black',
-                    fontSize: '0.875rem',
-                    letterSpacing: '0.05rem',
-                  }}
-                  className={classes.link + 'pt-1'}
-                  href='/'
-                >
-                  Tuyển dụng
-                </Link>
-              </ListGroup.Item>
-              <ListGroup.Item
-                className='border-0 p-0 pt-2'
-                style={{ backgroundColor: '#edfead' }}
-              >
-                <Link
-                  style={{
-                    color: 'black',
-                    fontSize: '0.875rem',
-                    letterSpacing: '0.05rem',
-                  }}
-                  className={classes.link + 'pt-1'}
-                  href='/'
-                >
-                  Góp ý
-                </Link>
-              </ListGroup.Item>
-              <ListGroup.Item
-                className='border-0 p-0 pt-2'
-                style={{ backgroundColor: '#edfead' }}
-              >
-                <Link
-                  style={{
-                    color: 'black',
-                    fontSize: '0.875rem',
-                    letterSpacing: '0.05rem',
-                  }}
-                  className={classes.link + 'pt-1'}
-                  href='/'
-                >
-                  Giải đáp thắc mắc
-                </Link>
-              </ListGroup.Item>
-            </ListGroup>
-          </Col>
-          <Col md={3}>
-            <ListGroup className='pt-5 pb-4'>
-              <h5>Về Natural Food</h5>
-              <ListGroup.Item
-                className='border-0 p-0 pt-2'
-                style={{ backgroundColor: '#edfead' }}
-              >
-                <Link
-                  style={{
-                    color: 'black',
-                    fontSize: '0.875rem',
-                    letterSpacing: '0.05rem',
-                  }}
-                  className={classes.link + 'pt-1'}
-                  href='/'
-                >
-                  Giới thiệu
-                </Link>
-              </ListGroup.Item>
-              <ListGroup.Item
-                className='border-0 p-0 pt-2'
-                style={{ backgroundColor: '#edfead' }}
-              >
-                <Link
-                  style={{
-                    color: 'black',
-                    fontSize: '0.875rem',
-                    letterSpacing: '0.05rem',
-                  }}
-                  className={classes.link + 'pt-1'}
-                  href='/'
-                >
-                  Liên hệ
-                </Link>
-              </ListGroup.Item>
-            </ListGroup>
-          </Col>
-          <Col md={5}>
+
+        <Col md={5}>
             <ListGroup>
-              <div className='d-flex justify-content-center'>
+              <div className='d-flex'>
                 <Image
-                  src='/logo/logo_white.png'
-                  style={{ width: '9rem', height: '8rem', zIndex: '0' }}
+                  src='/logo/LOGO-LUANVAN20210821.png'
+                  style={{ width: '16.5rem', height: '8rem', zIndex: '0' }}
                 />
               </div>
 
-              <div className='d-flex justify-content-evenly'>
+              <div className='d-flex  mb-3'>
                 <Link
                   href='#'
-                  className='border bg-secondary p-2 rounded-circle'
+                  className='border bg-secondary p-2 rounded-circle mr-2'
                 >
                   <Image src='https://img.icons8.com/fluent/24/000000/gmail-new.png' />
                 </Link>
                 <Link
-                  className='border bg-secondary p-2 rounded-circle'
+                  className='border bg-secondary p-2 rounded-circle mr-2'
                   href='#'
                 >
                   <Image src='https://img.icons8.com/fluent/24/000000/facebook-new.png' />
@@ -226,7 +68,7 @@ function Footer(props) {
 
               <ListGroup.Item
                 className='border-0 p-0 pt-2'
-                style={{ backgroundColor: '#edfead' }}
+                style={{ backgroundColor: '#fafafa' }}
               >
                 <div
                   style={{
@@ -246,7 +88,7 @@ function Footer(props) {
               </ListGroup.Item>
               <ListGroup.Item
                 className='border-0 p-0 pt-2'
-                style={{ backgroundColor: '#edfead' }}
+                style={{ backgroundColor: '#fafafa' }}
               >
                 <div
                   style={{
@@ -264,7 +106,7 @@ function Footer(props) {
               </ListGroup.Item>
               <ListGroup.Item
                 className='border-0 p-0 pt-2'
-                style={{ backgroundColor: '#edfead' }}
+                style={{ backgroundColor: '#fafafa' }}
               >
                 <div
                   style={{
@@ -283,7 +125,7 @@ function Footer(props) {
 
               <ListGroup.Item
                 className='border-0 p-0 pt-2'
-                style={{ backgroundColor: '#edfead' }}
+                style={{ backgroundColor: '#fafafa' }}
               >
                 <div
                   style={{
@@ -302,8 +144,8 @@ function Footer(props) {
                 </div>
               </ListGroup.Item>
               <ListGroup.Item
-                className='border-0 p-0 pt-2'
-                style={{ backgroundColor: '#edfead' }}
+                className='border-0 p-0 pt-2 mb-3'
+                style={{ backgroundColor: '#fafafa' }}
               >
                 <div
                   style={{
@@ -323,6 +165,171 @@ function Footer(props) {
               </ListGroup.Item>
             </ListGroup>
           </Col>
+
+          <Col md={2}>
+            <ListGroup className='pt-5 pb-4'>
+              <h5>Hỗ trợ</h5>
+              <ListGroup.Item
+                className='border-0 p-0 pt-2'
+                style={{ backgroundColor: '#fafafa' }}
+              >
+                <Link
+                  style={{
+                    color: 'black',
+                    fontSize: '0.875rem',
+                    letterSpacing: '0.05rem',
+                  }}
+                  className={classes.link + 'pt-1'}
+                  href='/'
+                >
+                  Hình thức giao hàng
+                </Link>
+              </ListGroup.Item>
+              <ListGroup.Item
+                className='border-0 p-0 pt-2'
+                style={{ backgroundColor: '#fafafa' }}
+              >
+                <Link
+                  style={{
+                    color: 'black',
+                    fontSize: '0.875rem',
+                    letterSpacing: '0.05rem',
+                  }}
+                  className={classes.link + 'pt-1'}
+                  href='/'
+                >
+                  Hình thức thanh toán
+                </Link>
+              </ListGroup.Item>
+              <ListGroup.Item
+                className='border-0 p-0 pt-2'
+                style={{ backgroundColor: '#fafafa' }}
+              >
+                <Link
+                  style={{
+                    color: 'black',
+                    fontSize: '0.875rem',
+                    letterSpacing: '0.05rem',
+                  }}
+                  className={classes.link + 'pt-1'}
+                  href='/'
+                >
+                  Chính sách đổi trả
+                </Link>
+              </ListGroup.Item>
+              <ListGroup.Item
+                className='border-0 p-0 pt-2'
+                style={{ backgroundColor: '#fafafa' }}
+              >
+                <Link
+                  style={{
+                    color: 'black',
+                    fontSize: '0.875rem',
+                    letterSpacing: '0.05rem',
+                  }}
+                  className={classes.link + 'pt-1'}
+                  href='/'
+                >
+                  Chính sách bảo hành
+                </Link>
+              </ListGroup.Item>
+            </ListGroup>
+          </Col>
+
+          <Col md={2}>
+            <ListGroup className='pt-5 pb-4'>
+              <h5>Thông tin</h5>
+              <ListGroup.Item
+                className='border-0 p-0 pt-2'
+                style={{ backgroundColor: '#fafafa' }}
+              >
+                <Link
+                  style={{
+                    color: 'black',
+                    fontSize: '0.875rem',
+                    letterSpacing: '0.05rem',
+                  }}
+                  className={classes.link + 'pt-1'}
+                  href='/'
+                >
+                  Tuyển dụng
+                </Link>
+              </ListGroup.Item>
+              <ListGroup.Item
+                className='border-0 p-0 pt-2'
+                style={{ backgroundColor: '#fafafa' }}
+              >
+                <Link
+                  style={{
+                    color: 'black',
+                    fontSize: '0.875rem',
+                    letterSpacing: '0.05rem',
+                  }}
+                  className={classes.link + 'pt-1'}
+                  href='/'
+                >
+                  Góp ý
+                </Link>
+              </ListGroup.Item>
+              <ListGroup.Item
+                className='border-0 p-0 pt-2'
+                style={{ backgroundColor: '#fafafa' }}
+              >
+                <Link
+                  style={{
+                    color: 'black',
+                    fontSize: '0.875rem',
+                    letterSpacing: '0.05rem',
+                  }}
+                  className={classes.link + 'pt-1'}
+                  href='/'
+                >
+                  Giải đáp thắc mắc
+                </Link>
+              </ListGroup.Item>
+            </ListGroup>
+          </Col>
+
+          <Col md={3}>
+            <ListGroup className='pt-5 pb-4'>
+              <h5>Về Natural Food</h5>
+              <ListGroup.Item
+                className='border-0 p-0 pt-2'
+                style={{ backgroundColor: '#fafafa' }}
+              >
+                <Link
+                  style={{
+                    color: 'black',
+                    fontSize: '0.875rem',
+                    letterSpacing: '0.05rem',
+                  }}
+                  className={classes.link + 'pt-1'}
+                  href='/'
+                >
+                  Giới thiệu
+                </Link>
+              </ListGroup.Item>
+              <ListGroup.Item
+                className='border-0 p-0 pt-2'
+                style={{ backgroundColor: '#fafafa' }}
+              >
+                <Link
+                  style={{
+                    color: 'black',
+                    fontSize: '0.875rem',
+                    letterSpacing: '0.05rem',
+                  }}
+                  className={classes.link + 'pt-1'}
+                  href='/'
+                >
+                  Liên hệ
+                </Link>
+              </ListGroup.Item>
+            </ListGroup>
+          </Col>
+
+          
+
         </Row>
       </div>
     </footer>

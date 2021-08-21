@@ -42,8 +42,8 @@ function Product({ product }) {
                   to={`/product/${product._id}`}
                   className='text-decoration-none title-product'
                >
-                  <Card.Title as='div' style={{ height: '2rem' }}>
-                     <strong>{product.name.slice(0, 30) + '...'}</strong>
+                  <Card.Title as='div' style={{ height: '2rem', fontSize:'20px' }}>
+                     <strong className="text-success">{product.name.length > 30 ? product.name.slice(0, 40) + '...' : product.name}</strong>
                   </Card.Title>
                </Link>
 
@@ -66,14 +66,17 @@ function Product({ product }) {
                      className='d-flex justify-content-between'
                      style={{
                         height: '3rem',
+                        position: 'absolute',
+                        top: 0,
+                        right: 0
                      }}
                   >
-                     <Card.Text>
+                     {/* <Card.Text>
                         <p className='mb-0'>Đã bán: {product.sold}</p>
-                     </Card.Text>
+                     </Card.Text> */}
                      {product.sales ? (
                         <div
-                           className='ml-3 bg-danger text-white tag_sale d-flex justify-content-around align-items-center'
+                           className='ml-3 text-white tag_sale d-flex justify-content-around align-items-center'
                            style={{
                               width: '5rem',
                               height: '2rem',
@@ -82,16 +85,16 @@ function Product({ product }) {
                            }}
                         >
                            {sale &&
-                              sale?.map(
-                                 (s) =>
+                              sale?.map((s) =>
                                     s._id === product?.sales && (
-                                       <p className='mb-0 p-1'> -{s.name} </p>
+                                       <p className='mb-0 p-1'> -{s.name}% </p>
                                     )
                               )}
                         </div>
                      ) : (
+                        
                         <div
-                           className='bg-white text-white d-flex justify-content-around align-items-center'
+                           className=' text-white d-flex justify-content-around align-items-center'
                            style={{
                               width: '4rem',
                               height: '3rem',
@@ -107,7 +110,7 @@ function Product({ product }) {
                   className='text-decoration-none title-product'
                >
                   {product.sales ? (
-                     <div className='d-flex justify-content-between'>
+                     <div className='d-flex justify-content-between mt-3'>
                         <Card.Text
                            as='h5'
                            className='text-lowercase text-secondary text-decoration-line-through mb-0'
@@ -134,7 +137,7 @@ function Product({ product }) {
                            )}
                      </div>
                   ) : (
-                     <Card.Text as='h5' className='text-lowercase'>
+                     <Card.Text as='h5' className='text-lowercase mt-3'>
                         {format(product.price, 'đ')}
                      </Card.Text>
                   )}

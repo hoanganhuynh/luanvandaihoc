@@ -526,6 +526,7 @@ function Header(props) {
                                        }
                                        
                                     </ul>
+                                    <span className="fa fa-chevron-right"></span>
                               </li>
                            ))}
                      </ul>

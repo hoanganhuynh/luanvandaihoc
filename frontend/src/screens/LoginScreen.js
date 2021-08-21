@@ -88,15 +88,7 @@ function LoginScreen({ location, history }) {
       <>
          <Header />
          <Row className='shadow p-5 card_color ml-4 mr-4'>
-            <Col md={7}>
-               <div className='d-flex justify-content-center'>
-                  <Image
-                     style={{ zIndex: '2' }}
-                     src='/background/Wavy_Gen-01_Single-07.jpg'
-                     fluid
-                  />
-               </div>
-            </Col>
+            
             <Col md={5}>
                <div className='pt-5 mt-5'>
                   {error && <Message variant='danger'>{error}</Message>}
@@ -205,6 +197,15 @@ function LoginScreen({ location, history }) {
                         </Col>
                      </Row>
                   </Form>
+               </div>
+            </Col>
+            <Col md={7}>
+               <div className='d-flex justify-content-center'>
+                  <Image
+                     style={{ zIndex: '2' }}
+                     src='/background/Wavy_Gen-01_Single-07.jpg'
+                     fluid
+                  />
                </div>
             </Col>
          </Row>

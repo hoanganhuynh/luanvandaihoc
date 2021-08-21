@@ -159,9 +159,9 @@ function HomeScreen({ match, history }) {
          {!keyword && <Banner />}
          <div>
             <div className='d-flex justify-content-center'>
-               <h4 className='ml-5 mt-4 mb-4 title_home_buy text-center shadow'>
+               <h2 className='m-4 text-center text-success'>
                   Top bán chạy
-               </h4>
+               </h2>
             </div>
             {loadingSold ? (
                <SkeletonEffect />
@@ -170,7 +170,7 @@ function HomeScreen({ match, history }) {
             ) : (
                <>
                   <Row
-                     className='ml-5 mr-5'
+                     className='ml-5 mr-5 p-4'
                      style={{ borderBottom: '0.1rem solid #ddd' }}
                   >
                      {productsSold?.map(
