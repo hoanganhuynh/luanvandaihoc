@@ -22,6 +22,8 @@
   background-color: #fff;
   border-radius: 1rem !important;
   z-index: 2;
+  /* border:  1px solid black; */
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
 }
 
 .card_color_bill {
@@ -388,4 +390,72 @@
 .dTrue {
   display: block;
   z-index: 2;
+}
+
+.categorylink span {
+  margin-right: 5px;
+  color: #333;
+}
+
+.add-to-card:hover {
+  background-color: #54bb18;
+  color: #fff;
+}
+
+.image-slider-product-details {
+  border: 1px solid #f0f0f0;
+  border-radius: 4px;
+}
+.input-value-PD {
+  line-height: 53px;
+  text-align: center;
+  padding: 0;
+  width: 60px;
+  height: 40px;
+}
+
+.input-value-PD div input {
+  padding: 0;
+    /* line-height: 40px; */
+    text-align: center;
+    height: 41px;
+    background-color: #fff;
+} 
+
+.giam-btn, .tang-btn {
+  border-radius: 50% !important;
+  box-shadow: none !important;
+  margin-right: 2px !important;
+}
+.giam-btn:hover {
+  background-color: #54bb18 !important;
+  color: #fff !important;
+}
+
+.tang-btn:hover {
+  background-color: #54bb18 !important;
+  color: #fff !important;
+}
+
+.MuiFilledInput-underline:before {
+  border: none !important;
+}
+
+.binh-luan-sp {
+  width: 100%;
+}
+
+.rating-star-sp {
+  margin: 0;
+}
+.btn-send-comment {
+  background-color: #54bb18 !important;
+}
+.gui-binh-luan {
+  border-radius: 30px;
+}
+.comment-guest {
+  padding: 0;
+  border: none;
+  margin-bottom: 8px;
 }

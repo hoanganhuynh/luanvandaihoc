@@ -35,6 +35,9 @@ import Message from '../components/Message'
 import Meta from '../components/Meta'
 import ProgressLine from '../components/ProgressLine.js'
 import Rating from '../components/Rating'
+
+import Product from '../components/Product'
+
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants.js'
 
 format(new Date(2014, 1, 11), 'dd/MM/yyyy')
@@ -86,6 +89,19 @@ function ProductScreen({ history, match }) {
    const productDetails = useSelector((state) => state.productDetails)
    const { loading, error, product } = productDetails
 
+   const productTopRated = useSelector((state) => state.productTopRated)
+   const {
+      loading: loadingRate,
+      error: errorRate,
+      products: productsRate,
+   } = productTopRated
+
+   const categoriesList = useSelector((state) => state.categoriesList)
+   const {category} = categoriesList
+
+   const subCategoryList = useSelector((state) => state.subCategoryList)
+   const { Sub } = subCategoryList
+
    const userDetails = useSelector((state) => state.userDetails)
    const { user } = userDetails
 
@@ -94,6 +110,9 @@ function ProductScreen({ history, match }) {
 
    const userList = useSelector((state) => state.userList)
    const { users } = userList
+
+   // const categoryProduct = useSelector((state) => state.categoryProduct)
+   // const { users } = userList
 
    const saleList = useSelector((state) => state.saleList)
    const { sale } = saleList
@@ -205,15 +224,39 @@ function ProductScreen({ history, match }) {
       }
    }
 
+   function getCatePro (x) {
+      let nameCat = '';
+      category && category.map((cate)=>{
+         if(cate._id == x) nameCat = cate.name;
+      })
+
+      return nameCat;
+   }
+
+   function getSubCat(x) {
+      let subCat = '';
+      Sub && Sub.map((sub) => {
+         if(sub._id == x) subCat = sub.name;
+      })
+      return subCat;
+   }
+
    return (
       <>
          {/* {successProductReview && <MessageSuccess variant='Success' />} */}
          <Header />
-         <div className='ml-4 mr-4 mb-4'>
-            <Link className='btn btn-light my-3 rounded-pill' to='/'>
+         <div className='container'>
+            {/* <Link className='btn btn-light my-3 rounded-pill' to='/'>
                <i className='fas fa-arrow-left pr-2'></i>
                Quay lại
-            </Link>
+            </Link> */}
+            <div className="categorylink mt-2 mb-3">
+               <span className="fa fa-home"></span>
+               <span className="fa fa-angle-right"></span>
+               <span>{getCatePro(product.category)}</span>
+               <span className="fa fa-angle-right"></span>
+               <span> {getSubCat(product.subCategory)}</span>
+            </div>
             {loading ? (
                <SkeletonEffect />
             ) : error ? (
@@ -221,13 +264,13 @@ function ProductScreen({ history, match }) {
             ) : (
                <>
                   <Meta title={product.name} />
-                  <Row className='container-productGreen mb-2 rounded shadow card_color'>
+                  <Row className='container-productGreen mb-2'>
                      <Col
-                        md={7}
-                        className='p-3 img-productGreen mt-5 align-items-center'
+                        md={5}
+                        className='flex-column img-productGreen align-items-center'
                      >
-                        <Row>
-                           <Col md={10} className='mt-3'>
+                        <Row className='flex-column'>
+                           <Col md={12} className='mt-3'>
                               <Carousel vertical fade dots>
                                  {product.images &&
                                     product.images.map((img) => (
@@ -236,8 +279,8 @@ function ProductScreen({ history, match }) {
                                              style={{
                                                 objectFit: 'cover',
                                                 zIndex: '5',
-                                                borderRadius: '2rem',
-                                                border: '0.5rem solid #ddd',
+                                                border: '1px solid #f0f0f0',
+                                                borderRadius: '8px'
                                              }}
                                              imageSrc={img && img?.url}
                                              imageAlt='Example'
@@ -249,7 +292,7 @@ function ProductScreen({ history, match }) {
                                     ))}
                               </Carousel>
                            </Col>
-                           <Col md={2} className='mt-5'>
+                           <Col md={2} className='d-flex flex-row mb-3'>
                               <Image.PreviewGroup>
                                  {product.images &&
                                     product.images.map((img) => (
@@ -260,7 +303,7 @@ function ProductScreen({ history, match }) {
                                                 height: '5rem',
                                                 width: '5rem',
                                              }}
-                                             className='rounded-circle  shadow'
+                                             className='image-slider-product-details'
                                           />
                                        </div>
                                     ))}
@@ -269,184 +312,91 @@ function ProductScreen({ history, match }) {
                         </Row>
                      </Col>
 
-                     <Col md={5} className='text-left p-1'>
+                     <Col md={7} className='text-left p-1'>
                         <Row className='pl-4 pr-2'>
                            <ListGroup variant='flush' className='pr-3'>
-                              <ListGroup.Item className='border-0 pb-0'>
-                                 <strong>
-                                    <h3 className='border-0 pb-0'>
-                                       {product.name}
-                                    </h3>
-                                 </strong>
-                              </ListGroup.Item>
+                              
+                              <p className='mt-3'>Nhà cung cấp: <strong>{product.supplier?.name}</strong></p>
 
-                              <ListGroup.Item className='border-0 pb-0'>
-                                 <Rating
+                              <h3 className='text-capitalize'>{product.name}</h3>
+
+                              {product.sales ? (
+                                 <div className='d-flex flex-row align-items-center mb-2 mt-2'>
+                                    <h3 className="mb-0 mr-3 text-lowercase text-success">{product.price && formatPrice(product.price - product.price * product.sales.percent,'đ')}</h3>
+                                    <h5 className="mb-0 text-lowercase text-secondary text-decoration-line-through">{product.price && formatPrice(product.price, 'đ')}</h5>
+                                    <span className="badge badge-success ml-3">- {product.sales.percent * 100}%</span>
+                                 </div>
+                              ):(
+                                 <h4 className="text-success">{product.price && formatPrice(product.price, 'đ')}</h4>
+                              )}
+                              
+                              <Rating
                                     value={product.rating}
                                     text={`(${product.numReviews} đánh giá)`}
                                  />
-                              </ListGroup.Item>
 
-                              <ListGroup.Item className='text-justify'>
-                                 <div
-                                    className='border border-danger rounded-pill text-center p-1 shadow'
-                                    style={{ width: '15rem' }}
-                                 >
-                                    {product.supplier?.name}
-                                 </div>
-                              </ListGroup.Item>
-                              <ListGroup.Item className='text-justify'>
-                                 <h6 className='mb-0'>Thông tin</h6>
-                                 <p className='mb-0'>{product.description}</p>
-                              </ListGroup.Item>
-                              <ListGroup.Item className='text-justify'>
-                                 <Row>
-                                    <Col
-                                       md={6}
-                                       className='d-flex align-items-center'
-                                    >
-                                       <h6 className='mb-0 pr-2'>Khối lượng</h6>
-                                       <p className='mb-0'>{product.mass}</p>
-                                    </Col>
-                                 </Row>
-                              </ListGroup.Item>
+                              {/* <h6 className='mb-0 pr-2'>Khối lượng</h6> */}
+                              <p className='mt-2'>Chiều cao: <strong>{product.mass} cm</strong></p>
+
+                              {product.countInStock > 0 ? (
+                                 <p className=''>Số lượng: {product?.countInStock} sản phẩm </p>
+                                 ):(
+                                    <p>Hết hàng</p>
+                                 )
+                              }
                               
-                           </ListGroup>
-
-                           <ListGroup
-                              variant='flush'
-                              className='border-0 pt-0 mb-4 '
-                              style={{ zIndex: '1' }}
-                           >
-                              <div className='group-items pt-2 pb-2 ml-4 mr-4 rounded shadow'>
-                                 <ListGroup.Item className='border-0 pt-0 pb-0 mb-0 pr-0 group-items'>
-                                    {product.sales ? (
-                                       <div className='d-flex justify-content-around'>
-                                          <h4 className='text-lowercase text-secondary text-decoration-line-through'>
-                                             {product.price &&
-                                                formatPrice(product.price, 'đ')}
-                                          </h4>
-                                          <h2
-                                             className='text-lowercase'
-                                             style={{
-                                                color: '#ff6a88',
-                                             }}
-                                          >
-                                             {product.price &&
-                                                formatPrice(
-                                                   product.price -
-                                                      product.price *
-                                                         product.sales.percent,
-                                                   'đ'
-                                                )}
-                                          </h2>
-                                       </div>
-                                    ) : (
-                                       <h2 className='text-lowercase'>
-                                          {product.price &&
-                                             formatPrice(product.price, 'đ')}
-                                       </h2>
-                                    )}
-                                 </ListGroup.Item>
-
-                                 <ListGroup.Item className='border-0 group-items'>
-                                    {product.countInStock > 0 ? (
-                                       <div>
-                                          <Row>
-                                             <Col md={5}>
-                                                <p className='mb-0'>
-                                                   Trạng thái:
-                                                </p>
-                                             </Col>
-                                             <Col md={7}>
-                                                <p className='mb-0 fw-bold ml-2 text-success'>
-                                                   {product?.countInStock} sản
-                                                   phẩm
-                                                </p>
-                                             </Col>
-                                          </Row>
-                                       </div>
-                                    ) : (
-                                       <div className='d-flex justify-content-start align-items-center'>
-                                          <p className='mb-0'>Trạng thái:</p>
-                                          <Image src='https://img.icons8.com/fluent/35/000000/close-sign.png' />
-                                          <p className='mb-0 fw-bold ml-2 danger'>
-                                             Hết hàng
-                                          </p>
-                                       </div>
-                                    )}
-                                 </ListGroup.Item>
-
-                                 {product.countInStock > 0 && (
-                                    <ListGroup.Item className='border-0 pt-0 pb-0 group-items '>
-                                       <Row>
-                                          <Col
-                                             md={5}
-                                             className='d-flex align-items-center'
-                                          >
-                                             <p className='mb-0'>Số lượng:</p>
-                                          </Col>
-                                          <Col md={2} className='d-flex'>
-                                             <ButtonGroupp
-                                                size='small'
-                                                aria-label='small '
-                                             >
-                                                <Buttonn
-                                                   aria-label='reduce'
-                                                   size='small'
-                                                   color='primary'
-                                                   onClick={() => {
-                                                      setQty(
-                                                         Math.max(qty - 1, 1)
-                                                      )
-                                                   }}
-                                                   variant='contained'
-                                                >
-                                                   <RemoveIcon fontSize='small' />
-                                                </Buttonn>
-                                                {/* {qty === 0 ? (
-                                <Buttonn variant='contained'>1</Buttonn>
-                              ) : (
-                                <Buttonn variant='contained'>{qty}</Buttonn>
-                              )} */}
-                                                <div>
-                                                   <TextField
-                                                      className={classes.root}
-                                                      id='filled-size-small'
-                                                      value={qty}
-                                                      variant='filled'
-                                                      size='small'
-                                                      onChange={(e) =>
-                                                         setQty(e.target.value)
-                                                      }
-                                                   />
-                                                </div>
-                                                <Buttonn
-                                                   aria-label='increase'
-                                                   size='small'
-                                                   onClick={() => {
-                                                      setQty(Number(qty) + 1)
-                                                   }}
-                                                   variant='contained'
-                                                   color='primary'
-                                                >
-                                                   <AddIcon fontSize='small' />
-                                                </Buttonn>
-                                             </ButtonGroupp>
-                                          </Col>
-                                       </Row>
-                                    </ListGroup.Item>
-                                 )}
-                              </div>
-
-                              <ListGroup.Item className='ml-4 pl-0 pr-0 pb-0 mr-4'>
+                              <Col className='d-flex p-0 mb-3'>
+                                 <ButtonGroupp size='small' aria-label='small'>
+                                    <Buttonn
+                                       className="giam-btn"
+                                       aria-label='reduce'
+                                       size='small'
+                                       color='default'
+                                       onClick={() => {
+                                          setQty(
+                                             Math.max(qty - 1, 1)
+                                          )
+                                       }}
+                                       variant='contained'
+                                    >
+                                       <RemoveIcon fontSize='small' />
+                                    </Buttonn>
+                                                
+                                    <div>
+                                       <TextField
+                                          className='input-value-PD'
+                                          id='filled-size-small'
+                                          value={qty}
+                                          variant='filled'
+                                          size='small'
+                                          onChange={(e) =>
+                                             setQty(e.target.value)
+                                          }
+                                       />
+                                    </div>
+                                    <Buttonn
+                                       className='tang-btn'
+                                       aria-label='increase'
+                                       size='small'
+                                       onClick={() => {
+                                          setQty(Number(qty) + 1)
+                                       }}
+                                       variant='contained'
+                                       // color=''
+                                    >
+                                       <AddIcon fontSize='small' />
+                                    </Buttonn>
+                                 </ButtonGroupp>
+                              </Col>
+                              
+                              <ListGroup.Item className='m-0 p-0'>
                                  <Button
                                     onClick={addToCartHandler}
-                                    className='btn-block btn_color rounded-pill'
+                                    className='btn-block btn-success rounded-pill add-to-card'
                                     variant='outline-light'
                                     type='button'
                                     disabled={product.countInStock === 0}
-                                    style={{ fontSize: '1em', width: '20rem' }}
+                                    style={{ fontSize: '1em', width: '16rem' }}
                                  >
                                     <AddShoppingCartIcon />
                                     <strong className='pl-1 '>
@@ -455,17 +405,77 @@ function ProductScreen({ history, match }) {
                                     <div className='wave'></div>
                                  </Button>
                               </ListGroup.Item>
+                                      
                            </ListGroup>
                         </Row>
+                        
                      </Col>
-                  </Row>
+                     
+                     <div className='p-4'>
+                        <h2>Mô tả</h2>
+                        <p className='mb-0'>{product.description}</p>
+                     </div>
+                     
+                     <Row className='p-4'>
+                        <Col md={7}>
+                           <h4>Đánh giá và Bình luận</h4>
+                           {userInfo ? (
+                              <Form onSubmit={submitHandle} className='mb-3'>
+                                 <Form.Group controlId='rating' className='rating-star-sp'>
+                                    {/* <Form.Label
+                                       as='h5'
+                                       className='text-capitalize'
+                                    >
+                                       Đánh giá
+                                    </Form.Label> */}
+                                    <ActiveRating
+                                       value={rating}
+                                       hover={hover}
+                                       setValue={setRating}
+                                       setHover={setHover}
+                                       size='large'
+                                    />
+                                 </Form.Group>
 
-                  {loading ? (
-                     <SkeletonEffect />
-                  ) : (
-                     <Row>
-                        <Col className='mt-3 p-3 pl-5 pr-5 background-light rounded shadow card_color'>
-                           <h5 className='text-uppercase'>Đánh giá sản phẩm</h5>
+                                 <Form.Group
+                                    controlId='comment'
+                                    // className={classes.root}
+                                 >
+                                    
+                                    <label>Viết bình luận</label>
+                                    <textarea className='form-control'
+                                             style={{backgroundColor: '#fff',
+                                                border: '1px solid #e8e8e8',
+                                                borderRadius: '4px'}}
+                                                rows="3" 
+                                                value={comment} 
+                                                onChange={(e) => setComment(e.target.value)
+                                       }></textarea>
+                                 </Form.Group>
+                                 <input type='submit' className='btn btn-success gui-binh-luan' value='Gửi'></input>
+                                 <ToastContainer />
+                              </Form>
+                           ) : (
+                              <Announcement
+                                 variant='dark'
+                                 style={{ color: '#82FF9E' }}
+                              >
+                                 Vui lòng{' '}
+                                 <Link
+                                    to='/login'
+                                    style={{
+                                       color: '#5FAD41',
+                                       textDecoration: 'none',
+                                       fontWeight: '700',
+                                    }}
+                                 >
+                                    Đăng nhập
+                                 </Link>{' '}
+                                 để đánh giá
+                              </Announcement>
+                           )}
+                           
+                           {/* BINH LUAN */}
                            {product.reviews.length === 0 && (
                               <Row>
                                  <Col md={4}>
@@ -476,66 +486,43 @@ function ProductScreen({ history, match }) {
                                  </Col>
                               </Row>
                            )}
-                           <div
-                              className=' rounded text-center circle-rate pt-2 pb-1 ml-3 mb-2'
-                              style={{ width: '14rem' }}
-                           >
-                              <h5 className=''>Điểm</h5>
-                              <h4 className='mb-0'>
-                                 {product.rating + ' trên 5'}
-                              </h4>
-                           </div>
-
-                           <ListGroup variant='flush'>
-                              {loadingProductReview ? (
+                           
+                           {loadingProductReview ? (
                                  <>
-                                    {/* <MessageSuccess variant='Success' /> */}
                                     <Skeleton avatar paragraph={{ rows: 1 }} />
                                  </>
                               ) : (
                                  product.reviews.map((review) => (
-                                    <ListGroup.Item key={review._id}>
-                                       <div className='d-flex justify-content-start'>
-                                          {/* <Row>
-                        <Col md={1} className=''> */}
-                                          <div className='pr-2'>
-                                             {review ? (
-                                                <Image
-                                                   className='rounded-circle'
-                                                   src={review.avatar.url}
-                                                   style={{
-                                                      height: '2rem',
-                                                      width: '2rem',
-                                                   }}
-                                                />
-                                             ) : (
-                                                <Avatar
-                                                   className={classes.orange}
-                                                >
-                                                   {review.name.substring(0, 1)}
-                                                </Avatar>
-                                             )}
-                                          </div>
-                                          {/* </Col>
-                        <Col> */}
-                                          <div>
-                                             <div className='d-flex'>
-                                                <h5 className='mb-0 text-capitalize'>
-                                                   {review.name}
-                                                </h5>
-                                                <span className='pl-2'>
-                                                   <Rating
-                                                      value={review.rating}
+                                    <ListGroup.Item key={review._id} className='comment-guest mb-3'>
+                                       <div className='d-flex justify-content-between'>
+                                          <div className='d-flex justify-content-start'>
+                                             <div className='pr-2'>
+                                                {review ? (
+                                                   <Image
+                                                      className='rounded-circle'
+                                                      src={review.avatar.url}
+                                                      style={{
+                                                         height: '2rem',
+                                                         width: '2rem',
+                                                      }}
                                                    />
-                                                </span>
+                                                ) : (
+                                                   <Avatar className={classes.orange}>
+                                                      {review.name.substring(0, 1)}
+                                                   </Avatar>
+                                                )}
                                              </div>
-                                             <div
-                                                style={{
-                                                   fontWeight: '200',
-                                                   color: 'gray',
-                                                   fontSize: '0.65rem',
-                                                }}
-                                             >
+                                             <div>
+                                                <div className='d-flex'>
+                                                   <h5 className='mb-0 text-capitalize'>{review.name} • </h5>
+                                                   <span className='pl-2'>
+                                                      <Rating value={review.rating}/>
+                                                   </span>
+                                                </div>
+                                                
+                                             </div>
+                                          </div>
+                                          <div style={{fontWeight: '200',color: 'gray',fontSize: '0.95rem',}}>
                                                 <p className='mb-1'>
                                                    {format(
                                                       new utcToZonedTime(
@@ -550,106 +537,52 @@ function ProductScreen({ history, match }) {
                                                    )}
                                                 </p>
                                              </div>
-                                          </div>
-                                          {/* </Col>
-                      </Row> */}
                                        </div>
-                                       <strong
-                                          className='ml-3'
-                                          style={{
-                                             fontWeight: '500',
-                                             color: 'black',
-                                          }}
-                                       >
-                                          {review.comment}
+                                       <strong style={{fontWeight: '500',color: 'black',}}>
+                                          "{review.comment}"
                                        </strong>
                                     </ListGroup.Item>
                                  ))
-                              )}
+                           )}
 
-                              <ListGroup.Item shadow>
-                                 {loadingProductReview && <ProgressLine />}
-                                 <h5>
-                                    ĐÁNH GIÁ VÀ BÌNH LUẬN{' '}
-                                    <Image src='https://img.icons8.com/fluent/24/000000/favorite-chat.png' />
-                                 </h5>
-
-                                 {errorProductReview && (
-                                    <Message>{errorProductReview}</Message>
-                                 )}
-                                 {userInfo ? (
-                                    <Form onSubmit={submitHandle}>
-                                       <Form.Group controlId='rating'>
-                                          <Form.Label
-                                             as='h5'
-                                             className='text-capitalize'
-                                          >
-                                             Đánh giá
-                                          </Form.Label>
-                                          <ActiveRating
-                                             value={rating}
-                                             hover={hover}
-                                             setValue={setRating}
-                                             setHover={setHover}
-                                             size='large'
-                                          />
-                                       </Form.Group>
-
-                                       <Form.Group
-                                          controlId='comment'
-                                          className={classes.root}
-                                       >
-                                          <TextField
-                                             className={classes.form}
-                                             id='outlined-multiline-static'
-                                             label='Bình luận'
-                                             multiline
-                                             rows={2}
-                                             value={comment}
-                                             // defaultValue='Default Value'
-                                             // variant='outlined'
-                                             onChange={(e) =>
-                                                setComment(e.target.value)
-                                             }
-                                          />
-                                       </Form.Group>
-                                       <ButtonComponent
-                                          type='submit'
-                                          color='secondary'
-                                          size='large'
-                                          value='GỬI'
-                                          disabled={loadingProductReview}
-                                          endIcon={<SendIcon />}
-                                       ></ButtonComponent>
-                                       <ToastContainer />
-                                    </Form>
-                                 ) : (
-                                    <Announcement
-                                       variant='dark'
-                                       style={{ color: '#82FF9E' }}
-                                    >
-                                       Vui lòng{' '}
-                                       <Link
-                                          to='/login'
-                                          style={{
-                                             color: '#5FAD41',
-                                             textDecoration: 'none',
-                                             fontWeight: '700',
-                                          }}
-                                       >
-                                          Đăng nhập
-                                       </Link>{' '}
-                                       để đánh giá
-                                    </Announcement>
-                                 )}
-                              </ListGroup.Item>
-                           </ListGroup>
+                        
+                        </Col>
+                        <Col md={5}>
+                        <Image
+                           style={{ zIndex: '2' }}
+                           src='/background/binhluan.jpg'
+                           // src={product && product.images[0].url}
+                        />
                         </Col>
                      </Row>
-                  )}
+                     
+                  </Row>
+
+                  <Row className='mb-2 m-0 pt-4 pb-4 mt-4'>
+                     <h3 className='p-0 mb-5'>Sản phẩm liên quan</h3>
+                     {loadingRate ? (
+                           <SkeletonEffect />
+                        ) : errorRate ? (
+                           <Message variant='danger'>{error}</Message>
+                        ) : (
+                           <>
+                              <Row>
+                                 {productsRate?.map(
+                                    (
+                                       product // phai co ? de kiem tra product === null
+                                    ) => (
+                                       <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                                          <Product product={product} />
+                                       </Col>
+                                    )
+                                 )}
+                              </Row>
+                           </>
+                        )}
+                  </Row>
                </>
             )}
-         </div>
+         </div>   
          <Footer />
       </>
    )

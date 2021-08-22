@@ -82,10 +82,8 @@ function RegisterScreen({ location, history }) {
       <>
          <Header />
          <Row className='shadow p-5 card_color m-0'>
-            <Col md={7}>
-               <Image src='/background/3071357.jpg' fluid />
-            </Col>
-            <Col md={5}>
+            
+            <Col className="pl-3" md={5}>
                <div>
                   {message && <Message variant='danger'>{message}</Message>}
                   {error && <Message variant='danger'>{error}</Message>}
@@ -155,7 +153,7 @@ function RegisterScreen({ location, history }) {
                         </Form.Label>
                         <Row>
                            <div className='d-flex align-items-center'>
-                              <Col md={6}>
+                              <Col md={3}>
                                  {avatar && (
                                     <Image
                                        src={avatar && avatar?.url}
@@ -220,6 +218,11 @@ function RegisterScreen({ location, history }) {
                   </Form>
                </div>
             </Col>
+
+            <Col md={7}>
+               <Image src='/background/3071357.jpg' fluid />
+            </Col>
+
          </Row>
          <Footer />
       </>
