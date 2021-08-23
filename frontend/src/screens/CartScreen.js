@@ -16,6 +16,8 @@ import { addToCart, removeFromCart } from '../actions/cartActions.js'
 import Footer from '../components/Footer.js'
 import Header from '../components/Header.js'
 
+import DeleteOutlined from '@material-ui/icons/DeleteOutlined'
+
 const useStyles = makeStyles((theme) => ({
    root: {
       '& .MuiTextField-root': {
@@ -91,7 +93,7 @@ export const CartScreen = ({ match, location, history }) => {
       </Link> */}
 
          <Row className='m-4' style={{ height: '100vh' }}>
-            <Col md={8} className='p-0 pr-4 mt-3 text-uppercase'>
+            <Col md={9} className='p-0 pr-4 mt-3 text-uppercase'>
                {cartItems.length === 0 ? (
                   // <Announcement variant='danger'>
                   <>
@@ -119,304 +121,278 @@ export const CartScreen = ({ match, location, history }) => {
                ) : (
                   // </Announcement>
                   <ListGroup variant='flush'>
+                     
                      <h3>Giỏ hàng</h3>
-                     {cartItems.map((item) => (
+                     <Row className='mt-3 p0 m-0' style={{borderBottom: '1px solid #e0e0e0'}}>
+                        <Col className='text-center' md={2}><p>Hình ảnh</p></Col>
+                        <Col className='text-center' md={3}><p>Tên sản phẩm</p></Col>
+                        <Col className='text-center' md={2}><p>Giá</p></Col>
+                        <Col className='text-center' md={3}><p>Số lượng</p></Col>
+                        <Col className='text-center' md={2}><p>Thao tác</p></Col>
+                     </Row>
+
+                     {cartItems.map((item)=> (
                         <ListGroup.Item
                            key={item.product}
-                           className='border-0 mt-1 shadow card_color'
+                           className='p-0 m-0'
                            rounded
                         >
-                           {/* <div className='mb-2'>
-                              <Chip label={item.brand} variant='outlined' />
-                           </div> */}
                            <Row>
-                              <Col md={2}>
-                                 <Link
-                                    to={`/product/${item.product}`}
-                                    className='text-decoration-none  product-card-green'
-                                 >
-                                    <Image
-                                       src={item.images[0].url}
-                                       alt={item.name}
-                                       fluid
-                                    />
-                                 </Link>
-                              </Col>
-
-                              <Col
-                                 md={3}
-                                 className='text-lowercase text-capitalize d-flex align-items-center'
-                              >
-                                 <Link
-                                    to={`/product/${item.product}`}
-                                    className='text-decoration-none'
-                                 >
-                                    <p
-                                       className='mb-0'
-                                       style={{ color: '#343a40' }}
-                                    >
-                                       {item.name}
-                                    </p>
-                                 </Link>
-                              </Col>
-
-                              <Col
-                                 md={3}
-                                 className='text-lowercase d-flex align-items-center'
-                              >
-                                 <h4 className='text-lowercase'>
-                                    {format(item.price)}
-                                 </h4>
-                              </Col>
-
-                              <Col md={3} className='d-flex align-items-center'>
+                              <Col md={2}><Image
+                                          src={item.images[0].url}
+                                          alt={item.name}
+                                          fluid
+                                       /></Col>
+                              <Col className='text-center d-flex align-items-center justify-content-center' md={3}><p>{item.name}</p></Col>
+                              <Col className='text-center d-flex align-items-center justify-content-center' md={2}><p>{format(item.price)}</p></Col>
+                              <Col md={3} className='d-flex align-items-center justify-content-center'>
                                  <ButtonGroupp size='small' aria-label='small '>
-                                    <Buttonn
-                                       aria-label='reduce'
-                                       size='small'
-                                       color='primary'
-                                       onClick={() =>
-                                          Number(item.qty) - 1 === 0
-                                             ? toast.error(
-                                                  <div>
-                                                     <ErrorOutlineIcon
-                                                        className='pr-1'
-                                                        fontSize='large'
-                                                     />
-                                                     {`Phải có ít nhất 1 sản phẩm`}
-                                                  </div>,
-                                                  {
-                                                     className:
-                                                        'Toastify__toast--success',
-                                                     position: 'top-right',
-                                                     autoClose: 3000,
-                                                     hideProgressBar: true,
-                                                     closeOnClick: true,
-                                                     pauseOnHover: true,
-                                                     draggable: true,
-                                                     progress: undefined,
-                                                  }
-                                               )
-                                             : item.qty > 0 &&
-                                               dispatch(
-                                                  addToCart(
-                                                     item.product,
-                                                     Math.min(item.qty - 1, 1)
-                                                  )
-                                               )
-                                       }
-                                       variant='contained'
-                                    >
-                                       <RemoveIcon fontSize='small' />
-                                    </Buttonn>
+                                       <Buttonn
+                                          className="giam-btn"
+                                          aria-label='reduce'
+                                          size='small'
+                                          color='default'
+                                          onClick={() =>
+                                             Number(item.qty) - 1 === 0
+                                                ? toast.error(
+                                                   <div>
+                                                      <ErrorOutlineIcon
+                                                         className='pr-1'
+                                                         fontSize='large'
+                                                      />
+                                                      {`Phải có ít nhất 1 sản phẩm`}
+                                                   </div>,
+                                                   {
+                                                      className:
+                                                         'Toastify__toast--success',
+                                                      position: 'top-right',
+                                                      autoClose: 3000,
+                                                      hideProgressBar: true,
+                                                      closeOnClick: true,
+                                                      pauseOnHover: true,
+                                                      draggable: true,
+                                                      progress: undefined,
+                                                   }
+                                                )
+                                                : item.qty > 0 &&
+                                                dispatch(
+                                                   addToCart(
+                                                      item.product,
+                                                      Math.min(item.qty - 1, 1)
+                                                   )
+                                                )
+                                          }
+                                          variant='contained'
+                                       >
+                                          <RemoveIcon fontSize='small' />
+                                       </Buttonn>
 
-                                    {/* <Buttonn variant='contained'>{item.qty}</Buttonn> */}
-                                    <div>
-                                       {item.qty === 0 ? (
-                                          <TextField
-                                             error
-                                             className={classes.root}
-                                             id='filled-size-small'
-                                             value={item.qty}
-                                             variant='filled'
-                                             size='small'
-                                             onChange={(e) =>
-                                                // Number(e.target.value) === 0
-                                                //   ? toast.error(
-                                                //       <div>
-                                                //         <ErrorOutlineIcon
-                                                //           className='pr-1'
-                                                //           fontSize='large'
-                                                //         />
-                                                //         Phải có ít nhất 1 sản phẩm
-                                                //       </div>,
-                                                //       {
-                                                //         className: 'Toastify__toast--success',
-                                                //         position: 'top-right',
-                                                //         autoClose: 3000,
-                                                //         hideProgressBar: true,
-                                                //         closeOnClick: true,
-                                                //         pauseOnHover: true,
-                                                //         draggable: true,
-                                                //         progress: undefined,
-                                                //       }
-                                                //     )
-                                                //   :
-                                                Number(e.target.value) >
-                                                item.countInStock
-                                                   ? toast.error(
-                                                        <div>
-                                                           <ErrorOutlineIcon
-                                                              className='pr-1'
-                                                              fontSize='large'
-                                                           />
-                                                           {`Số lượng không được vượt quá ${item.countInStock}`}
-                                                        </div>,
-                                                        {
-                                                           className:
-                                                              'Toastify__toast--success',
-                                                           position:
-                                                              'top-right',
-                                                           autoClose: 3000,
-                                                           hideProgressBar: true,
-                                                           closeOnClick: true,
-                                                           pauseOnHover: true,
-                                                           draggable: true,
-                                                           progress: undefined,
-                                                        }
-                                                     )
-                                                   : Number(e.target.value) <=
-                                                        item.countInStock &&
-                                                     dispatch(
-                                                        addToCart(
-                                                           item.product,
-                                                           Math.max(
-                                                              Number(
-                                                                 e.target.value
-                                                              ),
-                                                              0
-                                                           )
-                                                        )
-                                                     )
-                                             }
-                                          />
-                                       ) : (
-                                          <TextField
-                                             className={classes.root}
-                                             id='filled-size-small'
-                                             value={item.qty}
-                                             variant='filled'
-                                             size='small'
-                                             onChange={(e) =>
-                                                // Number(e.target.value) === 0
-                                                //   ? toast.error(
-                                                //       <div>
-                                                //         <ErrorOutlineIcon
-                                                //           className='pr-1'
-                                                //           fontSize='large'
-                                                //         />
-                                                //         Phải có ít nhất 1 sản phẩm
-                                                //       </div>,
-                                                //       {
-                                                //         className: 'Toastify__toast--success',
-                                                //         position: 'top-right',
-                                                //         autoClose: 3000,
-                                                //         hideProgressBar: true,
-                                                //         closeOnClick: true,
-                                                //         pauseOnHover: true,
-                                                //         draggable: true,
-                                                //         progress: undefined,
-                                                //       }
-                                                //     )
-                                                //   :
-                                                Number(e.target.value) >
-                                                item.countInStock
-                                                   ? toast.error(
-                                                        <div>
-                                                           <ErrorOutlineIcon
-                                                              className='pr-1'
-                                                              fontSize='large'
-                                                           />
-                                                           {`Số lượng đặt hàng không được vượt quá số lượng hàng hoá trong kho (${item.countInStock} sản phẩm)`}
-                                                        </div>,
-                                                        {
-                                                           className:
-                                                              'Toastify__toast--success',
-                                                           position:
-                                                              'top-right',
-                                                           autoClose: 3000,
-                                                           hideProgressBar: true,
-                                                           closeOnClick: true,
-                                                           pauseOnHover: true,
-                                                           draggable: true,
-                                                           progress: undefined,
-                                                        }
-                                                     )
-                                                   : Number(e.target.value) <=
-                                                        item.countInStock &&
-                                                     dispatch(
-                                                        addToCart(
-                                                           item.product,
-                                                           Math.max(
-                                                              Number(
-                                                                 e.target.value
-                                                              ),
-                                                              0
-                                                           )
-                                                        )
-                                                     )
-                                             }
-                                          />
-                                       )}
-                                    </div>
-                                    <Buttonn
-                                       aria-label='increase'
-                                       size='small'
-                                       onClick={() => {
-                                          item.qty < item.countInStock
-                                             ? dispatch(
-                                                  addToCart(
-                                                     item.product,
-                                                     Number(item.qty) + 1
-                                                  )
-                                               )
-                                             : Number(item.qty) >=
-                                                  item.countInStock &&
-                                               toast.error(
-                                                  <div>
-                                                     <ErrorOutlineIcon
-                                                        className='pr-1'
-                                                        fontSize='large'
-                                                     />
-                                                     {`Số lượng không được vượt quá  ${item.countInStock}`}
-                                                  </div>,
-                                                  {
-                                                     className:
-                                                        'Toastify__toast--success',
-                                                     position: 'top-right',
-                                                     autoClose: 3000,
-                                                     hideProgressBar: true,
-                                                     closeOnClick: true,
-                                                     pauseOnHover: true,
-                                                     draggable: true,
-                                                     progress: undefined,
-                                                  }
-                                               )
-                                       }}
-                                       variant='contained'
-                                       color='primary'
-                                    >
-                                       <AddIcon fontSize='small' />
-                                    </Buttonn>
-                                 </ButtonGroupp>
+                                       {/* <Buttonn variant='contained'>{item.qty}</Buttonn> */}
+                                       <div>
+                                          {item.qty === 0 ? (
+                                             <TextField
+                                                error
+                                                className='input-value-PD'
+                                                id='filled-size-small'
+                                                value={item.qty}
+                                                variant='filled'
+                                                size='small'
+                                                onChange={(e) =>
+                                                   // Number(e.target.value) === 0
+                                                   //   ? toast.error(
+                                                   //       <div>
+                                                   //         <ErrorOutlineIcon
+                                                   //           className='pr-1'
+                                                   //           fontSize='large'
+                                                   //         />
+                                                   //         Phải có ít nhất 1 sản phẩm
+                                                   //       </div>,
+                                                   //       {
+                                                   //         className: 'Toastify__toast--success',
+                                                   //         position: 'top-right',
+                                                   //         autoClose: 3000,
+                                                   //         hideProgressBar: true,
+                                                   //         closeOnClick: true,
+                                                   //         pauseOnHover: true,
+                                                   //         draggable: true,
+                                                   //         progress: undefined,
+                                                   //       }
+                                                   //     )
+                                                   //   :
+                                                   Number(e.target.value) >
+                                                   item.countInStock
+                                                      ? toast.error(
+                                                         <div>
+                                                            <ErrorOutlineIcon
+                                                               className='pr-1'
+                                                               fontSize='large'
+                                                            />
+                                                            {`Số lượng không được vượt quá ${item.countInStock}`}
+                                                         </div>,
+                                                         {
+                                                            className:
+                                                               'Toastify__toast--success',
+                                                            position:
+                                                               'top-right',
+                                                            autoClose: 3000,
+                                                            hideProgressBar: true,
+                                                            closeOnClick: true,
+                                                            pauseOnHover: true,
+                                                            draggable: true,
+                                                            progress: undefined,
+                                                         }
+                                                      )
+                                                      : Number(e.target.value) <=
+                                                         item.countInStock &&
+                                                      dispatch(
+                                                         addToCart(
+                                                            item.product,
+                                                            Math.max(
+                                                               Number(
+                                                                  e.target.value
+                                                               ),
+                                                               0
+                                                            )
+                                                         )
+                                                      )
+                                                }
+                                             />
+                                          ) : (
+                                             <TextField
+                                                className='input-value-PD'
+                                                id='filled-size-small'
+                                                value={item.qty}
+                                                variant='filled'
+                                                size='small'
+                                                onChange={(e) =>
+                                                   // Number(e.target.value) === 0
+                                                   //   ? toast.error(
+                                                   //       <div>
+                                                   //         <ErrorOutlineIcon
+                                                   //           className='pr-1'
+                                                   //           fontSize='large'
+                                                   //         />
+                                                   //         Phải có ít nhất 1 sản phẩm
+                                                   //       </div>,
+                                                   //       {
+                                                   //         className: 'Toastify__toast--success',
+                                                   //         position: 'top-right',
+                                                   //         autoClose: 3000,
+                                                   //         hideProgressBar: true,
+                                                   //         closeOnClick: true,
+                                                   //         pauseOnHover: true,
+                                                   //         draggable: true,
+                                                   //         progress: undefined,
+                                                   //       }
+                                                   //     )
+                                                   //   :
+                                                   Number(e.target.value) >
+                                                   item.countInStock
+                                                      ? toast.error(
+                                                         <div>
+                                                            <ErrorOutlineIcon
+                                                               className='pr-1'
+                                                               fontSize='large'
+                                                            />
+                                                            {`Số lượng đặt hàng không được vượt quá số lượng hàng hoá trong kho (${item.countInStock} sản phẩm)`}
+                                                         </div>,
+                                                         {
+                                                            className:
+                                                               'Toastify__toast--success',
+                                                            position:
+                                                               'top-right',
+                                                            autoClose: 3000,
+                                                            hideProgressBar: true,
+                                                            closeOnClick: true,
+                                                            pauseOnHover: true,
+                                                            draggable: true,
+                                                            progress: undefined,
+                                                         }
+                                                      )
+                                                      : Number(e.target.value) <=
+                                                         item.countInStock &&
+                                                      dispatch(
+                                                         addToCart(
+                                                            item.product,
+                                                            Math.max(
+                                                               Number(
+                                                                  e.target.value
+                                                               ),
+                                                               0
+                                                            )
+                                                         )
+                                                      )
+                                                }
+                                             />
+                                          )}
+                                       </div>
+                                       <Buttonn
+                                          className="tang-btn"
+                                          aria-label='increase'
+                                          size='small'
+                                          onClick={() => {
+                                             item.qty < item.countInStock
+                                                ? dispatch(
+                                                   addToCart(
+                                                      item.product,
+                                                      Number(item.qty) + 1
+                                                   )
+                                                )
+                                                : Number(item.qty) >=
+                                                   item.countInStock &&
+                                                toast.error(
+                                                   <div>
+                                                      <ErrorOutlineIcon
+                                                         className='pr-1'
+                                                         fontSize='large'
+                                                      />
+                                                      {`Số lượng không được vượt quá  ${item.countInStock}`}
+                                                   </div>,
+                                                   {
+                                                      className:
+                                                         'Toastify__toast--success',
+                                                      position: 'top-right',
+                                                      autoClose: 3000,
+                                                      hideProgressBar: true,
+                                                      closeOnClick: true,
+                                                      pauseOnHover: true,
+                                                      draggable: true,
+                                                      progress: undefined,
+                                                   }
+                                                )
+                                          }}
+                                          variant='contained'
+                                          color='default'
+                                       >
+                                          <AddIcon fontSize='small' />
+                                       </Buttonn>
+                                    </ButtonGroupp>
                               </Col>
-
-                              <Col md={1} className='d-flex align-items-center'>
-                                 <Button
+                              <Col md={2} className='d-flex align-items-center justify-content-center'>
+                                 <Button 
                                     type='button'
-                                    className='p-1 rounded'
-                                    variant='light'
+                                    size='small'
+                                    className='delete-btn d-flex align-items-center justify-content-center'
+                                    color="secondary"
+                                    variant="outlined"
                                     onClick={() =>
                                        removeFromCartHandler(item.product)
                                     }
                                  >
-                                    <i
-                                       style={{ fontSize: '1.2rem' }}
-                                       class='far fa-trash-alt'
-                                    ></i>
+                                    <DeleteOutlined fontSize='small' />
                                  </Button>
                               </Col>
-                              <ToastContainer />
                            </Row>
                         </ListGroup.Item>
                      ))}
+                     
                   </ListGroup>
                )}
             </Col>
 
-            <Col md={4} className='p-0'>
+            <Col md={3} className='p-0'>
                <Card
-                  className='border-0 shadow mt-4 card_color p-3'
+                  className='mt-5 p-3'
                   style={{ zIndex: '1' }}
                >
                   <ListGroup variant='flush'>
@@ -464,14 +440,14 @@ export const CartScreen = ({ match, location, history }) => {
                   <Button
                      type='button'
                      variant='outline-light'
-                     className='btn-block btn_color rounded-pill text-uppercase p-3 text-light'
+                     className='btn-block btn-success rounded-pill add-to-card btn btn-outline-light'
                      disabled={
                         cartItems.length === 0 ||
                         cartItems.reduce((acc, item) => acc + item.qty, 0) <
                            cartItems.length
                      }
                      onClick={checkoutHandler}
-                     size='sm'
+                     size='xl'
                   >
                      <h5 className='text-light m-0'>Đặt hàng</h5>
                   </Button>

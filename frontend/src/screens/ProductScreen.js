@@ -9,12 +9,13 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline'
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline'
 import RemoveIcon from '@material-ui/icons/Remove'
+
 import SendIcon from '@material-ui/icons/Send'
 import { Carousel, Image, Skeleton } from 'antd'
 import { format, utcToZonedTime } from 'date-fns-tz'
 import React, { useEffect, useState } from 'react'
 import { Button, Col, Form, ListGroup, Row } from 'react-bootstrap'
-import { GlassMagnifier } from 'react-image-magnifiers'
+import { PictureInPictureMagnifier, GlassMagnifier, SideBySideMagnifier } from 'react-image-magnifiers'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
@@ -241,6 +242,13 @@ function ProductScreen({ history, match }) {
       return subCat;
    }
 
+   function getTag(x,y) {
+      var tagStr = '';
+      var plusStr = x+' '+y;
+      plusStr && plusStr.split(' ').map(x => tagStr +=x + ', ')
+      return tagStr = tagStr.substring(0, tagStr.length - 2);
+   }
+
    return (
       <>
          {/* {successProductReview && <MessageSuccess variant='Success' />} */}
@@ -282,6 +290,8 @@ function ProductScreen({ history, match }) {
                                                 border: '1px solid #f0f0f0',
                                                 borderRadius: '8px'
                                              }}
+                                             magnifierSize = '50%'
+                                             alwaysInPlace = 'true'
                                              imageSrc={img && img?.url}
                                              imageAlt='Example'
                                              largeImageSrc={
@@ -312,13 +322,16 @@ function ProductScreen({ history, match }) {
                         </Row>
                      </Col>
 
-                     <Col md={7} className='text-left p-1'>
+                     <Col md={4} className='text-left p-1'>
                         <Row className='pl-4 pr-2'>
                            <ListGroup variant='flush' className='pr-3'>
                               
-                              <p className='mt-3'>Nhà cung cấp: <strong>{product.supplier?.name}</strong></p>
-
-                              <h3 className='text-capitalize'>{product.name}</h3>
+                              <p className='mt-3 mb-2'>Nhà cung cấp: <strong>{product.supplier?.name}</strong></p>
+                              <Rating
+                                    value={product.rating}
+                                    text={`(${product.numReviews} đánh giá)`}
+                                 />
+                              <h3 className='text-capitalize mt-2'>{product.name}</h3>
 
                               {product.sales ? (
                                  <div className='d-flex flex-row align-items-center mb-2 mt-2'>
@@ -330,16 +343,15 @@ function ProductScreen({ history, match }) {
                                  <h4 className="text-success">{product.price && formatPrice(product.price, 'đ')}</h4>
                               )}
                               
-                              <Rating
-                                    value={product.rating}
-                                    text={`(${product.numReviews} đánh giá)`}
-                                 />
+                              
 
                               {/* <h6 className='mb-0 pr-2'>Khối lượng</h6> */}
                               <p className='mt-2'>Chiều cao: <strong>{product.mass} cm</strong></p>
 
+                              <p className=''>ID: <strong>{product._id}</strong></p>
+
                               {product.countInStock > 0 ? (
-                                 <p className=''>Số lượng: {product?.countInStock} sản phẩm </p>
+                                 <p className=''>Số lượng: <strong className='text-success'>{product?.countInStock}</strong> sản phẩm </p>
                                  ):(
                                     <p>Hết hàng</p>
                                  )
@@ -407,8 +419,41 @@ function ProductScreen({ history, match }) {
                               </ListGroup.Item>
                                       
                            </ListGroup>
+                           <p className='mt-4 p-0'>Tag: <span className='text-lowercase'>{getTag(product.name, getCatePro(product.category))}</span></p>
                         </Row>
                         
+                     </Col>
+
+                     <Col md={3}>
+                        <div style={{border:'1px solid #e0e0e0', borderRadius:'8px'}}>
+                           <div className="box-service d-flex p-3">
+                              {/* <span className="service-icon fa fa-shield-alt mr-4"></span> */}
+                              <Image className='service-icon' width='136px' src='/background/credit-card2.png' fluid />
+                              <div className="box-content ml-3">
+                                 <strong>Thanh toán an toàn</strong>
+                                 <p>Thanh toán bằng các phương thức thanh toán phổ biến nhất trên thế giới.</p>
+                              </div>
+                           </div>
+
+                           <div className="box-service mt-3 d-flex p-3">
+                              {/* <span className="service-icon fa fa-shield-alt mr-4"></span> */}
+                              <Image className='service-icon' width='76px' src='/background/safety2.png' fluid />
+                              <div className="box-content ml-3">
+                                 <strong>Sự tự tin</strong>
+                                 <p>Bảo vệ bao gồm việc mua hàng của bạn</p>
+                              </div>
+                           </div>
+
+                           <div className="box-service mt-3 d-flex p-3">
+                              {/* <span className="service-icon fa fa-shield-alt mr-4"></span> */}
+                              <Image className='service-icon' width='75px' src='/background/truck2.png' fluid />
+                              <div className="box-content ml-3">
+                                 <strong>Giao hàng toàn quốc</strong>
+                                 <p>Giao hàng tận nơi hơn 60 tỉnh thành</p>
+                              </div>
+                           </div>
+
+                        </div>
                      </Col>
                      
                      <div className='p-4'>

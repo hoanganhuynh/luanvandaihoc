@@ -422,10 +422,12 @@
     background-color: #fff;
 } 
 
-.giam-btn, .tang-btn {
-  border-radius: 50% !important;
+.giam-btn, .tang-btn, .delete-btn {
+  border-radius: 30px !important;
   box-shadow: none !important;
   margin-right: 2px !important;
+  width: 40px !important;
+  height: 40px !important;
 }
 .giam-btn:hover {
   background-color: #54bb18 !important;
@@ -434,6 +436,11 @@
 
 .tang-btn:hover {
   background-color: #54bb18 !important;
+  color: #fff !important;
+}
+
+.delete-btn:hover {
+  background-color: #ff2c37 !important;
   color: #fff !important;
 }
 
@@ -458,4 +465,12 @@
   padding: 0;
   border: none;
   margin-bottom: 8px;
+}
+
+.service-icon {
+  opacity: .4;
+}
+
+.box-service {
+  border-bottom: 1px solid #e0e0e0;
 }
