@@ -73,9 +73,10 @@ function ProfileScreen({ location, history }) {
    const [huyen, setHuyen] = useState('')
    const [xa, setXa] = useState('')
    const [diaChi, setDiachi] = useState('')
+   const [diaDiem, setDiadiem] = useState('')
    const [numberPhone, setNumberPhone] = useState('')
    const [uploading, setUploading] = useState(false)
-   const address = { thanhPho, huyen, xa, diaChi }
+   const address = { thanhPho, huyen, xa, diaChi, diaDiem }
 
    const dispatch = useDispatch()
 
@@ -205,6 +206,7 @@ function ProfileScreen({ location, history }) {
                      setHuyen(ad.huyen),
                      setXa(ad.xa),
                      setDiachi(ad.diaChi),
+                     setDiadiem(ad.diaDiem),
                      setNumberPhone(ad.numberPhone))
                )
             }
@@ -435,6 +437,7 @@ function ProfileScreen({ location, history }) {
                                     <strong>Địa chỉ liên hệ</strong>
                                  </Col>
                                  <Col md={9} style={{ fontSize: '0.9rem' }}>
+                                    {diaDiem} {' - '}
                                     {diaChi} {' - '} {xa} {' - '} {huyen}{' '}
                                     {' - '}
                                     {thanhPho}.

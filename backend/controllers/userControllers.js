@@ -245,7 +245,7 @@ const getUserAddress = asyncHandler(async (req, res) => {
 //* @access     Private
 const updateUserAddress = asyncHandler(async (req, res) => {
    const id = req.user._id
-   const { thanhPho, huyen, xa, diaChi, numberPhone } = req.body
+   const { thanhPho, huyen, xa, diaChi, diaDiem, numberPhone } = req.body
    const idAddress = req.body.idAddress
 
    // console.log(req.body)
@@ -259,6 +259,7 @@ const updateUserAddress = asyncHandler(async (req, res) => {
                'address.$.huyen': huyen,
                'address.$.xa': xa,
                'address.$.diaChi': diaChi,
+               'address.$.diaDiem': diaDiem,
                'address.$.numberPhone': numberPhone,
             },
          }

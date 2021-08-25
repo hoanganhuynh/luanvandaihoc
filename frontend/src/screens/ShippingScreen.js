@@ -43,6 +43,7 @@ export const ShippingScreen = ({ history }) => {
    const [huyen, setHuyen] = useState(shippingAddress.huyen)
    const [xa, setXa] = useState(shippingAddress.xa)
    const [diaChi, setDiachi] = useState(shippingAddress.diaChi)
+   const [diaDiem, setDiadiem] = useState(shippingAddress.diaDiem)
    const [numberPhone, setNumberPhone] = useState(shippingAddress.numberPhone)
    const [open, setOpen] = useState(false)
    const [add, setAdd] = useState([])
@@ -51,6 +52,7 @@ export const ShippingScreen = ({ history }) => {
       huyen,
       xa,
       diaChi,
+      diaDiem,
       numberPhone,
    }
 
@@ -69,16 +71,17 @@ export const ShippingScreen = ({ history }) => {
    const submitHandler = (e) => {
       e.preventDefault()
       dispatch(
-         saveShippingAddress({ thanhPho, huyen, xa, diaChi, numberPhone })
+         saveShippingAddress({ thanhPho, huyen, xa, diaChi, diaDiem, numberPhone })
       )
       history.push('/payment')
    }
 
-   const updateAddress = (diaChi, xa, huyen, thanhPho, numberPhone) => {
+   const updateAddress = (diaChi, diaDiem, xa, huyen, thanhPho, numberPhone) => {
       setThanhPho(thanhPho)
       setHuyen(huyen)
       setXa(xa)
       setDiachi(diaChi)
+      setDiadiem(diaDiem)
       setNumberPhone(numberPhone)
       setOpen(false)
    }
@@ -98,6 +101,7 @@ export const ShippingScreen = ({ history }) => {
                      setHuyen(ad.huyen),
                      setXa(ad.xa),
                      setDiachi(ad.diaChi),
+                     setDiadiem(ad.diaDiem),
                      setNumberPhone(ad.numberPhone))
                )
             }
@@ -170,6 +174,7 @@ export const ShippingScreen = ({ history }) => {
                                              style={{ letterSpacing: '0.1rem' }}
                                              onClick={() =>
                                                 updateAddress(
+                                                   add.diaDiem,
                                                    add.diaChi,
                                                    add.xa,
                                                    add.huyen,
@@ -194,7 +199,7 @@ export const ShippingScreen = ({ history }) => {
                                           style={{ fontSize: '0.9rem' }}
                                           className='d-flex align-items-center text-justify'
                                        >
-                                          {add.diaChi} {' - '} {add.xa} {' - '}{' '}
+                                          {add.diaDiem} {' - '} {add.diaChi} {' - '} {add.xa} {' - '}{' '}
                                           {add.huyen} {' - '}
                                           {add.thanhPho}.
                                        </Col>
@@ -261,7 +266,7 @@ export const ShippingScreen = ({ history }) => {
                                        style={{ fontSize: '0.9rem' }}
                                        className='text-justify'
                                     >
-                                       {diaChi} {' - '} {xa} {' - '} {huyen}{' '}
+                                       {diaDiem} {' - '} {diaChi} {' - '} {xa} {' - '} {huyen}{' '}
                                        {' - '}
                                        {thanhPho}.
                                     </Col>

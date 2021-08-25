@@ -36,6 +36,7 @@ const userSchema = mongoose.Schema(
             huyen: { type: String, required: false },
             xa: { type: String, required: false },
             diaChi: { type: String, required: false },
+            diaDiem: { type: String, required: false },
             role: { type: Boolean, default: false },
             numberPhone: {
                type: String,

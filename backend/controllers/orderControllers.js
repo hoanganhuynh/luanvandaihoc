@@ -64,7 +64,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
 
          //* PUSH NOTIFICATION
          const orderByUser = await User.findById(
-            '6083833b80fa5e3fa0952dd7',
+            '612661910b625945ecd61a8e',
             'notifications'
          )
 
