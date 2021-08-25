@@ -1,5 +1,6 @@
 /node_modules
 /.env
 /frontend/node_modules
-/.hi.sh
-/.end.sh
+/1.sh
+/2.sh
+/3.sh
