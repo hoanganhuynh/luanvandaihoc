@@ -87,6 +87,7 @@ function RegisterScreen({ location, history }) {
             <Col className="pl-3" md={5}>
                <div>
                   {message && <Message variant='danger'>{message}</Message>}
+                  
                   {error && <Message variant='danger'>{error}</Message>}
                   {loading && <Loader />}
                   {/* {uploading === false && (
