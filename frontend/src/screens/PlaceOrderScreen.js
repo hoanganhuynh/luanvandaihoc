@@ -135,6 +135,7 @@ function PlaceOrderScreen({ history }) {
                      <h4 className='text-uppercase'>Thông tin giao hàng</h4>
                      <p className='mb-1 ml-2' style={{ fontSize: '0.9rem' }}>
                         <strong>Địa chỉ: </strong>
+                        {cart.shippingAddress.diaDiem} {' - '}{' '}
                         {cart.shippingAddress.diaChi} {' - '}{' '}
                         {cart.shippingAddress.xa} {' - '}
                         {cart.shippingAddress.huyen} {' - '}

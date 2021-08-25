@@ -243,6 +243,8 @@ const OrderScreen = ({ match, history }) => {
                               </p>
                               <p className='mb-3'>
                                  <strong>Địa chỉ: </strong>
+                                 {order.shippingAddress.diaDiem}
+                                 {' - '}
                                  {order.shippingAddress.diaChi}
                                  {' - '}
                                  {order.shippingAddress.xa}

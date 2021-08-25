@@ -399,9 +399,9 @@ export const CartScreen = ({ match, location, history }) => {
                      <ListGroup.Item>
                         <Row>
                            <Col md={6}>
-                              <h5 className='title-bill text-capitalize'>
+                              <h6 className=''>
                                  Số lượng:{' '}
-                              </h5>
+                              </h6>
                            </Col>
                            <Col md={6}>
                               <h5 className='title-bill-value text-lowercase pl-1'>
@@ -409,7 +409,7 @@ export const CartScreen = ({ match, location, history }) => {
                                     (acc, item) => acc + item.qty,
                                     0
                                  )}{' '}
-                                 sản phẩm
+                                 
                               </h5>
                            </Col>
                         </Row>
@@ -417,9 +417,9 @@ export const CartScreen = ({ match, location, history }) => {
                      <ListGroup.Item>
                         <Row>
                            <Col md={6}>
-                              <h5 className='title-bill text-capitalize'>
-                                 Giá:{' '}
-                              </h5>
+                              <h6 className=''>
+                                 Tổng cộng:{' '}
+                              </h6>
                            </Col>
                            <Col md={6}>
                               <h5 className='title-bill-value text-lowercase pl-1'>
@@ -449,7 +449,7 @@ export const CartScreen = ({ match, location, history }) => {
                      onClick={checkoutHandler}
                      size='xl'
                   >
-                     <h5 className='text-light m-0'>Đặt hàng</h5>
+                     <h5 className='text-light m-0'>Tiếp tục</h5>
                   </Button>
                </Card>
             </Col>

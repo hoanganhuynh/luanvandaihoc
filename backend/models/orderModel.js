@@ -38,6 +38,7 @@ const orderSchema = mongoose.Schema(
          huyen: { type: String, required: false },
          xa: { type: String, required: false },
          diaChi: { type: String, required: false },
+         diaDiem: { type: String, required: false },
          numberPhone: {
             type: String,
             required: false,

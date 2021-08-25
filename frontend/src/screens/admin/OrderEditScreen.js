@@ -209,6 +209,11 @@ const OrderEditScreen = ({ match, history }) => {
                                                 <p className='mb-1'>
                                                    {
                                                       order.shippingAddress
+                                                         .diaDiem
+                                                   }
+                                                   {' - '}
+                                                   {
+                                                      order.shippingAddress
                                                          .diaChi
                                                    }
                                                    {' - '}

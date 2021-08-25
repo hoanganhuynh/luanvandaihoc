@@ -40,18 +40,20 @@ const UsersAddressListScreen = ({ history }) => {
    const [huyen, setHuyen] = useState('')
    const [xa, setXa] = useState('')
    const [diaChi, setDiachi] = useState('')
+   const [diaDiem, setDiadiem] = useState('')
    const [numberPhone, setNumberPhone] = useState('')
    const [open, setOpen] = useState(false)
    const [openEdit, setOpenEdit] = useState(false)
    const [idAddress, setIdAddress] = useState('')
 
-   const addressUser = { thanhPho, huyen, xa, diaChi, numberPhone }
+   const addressUser = { thanhPho, huyen, xa, diaChi, diaDiem, numberPhone }
    const updateInformationAddress = {
       idAddress,
       thanhPho,
       huyen,
       xa,
       diaChi,
+      diaDiem,
       numberPhone,
    }
 
@@ -305,6 +307,19 @@ const UsersAddressListScreen = ({ history }) => {
                                  placeholder='Enter country'
                                  value={diaChi}
                                  onChange={(e) => setDiachi(e.target.value)}
+                                 className='border-1 border-gray rounded-pill'
+                              ></Form.Control>
+                           </Form.Group>
+
+                           <Form.Group controlId='country'>
+                              <Form.Label as='p' className='mb-1'>
+                                 <strong>Địa điểm</strong>
+                              </Form.Label>
+                              <Form.Control
+                                 type='text'
+                                 placeholder='Enter country'
+                                 value={diaDiem}
+                                 onChange={(e) => setDiadiem(e.target.value)}
                                  className='border-1 border-gray rounded-pill'
                               ></Form.Control>
                            </Form.Group>
@@ -566,7 +581,7 @@ const UsersAddressListScreen = ({ history }) => {
                               style={{ fontSize: '0.9rem' }}
                               className='d-flex align-items-center'
                            >
-                              {add.diaChi} {' - '} {add.xa} {' - '} {add.huyen}{' '}
+                              {add.diaDiem} {' - '} {add.diaChi} {' - '} {add.xa} {' - '} {add.huyen}{' '}
                               {' - '}
                               {add.thanhPho}.
                            </Col>
