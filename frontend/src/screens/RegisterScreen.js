@@ -81,6 +81,7 @@ function RegisterScreen({ location, history }) {
    return (
       <>
          <Header />
+         
          <Row className='shadow p-5 card_color m-0'>
             
             <Col className="pl-3" md={5}>
