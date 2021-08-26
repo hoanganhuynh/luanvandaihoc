@@ -346,6 +346,27 @@ function Header(props) {
                                                 </Link>
                                              </MenuItem>
 
+                                             <MenuItem onClick={handleClose}>
+                                                <Link
+                                                   to='/profile/address'
+                                                   className={classes.link}
+                                                   style={{
+                                                      color: 'black',
+                                                      fontSize: '0.8rem',
+                                                      letterSpacing: '0.05rem',
+                                                   }}
+                                                >
+                                                   <Image
+                                                      width='25px'
+                                                      src='https://image.flaticon.com/icons/png/512/684/684908.png'
+                                                      className='pr-1'
+                                                   />
+                                                   <strong className='text-capitalize'>
+                                                      Quản lí địa chỉ
+                                                   </strong>
+                                                </Link>
+                                             </MenuItem>
+
                                              <MenuItem
                                                 onClick={logoutHandler}
                                                 style={{
