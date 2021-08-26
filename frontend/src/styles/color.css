@@ -474,3 +474,19 @@
 .box-service {
   border-bottom: 1px solid #e0e0e0;
 }
+
+.diaDiem-nha {
+  background-color: rgba(0, 128, 0, 0.178);
+  color: green;
+  padding: 4px 10px;
+  border-radius: 30px;
+  font-weight: bold;
+}
+
+.diaDiem-congty {
+  background-color: rgba(255, 166, 0, 0.199);
+  color: orange;
+  padding: 4px 10px;
+  border-radius: 30px;
+  font-weight: bold;
+}

@@ -3,8 +3,15 @@ import DialogContent from '@material-ui/core/DialogContent'
 import Link from '@material-ui/core/Link'
 import { Close } from '@material-ui/icons'
 import React, { useEffect, useState } from 'react'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { Radio, RadioGroup} from 'react-radio-group'
+import { Image, Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+
+import DeleteOutlined from '@material-ui/icons/DeleteOutlined'
+import EditIcon from '@material-ui/icons/Edit';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import StarIcon from '@material-ui/icons/Star';
+
 import {
    createAddressUser,
    deleteAddressUser,
@@ -40,7 +47,7 @@ const UsersAddressListScreen = ({ history }) => {
    const [huyen, setHuyen] = useState('')
    const [xa, setXa] = useState('')
    const [diaChi, setDiachi] = useState('')
-   const [diaDiem, setDiadiem] = useState('')
+   const [diaDiem, setDiadiem] = useState('Nhà')
    const [numberPhone, setNumberPhone] = useState('')
    const [open, setOpen] = useState(false)
    const [openEdit, setOpenEdit] = useState(false)
@@ -184,9 +191,16 @@ const UsersAddressListScreen = ({ history }) => {
             <Message variant='danger'>{error}</Message>
          ) : (
             <>
+            <div className="categorylink mt-2 mb-3 ml-4">
+               <span className="fa fa-home"></span>
+               <span className="fa fa-angle-right"></span>
+               <span>Cá nhân</span>
+               <span className="fa fa-angle-right"></span>
+               <span> Địa chỉ</span>
+            </div>
                <div>
                   <Dialog
-                     maxWidth='xl'
+                     // fullScreen="xs"
                      open={open}
                      onClose={handleClose}
                      aria-labelledby='form-dialog-title'
@@ -208,6 +222,30 @@ const UsersAddressListScreen = ({ history }) => {
                            onSubmit={createAddress}
                            className='mt-2 border-0 mb-2'
                         >
+                           <Form>
+                              <div value={diaDiem} onChange={(e) => setDiadiem(e.target.value)}>
+                                 <Form.Label as='p' className='mb-1'>
+                                    <strong>Tôi sẽ giao hàng đến:</strong>
+                                 </Form.Label>
+                                 <Form.Check
+                                 inline
+                                    name="group1"
+                                    type='radio'
+                                    label='Nhà'
+                                    value="Nhà"
+                                 />
+
+                                 <Form.Check
+                                    inline
+                                    name="group1"
+                                    type='radio'
+                                    label='Công ty'
+                                    value='Công ty'
+                                 />
+                              </div>
+                              
+                           </Form>
+
                            <Form.Group controlId='address'>
                               <Form.Label as='p' className='mb-1 mt-2'>
                                  <strong>Thành Phố / Tỉnh</strong>
@@ -304,26 +342,14 @@ const UsersAddressListScreen = ({ history }) => {
                               </Form.Label>
                               <Form.Control
                                  type='text'
-                                 placeholder='Enter country'
+                                 placeholder='Nhập địa chỉ chi tiết'
                                  value={diaChi}
                                  onChange={(e) => setDiachi(e.target.value)}
                                  className='border-1 border-gray rounded-pill'
                               ></Form.Control>
                            </Form.Group>
-
-                           <Form.Group controlId='country'>
-                              <Form.Label as='p' className='mb-1'>
-                                 <strong>Địa điểm</strong>
-                              </Form.Label>
-                              <Form.Control
-                                 type='text'
-                                 placeholder='Enter country'
-                                 value={diaDiem}
-                                 onChange={(e) => setDiadiem(e.target.value)}
-                                 className='border-1 border-gray rounded-pill'
-                              ></Form.Control>
-                           </Form.Group>
-
+                           
+                           
                            <Form.Group controlId='country'>
                               <Form.Label as='p' className='mb-1'>
                                  <strong>Số điện thoại</strong>
@@ -342,12 +368,13 @@ const UsersAddressListScreen = ({ history }) => {
                            <div className='d-flex justify-content-center'>
                               <Button
                                  type='submit'
-                                 className='btn_color rounded-pill text-center'
+                                 className='btn-block btn-success rounded-pill add-to-card'
                                  style={{ width: '15rem' }}
                               >
                                  Tạo
                               </Button>
                            </div>
+
                         </Form>
                      </DialogContent>
                   </Dialog>
@@ -376,6 +403,29 @@ const UsersAddressListScreen = ({ history }) => {
                            onSubmit={updateAddress}
                            className='mt-2 border-0 mb-2'
                         >
+                           <Form>
+                              <div value={diaDiem} onChange={(e) => setDiadiem(e.target.value)}>
+                                 <Form.Label as='p' className='mb-1'>
+                                    <strong>Tôi sẽ giao hàng đến:</strong>
+                                 </Form.Label>
+                                 <Form.Check
+                                 inline
+                                    name="group1"
+                                    type='radio'
+                                    label='Nhà'
+                                    value="Nhà"
+                                 />
+
+                                 <Form.Check
+                                    inline
+                                    name="group1"
+                                    type='radio'
+                                    label='Công ty'
+                                    value='Công ty'
+                                 />
+                              </div>
+                              
+                           </Form>
                            <Form.Group controlId='address'>
                               <Form.Label as='p' className='mb-1 mt-2'>
                                  <strong>Thành Phố / Tỉnh</strong>
@@ -497,7 +547,7 @@ const UsersAddressListScreen = ({ history }) => {
                            <div className='d-flex justify-content-center'>
                               <Button
                                  type='submit'
-                                 className='btn_color rounded-pill text-center'
+                                 className='btn-block btn-success rounded-pill add-to-card'
                                  style={{ width: '15rem' }}
                               >
                                  Cập nhật
@@ -507,14 +557,14 @@ const UsersAddressListScreen = ({ history }) => {
                      </DialogContent>
                   </Dialog>
                </div>
-               <Container className='mt-4 mb-4 card_color shadow p-4'>
+               <div className='mt-4 mb-5 px-4'>
                   <div
                      className='text-center pb-3 d-flex justify-content-between align-items-center'
-                     style={{ borderBottom: '0.1rem solid #ddd' }}
+                     
                   >
-                     <h4>Danh sách địa chỉ</h4>
+                     <h4>Danh sách địa chỉ ({user && user.address?.length})</h4>
                      <Button
-                        className='btn_color_created rounded-pill'
+                        className='btn-success rounded-pill add-to-card'
                         variant='outline-light'
                         size='sm'
                         onClick={handleClickOpen}
@@ -523,6 +573,72 @@ const UsersAddressListScreen = ({ history }) => {
                         <i className='fas fa-plus pr-1'></i>Thêm địa chỉ mới
                      </Button>
                   </div>
+
+                  <Row className='my-2 pb-3 m-0' style={{borderBottom: '1px solid #e0e0e0'}}>
+                     <Col className='text-center' md={2}><strong>Số điện thoại</strong></Col>
+                     <Col className='text-center' md={2}><strong>Loại</strong></Col>
+                     <Col className='text-center' md={2}><strong>Xã/Phường</strong></Col>
+                     <Col className='text-center' md={2}><strong>Quận/Huyện</strong></Col>
+                     <Col className='text-center' md={2}><strong>Tỉnh/Thành phố</strong></Col>
+                     <Col className='text-center' md={2}><strong>Thao tác</strong></Col>
+                  </Row>
+                  {user.address && user.address?.map((add) => (
+                     <Row className='my-3 align-item-center'>
+                        <Col className='text-center m-0' md={2}><p className='m-0'>{formatPhoneNumber(add.numberPhone)}</p></Col>
+                        {add.diaDiem == 'Nhà' ? (
+                           <Col className='text-center' md={2}><span className='diaDiem-nha'>{add.diaDiem}</span></Col>
+                        ) : (
+                           <Col className='text-center' md={2}><span className='diaDiem-congty'>{add.diaDiem}</span></Col>
+                        )}
+                        
+                        <Col className='text-center' md={2}><p className='m-0'>{add.xa}</p></Col>
+                        <Col className='text-center' md={2}><p className='m-0'>{add.huyen}</p></Col>
+                        <Col className='text-center' md={2}><p className='m-0'>{add.thanhPho}</p></Col>
+                        <Col className='text-center' md={2}>
+                           <Button
+                              variant='outline-warning'
+                              size='sm'
+                              className='rounded-pill'
+                              onClick={() => handleClickOpenEdit(add._id)}
+                           >
+                              <EditIcon fontSize='small'/>
+                           </Button>
+                           <Button
+                              variant='outline-danger'
+                              size='sm'
+                              className='rounded-pill mx-1'
+                              onClick={() => deleteAddress(add._id)}
+                           >
+                              
+                              <DeleteOutlined fontSize='small' />
+                           </Button>
+                           {add.role === true ? (
+                              <Button
+                              size='sm'
+                              variant='outline-dark'
+                              // disabled
+                              className='rounded-pill'
+                              onClick={() => selectRole(add._id, true)}
+                           >
+                              <StarIcon fontSize='small' />
+                           </Button>
+                           ): (
+                              <Button
+                                 size='sm'
+                                 variant='outline-dark'
+                                 className='rounded-pill'
+                                 onClick={() => selectRole(add._id, true)}
+                              >
+                                 <StarBorderIcon fontSize='small' />
+                              </Button>
+
+                           )}
+                        </Col>
+
+                     </Row>
+                     
+                  ))}
+                  
                   {user.address && user?.address.length === 5 && (
                      <Announcement
                         variant='warning'
@@ -533,74 +649,9 @@ const UsersAddressListScreen = ({ history }) => {
                         ơn!
                      </Announcement>
                   )}
-                  {user.address?.map((add) => (
-                     <div
-                        className='p-3 mt-1 mb-1'
-                        style={{ borderBottom: '0.1rem solid #ddd' }}
-                     >
-                        <Row className='mb-2'>
-                           <Col md={3} className='d-flex align-items-center '>
-                              <strong>Số điện thoại</strong>
-                           </Col>
-                           <Col
-                              md={7}
-                              style={{ fontSize: '0.9rem' }}
-                              className='d-flex align-items-center'
-                           >
-                              {formatPhoneNumber(add.numberPhone)}
-                           </Col>
-                           <Col md={1} className='d-flex align-items-center '>
-                              <Link>
-                                 <Button
-                                    variant='outline-warning'
-                                    size='sm'
-                                    className='rounded-pill'
-                                    onClick={() => handleClickOpenEdit(add._id)}
-                                 >
-                                    Sửa
-                                 </Button>
-                              </Link>
-                           </Col>
-                           <Col md={1}>
-                              <Button
-                                 variant='outline-danger'
-                                 size='sm'
-                                 className='rounded-pill'
-                                 onClick={() => deleteAddress(add._id)}
-                              >
-                                 Xoá
-                              </Button>
-                           </Col>
-                        </Row>
-                        <Row className='button_select_default'>
-                           <Col md={3} className='d-flex align-items-center'>
-                              <strong>Địa chỉ liên hệ</strong>
-                           </Col>
-                           <Col
-                              md={7}
-                              style={{ fontSize: '0.9rem' }}
-                              className='d-flex align-items-center'
-                           >
-                              {add.diaDiem} {' - '} {add.diaChi} {' - '} {add.xa} {' - '} {add.huyen}{' '}
-                              {' - '}
-                              {add.thanhPho}.
-                           </Col>
-                           <Col md={2} className='text-center'>
-                              <Button
-                                 size='sm'
-                                 variant='outline-dark'
-                                 className='rounded-pill btn-block select_default'
-                                 disabled={add.role === true}
-                                 onClick={() => selectRole(add._id, true)}
-                              >
-                                 Thiết lập mặc định
-                              </Button>
-                           </Col>
-                        </Row>
-                     </div>
-                  ))}
+                  
                   <ToastContainer />
-               </Container>
+               </div>
             </>
          )}
          <Footer />
