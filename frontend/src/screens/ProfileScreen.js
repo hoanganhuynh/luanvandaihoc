@@ -72,8 +72,8 @@ function ProfileScreen({ location, history }) {
    const [thanhPho, setThanhPho] = useState('')
    const [huyen, setHuyen] = useState('')
    const [xa, setXa] = useState('')
-   const [diaChi, setDiachi] = useState('')
    const [diaDiem, setDiadiem] = useState('')
+   const [diaChi, setDiachi] = useState('')
    const [numberPhone, setNumberPhone] = useState('')
    const [uploading, setUploading] = useState(false)
    const address = { thanhPho, huyen, xa, diaChi, diaDiem }
@@ -205,8 +205,8 @@ function ProfileScreen({ location, history }) {
                      (setThanhPho(ad.thanhPho),
                      setHuyen(ad.huyen),
                      setXa(ad.xa),
-                     setDiachi(ad.diaChi),
                      setDiadiem(ad.diaDiem),
+                     setDiachi(ad.diaChi),
                      setNumberPhone(ad.numberPhone))
                )
             }

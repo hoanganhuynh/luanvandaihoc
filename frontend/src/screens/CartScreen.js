@@ -15,7 +15,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { addToCart, removeFromCart } from '../actions/cartActions.js'
 import Footer from '../components/Footer.js'
 import Header from '../components/Header.js'
-
+import Step from '../components/Step'
 import DeleteOutlined from '@material-ui/icons/DeleteOutlined'
 
 const useStyles = makeStyles((theme) => ({
@@ -91,35 +91,38 @@ export const CartScreen = ({ match, location, history }) => {
         <i class='fas fa-arrow-left pr-2'></i>
         Go back
       </Link> */}
+            <div className="categorylink mt-2 mb-3 ml-3">
+               <span className="fa fa-home"></span>
+               <span className="fa fa-angle-right"></span>
+               <span>Giỏ hàng</span>
+               
+            </div>
+            {cartItems.length === 0 ? 
+            (
+               <div className='container d-flex justify-content-center align-items-center flex-column'>
+                  <Image
+                        src='/background/cart-empty.png'
+                        style={{ width:'13rem' }}
+                     />
+                  <p className='my-3'>Giỏ hàng trống</p>
 
-         <Row className='m-4' style={{ height: '100vh' }}>
+                  <Link to='/' className='h5 text-success'>Mua hàng thôi !</Link>
+
+               </div>
+            )
+         :
+         (
+            <div>
+            <Row className='justify-content-center d-flex'>
+                  <Col md={7}>
+                  <Step step1  />
+                  </Col>
+               </Row>
+
+         <Row className='m-3' style={{ height: '100vh' }}>
             <Col md={9} className='p-0 pr-4 mt-3 text-uppercase'>
-               {cartItems.length === 0 ? (
-                  // <Announcement variant='danger'>
-                  <>
-                     {/* <Row>
-                <Col className='mb-2'> */}
-                     <div className='mb-1'>
-                        <Link to='/'>
-                           <Button className='text-uppercase btn_color rounded-pill'>
-                              Mua hàng
-                           </Button>
-                        </Link>
-                     </div>
-                     {/* </Col>
-                <Col md={12}> */}
-                     <div>
-                        <Image
-                           className=' p-5'
-                           src='/images/cart_empty.png'
-                           fluid
-                        />
-                     </div>
-                     {/* </Col>
-              </Row> */}
-                  </>
-               ) : (
-                  // </Announcement>
+               
+                  
                   <ListGroup variant='flush'>
                      
                      <h3>Giỏ hàng</h3>
@@ -387,7 +390,7 @@ export const CartScreen = ({ match, location, history }) => {
                      ))}
                      
                   </ListGroup>
-               )}
+               
             </Col>
 
             <Col md={3} className='p-0'>
@@ -454,6 +457,8 @@ export const CartScreen = ({ match, location, history }) => {
                </Card>
             </Col>
          </Row>
+         </div>
+         )}
          <Footer />
       </>
    )

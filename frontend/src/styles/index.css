@@ -333,8 +333,9 @@ p {
 }
 
 .steps-shipping {
-  border: 0.1rem solid grey !important;
+  /* border: 0.1rem solid grey !important; */
   border-radius: 0.5rem;
+  padding: 0 !important;
 }
 
 .ant-carousel .slick-dots li button {
