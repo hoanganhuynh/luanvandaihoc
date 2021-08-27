@@ -76,7 +76,7 @@ export const ShippingScreen = ({ history }) => {
       history.push('/payment')
    }
 
-   const updateAddress = (diaChi, diaDiem, xa, huyen, thanhPho, numberPhone) => {
+   const updateAddress = (diaDiem, diaChi, xa, huyen, thanhPho, numberPhone) => {
       setThanhPho(thanhPho)
       setHuyen(huyen)
       setXa(xa)
@@ -221,58 +221,60 @@ export const ShippingScreen = ({ history }) => {
                      </DialogContent>
                   </Dialog>
                </div>
+               
+               <div className="categorylink mt-2 mb-3 ml-3">
+                  <span className="fa fa-home"></span>
+                  <span className="fa fa-angle-right"></span>
+                  <span>Giỏ hàng</span>
+                  <span className="fa fa-angle-right"></span>
+                  <span>Địa chỉ giao hàng</span>
+                  
+               </div>
+
+               <Row className='justify-content-center d-flex'>
+                  <Col md={7}>
+                  <Step step1 step2 />
+                  </Col>
+               </Row>
+
                <Row
-                  className='shadow p-2 card_color m-4'
+                  className='p-2 m-4'
                   style={{ height: '75vh' }}
                >
-                  <Col md={6} className='d-flex align-items-center'>
-                     <Image
-                        src='/background/shipping.jpg'
-                        style={{ height: '60vh' }}
-                     />
-                  </Col>
-                  <Col md={6} className='mt-2 pr-4'>
+                  <Col md={12} className='mt-2 d-flex justify-content-center'>
                      <div>
-                        <Step step1 step2 />
+                        
 
                         <Form
                            onSubmit={submitHandler}
                            className='mt-2 border-0 mb-2'
                         >
-                           <h3 className='pt-3 text-center'>
+                           <h3 className='text-center'>
                               Thông tin Vận chuyển
                            </h3>
                            <Form.Group>
                               <div
-                                 className='rounded p-3'
-                                 style={{
-                                    border: '0.14rem dotted grey',
-                                 }}
-                              >
-                                 <Row className='mb-2'>
-                                    <Col md={4}>
-                                       <strong>Số điện thoại</strong>
-                                    </Col>
-                                    <Col md={8} style={{ fontSize: '0.9rem' }}>
-                                       {formatPhoneNumber(numberPhone)}
-                                    </Col>
-                                 </Row>
-                                 <Row>
-                                    <Col md={4}>
-                                       <strong>Địa chỉ liên hệ</strong>
-                                    </Col>
-                                    <Col
-                                       md={8}
-                                       style={{ fontSize: '0.9rem' }}
-                                       className='text-justify'
-                                    >
-                                       {diaDiem} {' - '} {diaChi} {' - '} {xa} {' - '} {huyen}{' '}
-                                       {' - '}
-                                       {thanhPho}.
-                                    </Col>
-                                 </Row>
-                                 <div className='text-end'>
-                                    <strong>
+                                 className='rounded pt-4'
+                                 // style={{
+                                 //    border: '0.14rem dotted grey',
+                                 // }}
+                              >  
+                                 <div className='d-flex'>
+                                    <div>
+                                       <strong><span className='fa fa-phone'></span> Số điện thoại</strong>
+                                       <p className='mt-2'>{formatPhoneNumber(numberPhone)}</p>
+
+                                    </div>
+                                    <div className='mx-5'>
+                                       <strong><span className='fa fa-home'></span> Địa điểm</strong>
+                                       {diaDiem == 'Nhà' ? 
+                                       <p className='mt-2 diaDiem-nha'>{diaDiem}</p>
+                                       :
+                                       <p className='mt-2 diaDiem-congty'>{diaDiem}</p>
+                                       }
+                                    </div>
+
+                                    <div>
                                        <Button
                                           size='sm'
                                           className='rounded-pill'
@@ -281,15 +283,22 @@ export const ShippingScreen = ({ history }) => {
                                        >
                                           Thay đổi
                                        </Button>
-                                    </strong>
+                                    </div>
+
                                  </div>
+
+                                 <strong><span className='fa fa-map'></span> Địa chỉ</strong>
+                                 <p className='mt-2 pb-4' style={{borderBottom:'1px solid #e0e0e0'}} >
+                                    {diaChi} {' - '} {xa} {' - '} {huyen}{' '}
+                                       {' - '}
+                                       {thanhPho}.</p>
                               </div>
                            </Form.Group>
                            <div className='d-flex justify-content-center'>
                               <Button
                                  type='submit'
                                  variant='outline-light'
-                                 className='btn-block btn_color rounded-pill'
+                                 className='btn-block btn-success rounded-pill add-to-card btn btn-outline-light'
                                  style={{ width: '10rem' }}
                               >
                                  Tiếp tục
@@ -298,6 +307,14 @@ export const ShippingScreen = ({ history }) => {
                         </Form>
                      </div>
                   </Col>
+               
+                  {/* <Col md={6} className='d-flex align-items-center'>
+                     <Image
+                        src='/background/shipping.jpg'
+                        style={{ height: '60vh' }}
+                     />
+                  </Col> */}
+               
                </Row>
             </>
          )}

@@ -35,19 +35,30 @@ export const PaymentScreen = ({ history }) => {
    return (
       <>
          <Header />
-         <Row className='shadow p-2 card_color m-4' style={{ height: '100vh' }}>
-            <Col md={6} className='d-flex align-items-center'>
-               <Image
-                  src='/background/payment.jpg'
-                  style={{ height: '90vh' }}
-               />
+         <div className="categorylink mt-2 mb-3 ml-3">
+            <span className="fa fa-home"></span>
+            <span className="fa fa-angle-right"></span>
+            <span>Giỏ hàng</span>
+            <span className="fa fa-angle-right"></span>
+            <span>Địa chỉ giao hàng</span>
+            <span className="fa fa-angle-right"></span>
+            <span>Phương thức thanh toán</span>
+            
+         </div>
+
+         <Row className='justify-content-center d-flex'>
+            <Col md={7}>
+            <Step step1 step2 step3 />
             </Col>
-            <Col md={6} className='d-flex align-items-center'>
+         </Row>
+
+         <Row className='p-3 my-3'>
+            
+            <Col md={12} className='d-flex justify-content-center'>
                <div>
-                  <Step step1 step2 step3 />
                   <Form
                      onSubmit={submitHandler}
-                     className=' p-4 mt-2 text-center'
+                     className='mt-2 text-center'
                   >
                      <Form.Group>
                         <Form.Label as='legend'>
@@ -79,14 +90,22 @@ export const PaymentScreen = ({ history }) => {
 
                      <Button
                         type='submit'
-                        variant='danger'
-                        className='btn-block btn_color rounded-pill'
+                        // variant='danger'
+                        className='btn-block btn-success rounded-pill add-to-card btn btn-outline-light'
                      >
                         Tiếp Tục
                      </Button>
                   </Form>
                </div>
             </Col>
+         
+            {/* <Col md={6} className='d-flex align-items-center'>
+               <Image
+                  src='/background/payment.jpg'
+                  style={{ height: '90vh' }}
+               />
+            </Col> */}
+
          </Row>
          <Footer />
       </>

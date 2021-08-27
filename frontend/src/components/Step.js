@@ -36,14 +36,14 @@ export default function HorizontalLinearStepper({
                 }}
               >
                 <Link component='button'>
-                  <strong className='text-capitalize'>Mua hàng</strong>
+                  <strong className='text-capitalize'>Giỏ hàng</strong>
                 </Link>
               </StepLabel>
             </LinkContainer>
           ) : (
             <StepLabel>
               <Link disabled component='button'>
-                <strong className='text-capitalize'>Mua hàng</strong>
+                <strong className='text-capitalize'>Giỏ hàng</strong>
               </Link>
             </StepLabel>
           )}

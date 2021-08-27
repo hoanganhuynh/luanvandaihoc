@@ -303,7 +303,7 @@ function PlaceOrderScreen({ history }) {
                         <Button
                            type='button'
                            variant='outline-light'
-                           className='btn-block text-uppercase btn-apply btn_color pt-3 rounded-pill'
+                           className='btn-block btn-success rounded-pill add-to-card btn btn-outline-light'
                            disabled={cart.cartItems === 0}
                            onClick={placeOrderHandler}
                         >

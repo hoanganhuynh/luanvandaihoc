@@ -490,3 +490,8 @@
   border-radius: 30px;
   font-weight: bold;
 }
+
+.MuiTypography-colorPrimary {
+  color: #3b3b3b !important;
+}
+
