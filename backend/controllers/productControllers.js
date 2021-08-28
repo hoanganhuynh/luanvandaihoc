@@ -51,7 +51,7 @@ const getAllProduct = asyncHandler(async (req, res) => {
 //* @access     Public
 const getProductById = asyncHandler(async (req, res) => {
    const product = await Product.findOne({ _id: req.params.id }).populate(
-      'sales supplier'
+      'sales'
    )
 
    console.log(product)
@@ -89,13 +89,12 @@ const createProduct = asyncHandler(async (req, res) => {
       name,
       price,
       description,
-      brand,
       categoryy,
       countInStock,
       supplierr,
       mass,
       images,
-      subCategory,
+      subCategoryy,
    } = req.body
 
    const product = new Product({
@@ -104,12 +103,11 @@ const createProduct = asyncHandler(async (req, res) => {
       price: price,
       description: description,
       images: images,
-      brand: brand,
       category: categoryy,
       countInStock: countInStock,
       mass: mass,
       supplier: supplierr,
-      subCategory: subCategory,
+      subCategory: subCategoryy,
    })
 
    const createdProduct = await product.save()
@@ -127,13 +125,13 @@ const updateProduct = asyncHandler(async (req, res) => {
       name,
       price,
       description,
-      brand,
+      // brand,
       categoryy,
       countInStock,
       supplierr,
       mass,
       images,
-      subCategory,
+      subCategoryy,
    } = req.body
 
    const product = await Product.findById(req.params.id)
@@ -143,12 +141,12 @@ const updateProduct = asyncHandler(async (req, res) => {
       product.price = price
       product.description = description
       product.images = images
-      product.brand = brand
+      // product.brand = brand
       product.category = categoryy
       product.countInStock = countInStock
       product.supplier = supplierr
       product.mass = mass
-      product.subCategory = subCategory
+      product.subCategory = subCategoryy
 
       const updatedProduct = await product.save()
       res.json(updatedProduct)
@@ -364,6 +362,7 @@ const newProduct = asyncHandler(async (req, res, next) => {
       description,
       brand,
       categoryy,
+      subCategoryy,
       countInStock,
       supplierr,
       mass,
@@ -377,6 +376,7 @@ const newProduct = asyncHandler(async (req, res, next) => {
       images: req.body.images,
       brand: brand,
       category: categoryy,
+      subCategory: subCategoryy,
       countInStock: countInStock,
       mass: mass,
       supplier: supplierr,

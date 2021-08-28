@@ -124,196 +124,146 @@ function PlaceOrderScreen({ history }) {
    return (
       <>
          <Header />
-         <Row className='m-4'>
-            <Col md={8} className='mt-2'>
-               <Step step1 step2 step3 step4 />
-               <ListGroup
-                  variant='flush'
-                  className='shadow mt-3 card_color p-1 border-order'
-               >
-                  <ListGroup.Item className='pt-3'>
-                     <h4 className='text-uppercase'>Thông tin giao hàng</h4>
-                     <p className='mb-1 ml-2' style={{ fontSize: '0.9rem' }}>
-                        <strong>Địa chỉ: </strong>
-                        {cart.shippingAddress.diaDiem} {' - '}{' '}
-                        {cart.shippingAddress.diaChi} {' - '}{' '}
-                        {cart.shippingAddress.xa} {' - '}
-                        {cart.shippingAddress.huyen} {' - '}
-                        {cart.shippingAddress.thanhPho}.
-                     </p>
-                     <p className='mb-2 ml-2' style={{ fontSize: '0.9rem' }}>
-                        <strong>Số điện thoại: </strong>
-                        {formatPhoneNumber(cart.shippingAddress.numberPhone)}
-                     </p>
-                  </ListGroup.Item>
+         <div className="categorylink mt-2 mb-3 ml-3">
+                  <span className="fa fa-home"></span>
+                  <span className="fa fa-angle-right"></span>
+                  <span>Giỏ hàng</span>
+                  <span className="fa fa-angle-right"></span>
+                  <span>Địa chỉ giao hàng</span>
+                  <span className="fa fa-angle-right"></span>
+                  <span>Phương thức thanh toán</span>
+                  <span className="fa fa-angle-right"></span>
+                  <span>Xác nhận đơn hàng</span>
+                  
+               </div>
+         <Row className='justify-content-center d-flex'>
+            <Col md={7}>
+            <Step step1 step2 step3 step4 />
+            </Col>
+         </Row>
+         <Row className='p-5 mt-5'>
+               <Col md={8}>
+                  <h5 className='text-success'>GIỎ HÀNG ({cart && cart?.cartItems.length})</h5>
+                     {cart.cartItems.map((item, index) => (
+                        <ListGroup.Item className='mt-2' style={{borderRadius:'8px', border:'1px solid #e0e0e0'}} key={index}>
+                           <Row>
+                              <Col md={2}>
+                                 <Image
+                                    width='65px'
+                                    src={item.images[0].url}
+                                    alt={item.name}
+                                    
+                                 />
+                              </Col>
 
-                  <ListGroup.Item>
-                     <h4 className='text-uppercase mt-2'>
-                        Phương thức thanh toán
-                     </h4>
-                     <div
-                        className='d-flex mb-2 ml-2'
-                        style={{ fontSize: '0.9rem' }}
-                     >
-                        <strong className='pr-1'>Phương Thức: </strong>
-                        {cart.paymentMethod ? (
-                           cart.paymentMethod
+                              <Col md={4} className='d-flex align-items-center'>
+                                 <Link
+                                    to={`/product/${item.product}`}
+                                    className='link-product'
+                                 >
+                                    {item.name}
+                                 </Link>
+                              </Col>
+
+                              <Col md={4} className='d-flex align-items-center'>
+                                 <b style={{ fontSize: '1rem' }}>
+                                    {item.qty} x {format(item.price, 'đ')}
+                                    {' = '}
+                                    {format(item.qty * item.price, 'đ')}
+                                 </b>
+                              </Col>
+                           </Row>
+                        </ListGroup.Item>
+                     ))}
+                  <h5 className='mt-5 text-success'>THÔNG TIN GIAO HÀNG</h5>
+                  <div className='d-flex'>
+                     <div>
+                        <strong><span className='fa fa-phone'></span> Số điện thoại</strong>
+                        <p className='mt-2'>{formatPhoneNumber(cart.shippingAddress.numberPhone)}</p>
+
+                     </div>
+                     <div className='mx-5'>
+                        <strong><span className='fa fa-home'></span> Địa điểm</strong>
+                        {cart.shippingAddress.diaDiem == 'Nhà' ? 
+                        <p className='mt-2 diaDiem-nha'>{cart.shippingAddress.diaDiem}</p>
+                        :
+                        <p className='mt-2 diaDiem-congty'>{cart.shippingAddress.diaDiem}</p>
+                        }
+                     </div>
+                  </div>
+                  <strong><span className='fa fa-map'></span> Địa chỉ</strong>
+                     <p className='mt-2 pb-4'>
+                        {cart.shippingAddress.diaChi} {' - '} {cart.shippingAddress.xa} {' - '} {cart.shippingAddress.huyen}{' '}
+                           {' - '}
+                           {cart.shippingAddress.thanhPho}.</p>
+                  
+                  <h5 className='mt-4 text-success'>PHƯƠNG THỨC THANH TOÁN</h5>
+                     {cart.paymentMethod ? (
+                        <p>{cart.paymentMethod}</p>
+                           
                         ) : (
                            <strong className='text-danger'>
                               Chưa chọn phương thức thanh toán
                            </strong>
                         )}
+
+                  <h5 className='mt-4 text-success'>Mã giảm giá</h5>
+                  <Form>
+                     <Form.Group controlId='text' style={{width:'400px'}}>
+                        <Form.Control
+                           className='border-1 border-grey rounded-pill'
+                           type='text'
+                           placeholder='Nhập mã giảm giá'
+                           value={discountCode}
+                           onChange={(e) =>
+                              setDiscountCode(e.target.value)
+                           }
+                        ></Form.Control>
+                     </Form.Group>
+                  </Form>
+               </Col>
+               <Col md={4}>
+                  <div style={{border:'1px solid #e0e0e0', borderRadius:'8px'}} 
+                  className='p-3 d-flex align-items-center flex-column' >
+                     <h4>CHI TIẾT HOÁ ĐƠN</h4>
+                     <div className='w-100 d-flex justify-content-between px-4 pt-2 mt-2'>
+                        <p>Tổng tiền sản phẩm:</p>
+                        <strong>{format(cart.itemsPrice, 'đ')}</strong>
                      </div>
-                  </ListGroup.Item>
-
-                  <ListGroup.Item>
-                     <h4 className='text-uppercase mt-2'>Mã giảm giá</h4>
-                     <div style={{ fontSize: '0.9rem', width: '20rem' }}>
-                        <Form>
-                           <Form.Group controlId='email'>
-                              <Form.Control
-                                 className='border-1 border-grey rounded-pill'
-                                 type='text'
-                                 placeholder='Nhập địa chỉ mã giảm giá'
-                                 value={discountCode}
-                                 onChange={(e) =>
-                                    setDiscountCode(e.target.value)
-                                 }
-                              ></Form.Control>
-                           </Form.Group>
-                        </Form>
+                     <div className='w-100 d-flex justify-content-between px-4 pt-2'>
+                        <p>Phí vận chuyển:</p>
+                        <strong>{format(cart.shippingPrice, 'đ')}</strong>
                      </div>
-                  </ListGroup.Item>
-
-                  <ListGroup.Item>
-                     <h4 className='text-uppercase mt-2'>Giỏ hàng</h4>
-                     {cart.cartItems.length === 0 ? (
-                        <Message>Giỏ hàng của bạn trống</Message>
-                     ) : (
-                        <ListGroup variant='flush'>
-                           {cart.cartItems.map((item, index) => (
-                              <ListGroup.Item key={index}>
-                                 <Row>
-                                    <Col md={2}>
-                                       <Image
-                                          src={item.images[0].url}
-                                          alt={item.name}
-                                          fluid
-                                          rounded
-                                       />
-                                    </Col>
-
-                                    <Col
-                                       md={5}
-                                       className='d-flex align-items-center'
-                                    >
-                                       <Link
-                                          to={`/product/${item.product}`}
-                                          className='link-product'
-                                       >
-                                          {item.name}
-                                       </Link>
-                                    </Col>
-
-                                    <Col
-                                       md={5}
-                                       className='d-flex align-items-center'
-                                    >
-                                       <b style={{ fontSize: '1rem' }}>
-                                          {item.qty} x {format(item.price, 'đ')}
-                                          {' = '}
-                                          {format(item.qty * item.price, 'đ')}
-                                       </b>
-                                    </Col>
-                                 </Row>
-                              </ListGroup.Item>
-                           ))}
-                        </ListGroup>
-                     )}
-                  </ListGroup.Item>
-               </ListGroup>
-            </Col>
-            <Col md={4}>
-               <Card
-                  className='shadow mt-2 border-0 card_color p-1 border-order'
-                  style={{ zIndex: '1' }}
-               >
-                  <ListGroup variant='flush' className='card_color'>
-                     <ListGroup.Item>
-                        <h4 className='text-uppercase text-center'>
-                           Chi tiết hoá đơn
-                        </h4>
-                     </ListGroup.Item>
-                     <ListGroup.Item>
-                        <Row>
-                           <Col md={8}>Tổng tiền sản phẩm</Col>
-                           <Col md={4}>
-                              <strong>{format(cart.itemsPrice, 'đ')}</strong>
-                           </Col>
-                        </Row>
-                     </ListGroup.Item>
-                     <ListGroup.Item>
-                        <Row>
-                           <Col md={8}>Phí vận chuyển</Col>
-                           <Col m={4}>
-                              <strong>{format(cart.shippingPrice, 'đ')}</strong>
-                           </Col>
-                        </Row>
-                     </ListGroup.Item>
-                     <ListGroup.Item>
-                        <Row>
-                           <Col md={8}>Giảm giá</Col>
-                           <Col m={4}>
+                     <div className='w-100 d-flex justify-content-between px-4 pt-2'>
+                        <p>Mã giảm giá:</p>
+                        {discountCode === '' ? (<strong>0đ</strong>) : (
+                           <div>
                               {code?.map((c) => (
                                  <strong>
                                     {discountCode === c.name &&
                                        format(c.discount, 'đ')}
                                  </strong>
                               ))}
-                           </Col>
-                        </Row>
-                     </ListGroup.Item>
-
-                     <ListGroup.Item>
-                        <Row>
-                           <Col md={8}>
-                              <strong>Tổng cộng (bao gồm VAT):</strong>
-                           </Col>
-                           <Col md={4}>
-                              <strong>{format(cart.totalPrice, 'đ')}</strong>
-                           </Col>
-                        </Row>
-                     </ListGroup.Item>
-                     <ListGroup.Item>
-                        {error && (
-                           <Announcement variant='danger'>
-                              Vui lòng chọn phương thức thanh toán
-                           </Announcement>
+                           </div>
                         )}
-                        {/* {code?.map(
-                           (c) =>
-                              c.name !== discountCode && (
-                                 <Announcement variant='danger'>
-                                    Mã giảm giá không tồn tại
-                                 </Announcement>
-                              )
-                        )} */}
-                     </ListGroup.Item>
-                     <ListGroup.Item>
-                        <Button
-                           type='button'
-                           variant='outline-light'
-                           className='btn-block btn-success rounded-pill add-to-card btn btn-outline-light'
-                           disabled={cart.cartItems === 0}
-                           onClick={placeOrderHandler}
-                        >
-                           <h5>Xác nhận đặt hàng</h5>
-                        </Button>
-                     </ListGroup.Item>
-                  </ListGroup>
-                  <ToastContainer />
-               </Card>
-            </Col>
+                     </div>
+                     <div className='w-100 d-flex justify-content-between px-4 pt-2'>
+                        <p>Tổng cộng:</p>
+                        <strong className='text-success h4'>{format(cart.totalPrice, 'đ')}</strong>
+                     </div>
+                     <Button
+                        type='button'
+                        // variant='outline-light'
+                        className='btn-block btn-success rounded-pill add-to-card btn btn-outline-light'
+                        disabled={cart.cartItems === 0}
+                        onClick={placeOrderHandler}
+                     >
+                        <h5>Xác nhận đặt hàng</h5>
+                     </Button>
+
+                  </div>
+                  
+               </Col>
          </Row>
          <Footer />
       </>
