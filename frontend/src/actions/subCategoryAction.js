@@ -70,6 +70,8 @@ export const listSubCategory = () => async (dispatch, getState) => {
 
       const { data } = await axios.get('/api/subCategory', config)
 
+      console.log('subCat')
+
       dispatch({
          type: SUB_CATEGORY_LIST_SUCCESS,
          payload: data,

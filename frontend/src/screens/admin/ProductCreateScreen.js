@@ -27,7 +27,7 @@ const ProductCreateScreen = () => {
    const [images, setImages] = useState([])
    const [brand, setBrand] = useState('')
    const [categoryy, setCategory] = useState('')
-   const [subCategory, setSubCategory] = useState('')
+   const [subCategoryy, setSubCategory] = useState('')
    const [countInStock, setCountInStock] = useState(0)
    const [description, setDescription] = useState('')
    const [mass, setMass] = useState('')
@@ -105,7 +105,7 @@ const ProductCreateScreen = () => {
             mass,
             brand,
             images,
-            subCategory,
+            subCategoryy,
          })
       )
    }
@@ -343,7 +343,7 @@ const ProductCreateScreen = () => {
                                        type='text'
                                        as='select'
                                        placeholder='Enter category'
-                                       value={subCategory}
+                                       value={subCategoryy}
                                        onChange={(e) =>
                                           setSubCategory(e.target.value)
                                        }

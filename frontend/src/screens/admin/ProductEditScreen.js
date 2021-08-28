@@ -4,6 +4,8 @@ import { Button, Col, Container, Form, Row, Image } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { listCategoriesAdm } from '../../actions/categoryAction'
+import { listSupplierAdm } from '../../actions/supplierActions'
+import { listSubCategory } from '../../actions/subCategoryAction'
 import { listProductDetails, updateProduct } from '../../actions/productActions'
 import SkeletonEffect from '../../components/SkeletonEffect'
 import Message from '../../components/Message'
@@ -21,14 +23,17 @@ function ProductEditScreen({ match, history }) {
    const [name, setName] = useState('')
    const [price, setPrice] = useState(0)
    const [images, setImages] = useState([])
-   const [brand, setBrand] = useState('')
+   // const [brand, setBrand] = useState('')
    const [categoryy, setCategory] = useState('')
-   const [subCategory, setSubCategory] = useState('')
+   const [subCategoryy, setSubCategory] = useState('')
    const [countInStock, setCountInStock] = useState(0)
    const [description, setDescription] = useState('')
    const [mass, setMass] = useState('')
    const [supplierr, setSupplier] = useState('')
    const [uploading, setUploading] = useState(false)
+   const [oldImg, setOldImg] = useState([])
+
+   
 
    const dispatch = useDispatch()
 
@@ -38,8 +43,13 @@ function ProductEditScreen({ match, history }) {
    const productDetails = useSelector((state) => state.productDetails)
    const { loading, error, product } = productDetails
 
+
    const categoriesList = useSelector((state) => state.categoriesList)
    const { category } = categoriesList
+   
+   const subCategoryList = useSelector((state) => state.subCategoryList)
+   const { Sub } = subCategoryList
+   
 
    const productUpdate = useSelector((state) => state.productUpdate)
    const {
@@ -48,11 +58,12 @@ function ProductEditScreen({ match, history }) {
       success: successUpdate,
    } = productUpdate
 
-   const subCategoryList = useSelector((state) => state.subCategoryList)
-   const { Sub } = subCategoryList
 
    const supplierListAdm = useSelector((state) => state.supplierListAdm)
    const { supplier } = supplierListAdm
+
+   console.log('oldimg', oldImg)
+   console.log('product', product)
 
    const submitHandler = (e) => {
       e.preventDefault()
@@ -67,9 +78,8 @@ function ProductEditScreen({ match, history }) {
             supplierr,
             countInStock,
             mass,
-            brand,
             images,
-            subCategory,
+            subCategoryy,
          })
       )
    }
@@ -78,6 +88,7 @@ function ProductEditScreen({ match, history }) {
       let files = e.target.files
       let allImages = []
       let preview = []
+      setOldImg([])
       if (files) {
          for (let i = 0; i < files.length; i++) {
             preview.push(files[i].name)
@@ -105,24 +116,30 @@ function ProductEditScreen({ match, history }) {
    }
 
    useEffect(() => {
+      
       if (successUpdate) {
          dispatch({ type: PRODUCT_UPDATE_RESET })
-         // history.push('/admin/productlist')
+         history.push('/admin/productlist')
       } else {
          if (!product.name || product._id !== productId) {
             if (userInfo) {
                dispatch(listProductDetails(productId))
                dispatch(listCategoriesAdm())
+               dispatch(listSubCategory())
+               dispatch(listSupplierAdm())
             }
          } else {
             setName(product.name)
             setPrice(product.price)
-            setImages(product.image)
-            setBrand(product.brand)
+            // setImages(product.image)
+            // setBrand(product.brand)
             setCategory(product.category)
+            setSubCategory(product.subCategory)
             setCountInStock(product.countInStock)
             setDescription(product.description)
             setMass(product.mass)
+            setSupplier(product.supplier)
+            images?.length > 0 ? setOldImg([]) : setOldImg(product.images)
          }
       }
    }, [dispatch, userInfo, history, productId, product, successUpdate])
@@ -188,6 +205,41 @@ function ProductEditScreen({ match, history }) {
                                     ></Form.File>
                                  </Col>
                                  <Col md={6}>
+                                 <Row>
+                                       {oldImg &&
+                                          oldImg.map((img) => (
+                                             <Col md={3}>
+                                                <div>
+                                                   <Button
+                                                      className=''
+                                                      style={{
+                                                         // marginBottom: '-35%',
+                                                         zIndex: '5',
+                                                         color: 'black',
+                                                      }}
+                                                      size='sm'
+                                                      variant='outline-light'
+                                                      // onClick={deleteFile(
+                                                      //    images.public_id
+                                                      // )}
+                                                   >
+                                                      <CloseOutlined
+                                                         style={{
+                                                            fontSize: '1rem',
+                                                         }}
+                                                      />
+                                                   </Button>
+
+                                                   <Image
+                                                      src={img.url}
+                                                      className='rounded avatar_img'
+                                                      fluid
+                                                   />
+                                                </div>
+                                             </Col>
+                                          ))}
+                                    </Row>
+
                                     <Row>
                                        {images &&
                                           images.map((img) => (
@@ -228,29 +280,8 @@ function ProductEditScreen({ match, history }) {
                            </Form.Group>
 
                            <Row>
-                              <Col md={3}>
-                                 <Form.Group
-                                    controlId='brand'
-                                    className='pl-3 pr-3'
-                                 >
-                                    <Form.Label
-                                       as='p'
-                                       className='mb-1 text-center'
-                                    >
-                                       Thể loại
-                                    </Form.Label>
-                                    <Form.Control
-                                       className='border border-grey rounded-pill'
-                                       type='text'
-                                       placeholder='Enter brand'
-                                       value={brand}
-                                       onChange={(e) =>
-                                          setBrand(e.target.value)
-                                       }
-                                    ></Form.Control>
-                                 </Form.Group>
-                              </Col>
-                              <Col md={3}>
+                              
+                              <Col md={4}>
                                  <Form.Group
                                     controlId='countInStock'
                                     className='pl-3 pr-3'
@@ -272,7 +303,7 @@ function ProductEditScreen({ match, history }) {
                                     ></Form.Control>
                                  </Form.Group>
                               </Col>
-                              <Col md={3}>
+                              <Col md={4}>
                                  <Form.Group
                                     controlId='category'
                                     className='pl-3 pr-3'
@@ -307,7 +338,7 @@ function ProductEditScreen({ match, history }) {
                                     </Form.Control>
                                  </Form.Group>
                               </Col>
-                              <Col md={3}>
+                              <Col md={4}>
                                  <Form.Group
                                     controlId='price'
                                     className='pl-3 pr-3'
@@ -348,14 +379,14 @@ function ProductEditScreen({ match, history }) {
                                        type='text'
                                        as='select'
                                        placeholder='Enter category'
-                                       value={subCategory}
+                                       value={subCategoryy}
                                        onChange={(e) =>
                                           setSubCategory(e.target.value)
                                        }
                                     >
-                                       <option></option>
+                                       <option>Vui lòng chọn</option>
                                        {Sub &&
-                                          Sub.map((cat, index) => (
+                                          Sub?.map((cat, index) => (
                                              <option
                                                 style={{ color: 'black' }}
                                                 key={index}
@@ -456,7 +487,7 @@ function ProductEditScreen({ match, history }) {
                                     width: '20rem',
                                  }}
                               >
-                                 Tạo
+                                 Lưu
                               </Button>
                            </div>
                         </Form>

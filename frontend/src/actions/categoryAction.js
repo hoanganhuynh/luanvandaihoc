@@ -69,6 +69,7 @@ export const listCategories = () => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get('/api/category', config)
+    
 
     dispatch({
       type: CATEGORY_LIST_SUCCESS,
