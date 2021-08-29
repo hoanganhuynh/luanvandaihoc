@@ -32,6 +32,8 @@ const AdminScreen = ({ history }) => {
    const orderConsult = useSelector((state) => state.orderConsult)
    const { order } = orderConsult
 
+ 
+
    const handleChange = (event) => {
       setConsult(event.target.value)
       dispatch(consultOrder({ values: event.target.value }))
@@ -46,7 +48,7 @@ const AdminScreen = ({ history }) => {
    return (
       <>
          <Header />
-         <Row style={{ backgroundColor: '#b68973' }}>
+         <Row style={{ backgroundColor: '#fafafa' }}>
             <Col md={2} className='p-0 '>
                <SideBar />
             </Col>
@@ -55,7 +57,7 @@ const AdminScreen = ({ history }) => {
                className='pl-0 pt-4'
                style={{ backgroundColor: '#fff' }}
             >
-               <h3 className='text-center'>Thống kê</h3>
+               <h3 className='ml-3'>Thống kê</h3>
                <ListNumbers />
                <div className='d-flex justify-content-end mr-4'>
                   <FormControl
