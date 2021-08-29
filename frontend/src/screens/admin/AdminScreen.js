@@ -27,7 +27,7 @@ const AdminScreen = ({ history }) => {
    const classes = useStyles()
    const dispatch = useDispatch()
 
-   const [consult, setConsult] = useState('')
+   const [consult, setConsult] = useState('currentMonth')
 
    const orderConsult = useSelector((state) => state.orderConsult)
    const { order } = orderConsult
