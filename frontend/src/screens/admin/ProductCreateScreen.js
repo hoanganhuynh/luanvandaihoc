@@ -157,7 +157,7 @@ const ProductCreateScreen = () => {
                               <Form.Control
                                  className='border border-grey rounded-pill'
                                  type='name'
-                                 placeholder='Enter name'
+                                 placeholder='Nhập tên sản phẩm'
                                  value={name}
                                  onChange={(e) => setName(e.target.value)}
                               ></Form.Control>
@@ -371,12 +371,12 @@ const ProductCreateScreen = () => {
                                        as='p'
                                        className='mb-1 text-center'
                                     >
-                                       Khối lượng
+                                       Chiều Cao
                                     </Form.Label>
                                     <Form.Control
                                        className='border border-grey rounded-pill text-center'
                                        type='text'
-                                       placeholder='Enter countInStock'
+                                       placeholder='Nhập chiều cao cm'
                                        value={mass}
                                        onChange={(e) => setMass(e.target.value)}
                                     ></Form.Control>
