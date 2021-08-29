@@ -21,10 +21,20 @@ const ListNumbers = ({ history }) => {
    const productListAll = useSelector((state) => state.productListAll)
    const { products } = productListAll
 
+   const categoriesList = useSelector((state) => state.categoriesList)
+   const { category } = categoriesList
+
+   const subCategoryList = useSelector((state) => state.subCategoryList)
+   const { Sub } = subCategoryList
+
+   const codeList = useSelector((state) => state.codeList)
+   const { code } = codeList
+   
+
    const userList = useSelector((state) => state.userList)
    const {users } = userList
 
-   console.log(users)
+   // console.log(users)
 
    const orderConsult = useSelector((state) => state.orderConsult)
    const { order } = orderConsult
@@ -69,8 +79,8 @@ const ListNumbers = ({ history }) => {
                style={{border: 'none', borderRadius:'6px'}}>
                   <div className='mr-3 p-3'>
                      <p className='h2 text-white'>
-                        {/* <CountUp end={100} /> */}
-                        {ordersList && ordersList.orders?.length}</p>
+                        <CountUp start={1234} end={ordersList && ordersList.orders?.length} duration={1} />
+                        </p>
                      <p className='text-white'>Tổng đơn hàng</p>
                      <Link className='text-light' to='admin/orderlist' >Chi tiết
                      <span className="fa fa-angle-right ml-2"></span>
@@ -89,8 +99,10 @@ const ListNumbers = ({ history }) => {
                style={{border: 'none', borderRadius:'6px'}}>
 
                   <div className='mr-3 p-3'>
-                     <p className='h2 text-white'>{ordersList?.totalAmount &&
-                                 formatMoney(ordersList?.totalAmount, 'đ')}</p>
+                     <p className='h2 text-white'> 
+                     <CountUp start={3131731} end={ordersList?.totalAmount &&
+                                  ordersList?.totalAmount} duration={1}/>đ
+                     </p>
                      <p className='text-white'>Tổng doanh thu</p>
                      <Link className='text-light' to='admin/orderlist' >Chi tiết
                      <span className="fa fa-angle-right ml-2"></span>
@@ -109,7 +121,7 @@ const ListNumbers = ({ history }) => {
                style={{border: 'none', borderRadius:'6px'}}>
 
                   <div className='mr-3 p-3'>
-                     <p className='h2 text-white'>{products && products.length}</p>
+                     <p className='h2 text-white'><CountUp  start={5674} duration={1} end={products && products.length}/></p>
                      <p className='text-white'>Tổng sản phẩm</p>
                      <Link className='text-light' to='admin/productlist' >Chi tiết
                      <span className="fa fa-angle-right ml-2"></span>
@@ -128,7 +140,7 @@ const ListNumbers = ({ history }) => {
                style={{border: 'none', borderRadius:'6px'}}>
 
                   <div className='mr-3 p-3'>
-                     <p className='h2 text-white'>{outOfStock}</p>
+                     <p className='h2 text-white'><CountUp end={outOfStock} duration={1}/></p>
                      <p className=' text-white'>SP hết hàng</p>
                      <Link className='text-light' to='admin/productlist' >Chi tiết
                      <span className="fa fa-angle-right ml-2"></span>
@@ -148,7 +160,7 @@ const ListNumbers = ({ history }) => {
                <div className='d-flex p-0 card-thongke bg-gradient-green justify-content-between '
                style={{border: 'none', borderRadius:'6px'}}>
                   <div className='mr-3 p-3'>
-                     <p className='h2 text-white'>{users && users.length}</p>
+                     <p className='h2 text-white'><CountUp start={2311} end={users && users.length} duration={1}/></p>
                      <p className='text-white'>Khách hàng</p>
                      <Link className='text-light' to='admin/orderlist' >Chi tiết
                      <span className="fa fa-angle-right ml-2"></span>
@@ -167,15 +179,14 @@ const ListNumbers = ({ history }) => {
                style={{border: 'none', borderRadius:'6px'}}>
 
                   <div className='mr-3 p-3'>
-                     <p className='h2 text-white'>{ordersList?.totalAmount &&
-                                 formatMoney(ordersList?.totalAmount, 'đ')}</p>
-                     <p className='text-white'>Tổng doanh thu</p>
-                     <Link className='text-light' to='admin/orderlist' >Chi tiết
+                     <p className='h2 text-white'><CountUp end={category && category.length} duration={1} start={123}/></p>
+                     <p className='text-white'>Tổng danh mục</p>
+                     <Link className='text-light' to='admin/categorieslist' >Chi tiết
                      <span className="fa fa-angle-right ml-2"></span>
                      </Link>
                   </div>
                   <div className='card-thongke-right p-2'>
-                  <Image width='45px' src='/background/doanhthu.png' fluid />
+                  <Image width='45px' src='/background/danhmuc.png' fluid />
                   </div>
                </div>
             </Col>
@@ -187,8 +198,8 @@ const ListNumbers = ({ history }) => {
                style={{border: 'none', borderRadius:'6px'}}>
 
                   <div className='mr-3 p-3'>
-                     <p className='h2 text-white'>{products && products.length}</p>
-                     <p className='text-white'>Tổng sản phẩm</p>
+                     <p className='h2 text-white'><CountUp end={Sub && Sub.length} duration={1} start={234}/></p>
+                     <p className='text-white'>Tổng danh mục con</p>
                      <Link className='text-light' to='admin/productlist' >Chi tiết
                      <span className="fa fa-angle-right ml-2"></span>
                      </Link>
@@ -206,14 +217,14 @@ const ListNumbers = ({ history }) => {
                style={{border: 'none', borderRadius:'6px'}}>
 
                   <div className='mr-3 p-3'>
-                     <p className='h2 text-white'>{outOfStock}</p>
-                     <p className=' text-white'>SP hết hàng</p>
-                     <Link className='text-light' to='admin/productlist' >Chi tiết
+                     <p className='h2 text-white'><CountUp end={code && code.length} duration={1} start={456}/></p>
+                     <p className=' text-white'>Mã giảm giá</p>
+                     <Link className='text-light' to='admin/codelist' >Chi tiết
                      <span className="fa fa-angle-right ml-2"></span>
                      </Link>
                   </div>
                   <div className='card-thongke-right p-2'>
-                  <Image width='45px' src='/background/hethang.png' fluid />
+                  <Image width='45px' src='/background/code.png' fluid />
                   </div>
                </div>
             </Col>
