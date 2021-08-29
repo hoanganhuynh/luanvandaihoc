@@ -1,10 +1,15 @@
 import { Button } from '@material-ui/core'
+import { Link } from 'react-router-dom'
+// import { LinkContainer } from 'react-router-bootstrap'
 import React, { useEffect } from 'react'
 import { Card, Col, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { listOrders } from '../../../actions/orderActions'
 import { listAllProduct, listProducts } from '../../../actions/productActions'
 import { listSupplierAdm } from '../../../actions/supplierActions'
+import CountUp from 'react-countup';
+
+import { Carousel, Image, Skeleton } from 'antd'
 
 function formatMoney(n, currency) {
    return n.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + currency
@@ -15,6 +20,11 @@ const ListNumbers = ({ history }) => {
 
    const productListAll = useSelector((state) => state.productListAll)
    const { products } = productListAll
+
+   const userList = useSelector((state) => state.userList)
+   const {users } = userList
+
+   console.log(users)
 
    const orderConsult = useSelector((state) => state.orderConsult)
    const { order } = orderConsult
@@ -51,151 +61,161 @@ const ListNumbers = ({ history }) => {
 
    return (
       <div>
-         <Row className='p-3 '>
-            <Col md={3}>
-               <Card
-                  className='shadow card_color'
-                  style={{ height: '16rem', border: '0.25rem solid #2e5a1c' }}
-               >
-                  <Card.Body>
-                     <Card.Title className='text-center'>
-                        <h4>Tổng số đơn hàng</h4>
-                     </Card.Title>
-                     <Card.Subtitle
-                        className='mb-3  pt-2 text-center text-secondary'
-                        style={{ borderTop: '0.15rem solid #ddd' }}
-                     >
-                        Tổng số đơn hàng đã được đặt
-                     </Card.Subtitle>
-                     <Card.Title className='text-center'>
-                        <h1 style={{ fontSize: '3rem' }}>
-                           {ordersList && ordersList.orders?.length}
-                        </h1>
-                     </Card.Title>
-                     <Card.Subtitle className='mb-2 text-center'>
-                        <h5 className='text-secondary'>Đơn hàng</h5>
-                     </Card.Subtitle>
-                     <Card.Link
-                        href='/admin/orderlist'
-                        className='d-flex justify-content-end'
-                        style={{ borderTop: '0.15rem solid #ddd' }}
-                     >
-                        <Button color='secondary'>
-                           <strong className='text-capitalize'>Chi tiết</strong>
-                        </Button>
-                     </Card.Link>
-                  </Card.Body>
-               </Card>
-            </Col>
-            <Col md={3}>
-               <Card
-                  className='shadow card_color'
-                  style={{ height: '16rem', border: '0.25rem solid #2e5a1c' }}
-               >
-                  <Card.Body>
-                     <Card.Title className='text-center'>
-                        <h4>Doanh thu</h4>
-                     </Card.Title>
-                     <Card.Subtitle
-                        className='mb-4 mt-4 pt-2 text-center text-secondary'
-                        style={{ borderTop: '0.15rem solid #ddd' }}
-                     >
-                        Tổng số doanh thu từ các đơn hàng
-                     </Card.Subtitle>
-                     <Card.Title className='text-center mb-4'>
-                        <h2
-                           style={{ fontSize: '1.4rem' }}
-                           className='text-lowercase'
-                        >
-                           {ordersList?.totalAmount &&
-                              formatMoney(ordersList?.totalAmount, 'đ')}
-                        </h2>
-                     </Card.Title>
-
-                     <Card.Link
-                        href='/admin/orderlist'
-                        className='d-flex justify-content-end'
-                        style={{ borderTop: '0.15rem solid #ddd' }}
-                     >
-                        <Button color='secondary'>
-                           <strong className='text-capitalize'>
-                              {' '}
-                              Chi tiết
-                           </strong>
-                        </Button>
-                     </Card.Link>
-                  </Card.Body>
-               </Card>
-            </Col>
-            <Col md={3}>
-               <Card
-                  className='shadow card_color'
-                  style={{ height: '16rem', border: '0.25rem solid #2e5a1c' }}
-               >
-                  <Card.Body>
-                     <Card.Title className='text-center'>
-                        <h4>Tổng số sản phẩm</h4>
-                     </Card.Title>
-                     <Card.Subtitle
-                        className=' pt-2 text-center text-secondary'
-                        style={{ borderTop: '0.15rem solid #ddd' }}
-                     >
-                        Tổng số sản phẩm đang được bày bán
-                     </Card.Subtitle>
-                     <Card.Title className='text-center'>
-                        <h1 style={{ fontSize: '3rem' }}>
-                           {products && products.length}
-                        </h1>
-                     </Card.Title>
-                     <Card.Subtitle className='mb-2 text-center'>
-                        <h5 className='text-secondary'>Sản phẩm</h5>
-                     </Card.Subtitle>
-                     <Card.Link
-                        href='/admin/productlist'
-                        className='d-flex justify-content-end'
-                        style={{ borderTop: '0.15rem solid #ddd' }}
-                     >
-                        <Button color='secondary'>
-                           <strong className='text-capitalize'>Chi tiết</strong>
-                        </Button>
-                     </Card.Link>
-                  </Card.Body>
-               </Card>
+         <Row className='p-4'>
+            <Col md={3} className='p-0 pr-3'
+            style={{border: 'none', borderRadius:'6px'}}
+            >
+               <div className='d-flex p-0 card-thongke bg-gradient-purple justify-content-between '
+               style={{border: 'none', borderRadius:'6px'}}>
+                  <div className='mr-3 p-3'>
+                     <p className='h2 text-white'>
+                        {/* <CountUp end={100} /> */}
+                        {ordersList && ordersList.orders?.length}</p>
+                     <p className='text-white'>Tổng đơn hàng</p>
+                     <Link className='text-light' to='admin/orderlist' >Chi tiết
+                     <span className="fa fa-angle-right ml-2"></span>
+                     </Link>
+                  </div>
+                  <div className='card-thongke-right p-2'>
+                  <Image width='45px' src='/background/order.png' fluid />
+                  </div>
+               </div>
             </Col>
 
-            <Col md={3}>
-               <Card
-                  className='shadow card_color'
-                  style={{ height: '16rem', border: '0.25rem solid #2e5a1c' }}
-                  text='light'
-               >
-                  <Card.Body>
-                     <Card.Title className='text-center'>
-                        <h4>Tổng số sản phẩm hết hàng</h4>
-                     </Card.Title>
-                     <Card.Subtitle
-                        className='mb-3 pt-2 text-center text-secondary'
-                        style={{ borderTop: '0.15rem solid #ddd' }}
-                     >
-                        Tổng số sản phẩm hết hàng
-                     </Card.Subtitle>
-                     <Card.Title className='text-center'>
-                        <h1 style={{ fontSize: '3rem' }}>{outOfStock}</h1>
-                     </Card.Title>
-                     <Card.Subtitle className='mb-1 text-center'>
-                        <h5 className='text-secondary'>Sản phẩm</h5>
-                     </Card.Subtitle>
-                     <Card.Link
-                        href='/admin/productlist'
-                        className='d-flex justify-content-end'
-                        style={{ borderTop: '0.15rem solid #ddd' }}
-                     >
-                        <Button color='secondary'>
-                           <strong className='text-capitalize'>Chi tiết</strong>
-                        </Button>
-                     </Card.Link>
-                  </Card.Body>
-               </Card>
+            <Col md={3} className='p-0 pr-3'
+            style={{border: 'none', borderRadius:'6px'}}
+            >
+               <div className='d-flex p-0 card-thongke bg-gradient-orange justify-content-between '
+               style={{border: 'none', borderRadius:'6px'}}>
+
+                  <div className='mr-3 p-3'>
+                     <p className='h2 text-white'>{ordersList?.totalAmount &&
+                                 formatMoney(ordersList?.totalAmount, 'đ')}</p>
+                     <p className='text-white'>Tổng doanh thu</p>
+                     <Link className='text-light' to='admin/orderlist' >Chi tiết
+                     <span className="fa fa-angle-right ml-2"></span>
+                     </Link>
+                  </div>
+                  <div className='card-thongke-right p-2'>
+                  <Image width='45px' src='/background/doanhthu.png' fluid />
+                  </div>
+               </div>
+            </Col>
+
+            <Col md={3} className='p-0 pr-3'
+            
+            >
+               <div className='d-flex p-0 card-thongke bg-gradient-blue justify-content-between '
+               style={{border: 'none', borderRadius:'6px'}}>
+
+                  <div className='mr-3 p-3'>
+                     <p className='h2 text-white'>{products && products.length}</p>
+                     <p className='text-white'>Tổng sản phẩm</p>
+                     <Link className='text-light' to='admin/productlist' >Chi tiết
+                     <span className="fa fa-angle-right ml-2"></span>
+                     </Link>
+                  </div>
+                  <div className='card-thongke-right p-2'>
+                  <Image width='45px' src='/background/cay.png' fluid />
+                  </div>
+               </div>
+            </Col>
+
+            <Col md={3} className=''
+            
+            >
+               <div className='d-flex p-0 card-thongke bg-gradient-red justify-content-between '
+               style={{border: 'none', borderRadius:'6px'}}>
+
+                  <div className='mr-3 p-3'>
+                     <p className='h2 text-white'>{outOfStock}</p>
+                     <p className=' text-white'>SP hết hàng</p>
+                     <Link className='text-light' to='admin/productlist' >Chi tiết
+                     <span className="fa fa-angle-right ml-2"></span>
+                     </Link>
+                  </div>
+                  <div className='card-thongke-right p-2'>
+                  <Image width='45px' src='/background/hethang.png' fluid />
+                  </div>
+               </div>
+            </Col>
+         </Row>
+
+         <Row className='px-4'>
+            <Col md={3} className='p-0 pr-3'
+            style={{border: 'none', borderRadius:'6px'}}
+            >
+               <div className='d-flex p-0 card-thongke bg-gradient-green justify-content-between '
+               style={{border: 'none', borderRadius:'6px'}}>
+                  <div className='mr-3 p-3'>
+                     <p className='h2 text-white'>{users && users.length}</p>
+                     <p className='text-white'>Khách hàng</p>
+                     <Link className='text-light' to='admin/orderlist' >Chi tiết
+                     <span className="fa fa-angle-right ml-2"></span>
+                     </Link>
+                  </div>
+                  <div className='card-thongke-right p-2'>
+                  <Image width='45px' src='/background/khachhang.png' fluid />
+                  </div>
+               </div>
+            </Col>
+
+            <Col md={3} className='p-0 pr-3'
+            style={{border: 'none', borderRadius:'6px'}}
+            >
+               <div className='d-flex p-0 card-thongke bg-gradient-blue2 justify-content-between '
+               style={{border: 'none', borderRadius:'6px'}}>
+
+                  <div className='mr-3 p-3'>
+                     <p className='h2 text-white'>{ordersList?.totalAmount &&
+                                 formatMoney(ordersList?.totalAmount, 'đ')}</p>
+                     <p className='text-white'>Tổng doanh thu</p>
+                     <Link className='text-light' to='admin/orderlist' >Chi tiết
+                     <span className="fa fa-angle-right ml-2"></span>
+                     </Link>
+                  </div>
+                  <div className='card-thongke-right p-2'>
+                  <Image width='45px' src='/background/doanhthu.png' fluid />
+                  </div>
+               </div>
+            </Col>
+
+            <Col md={3} className='p-0 pr-3'
+            
+            >
+               <div className='d-flex p-0 card-thongke bg-gradient-yellow justify-content-between '
+               style={{border: 'none', borderRadius:'6px'}}>
+
+                  <div className='mr-3 p-3'>
+                     <p className='h2 text-white'>{products && products.length}</p>
+                     <p className='text-white'>Tổng sản phẩm</p>
+                     <Link className='text-light' to='admin/productlist' >Chi tiết
+                     <span className="fa fa-angle-right ml-2"></span>
+                     </Link>
+                  </div>
+                  <div className='card-thongke-right p-2'>
+                  <Image width='45px' src='/background/cay.png' fluid />
+                  </div>
+               </div>
+            </Col>
+
+            <Col md={3} className=''
+            
+            >
+               <div className='d-flex p-0 card-thongke bg-gradient-purple2 justify-content-between '
+               style={{border: 'none', borderRadius:'6px'}}>
+
+                  <div className='mr-3 p-3'>
+                     <p className='h2 text-white'>{outOfStock}</p>
+                     <p className=' text-white'>SP hết hàng</p>
+                     <Link className='text-light' to='admin/productlist' >Chi tiết
+                     <span className="fa fa-angle-right ml-2"></span>
+                     </Link>
+                  </div>
+                  <div className='card-thongke-right p-2'>
+                  <Image width='45px' src='/background/hethang.png' fluid />
+                  </div>
+               </div>
             </Col>
          </Row>
       </div>

@@ -98,7 +98,7 @@ const OrderEditScreen = ({ match, history }) => {
    return (
       <>
          <Header />
-         <Row style={{ backgroundColor: '#b68973' }}>
+         <Row style={{ backgroundColor: '#fafafa' }}>
             <Col md={2} className='p-0'>
                <SideBar />
             </Col>
@@ -131,10 +131,12 @@ const OrderEditScreen = ({ match, history }) => {
                               <Col md={6}>
                                  <div>
                                     <h5>
-                                       Trạng thái đơn hàng: {order?.orderStatus}
-                                    </h5>
-                                 </div>
-                                 <FormControl className={classes.formControl}>
+                                       {order?.orderStatus == 'Huỷ' || order?.orderStatus == 'Chờ xác nhận' && order.isPaid == false ? (
+                                          <p>Trạng thái đơn hàng: {order?.orderStatus}</p>
+                                       ) : (
+                                       <div>
+                                          <p>Trạng thái đơn hàng: {order?.orderStatus}</p>
+                                          <FormControl className={classes.formControl}>
                                     <InputLabel
                                        id='demo-controlled-open-select-label'
                                        style={{ fontSize: '1.2rem' }}
@@ -163,6 +165,11 @@ const OrderEditScreen = ({ match, history }) => {
                                        ))}
                                     </Select>
                                  </FormControl>
+                                       </div>) }
+                                       {/* Trạng thái đơn hàng: {order?.orderStatus} */}
+                                    </h5>
+                                 </div>
+                                 
                               </Col>
                            </Row>
                         </ListGroup.Item>

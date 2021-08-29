@@ -376,7 +376,7 @@ const SaleListScreen = ({ history }) => {
    return (
       <>
          <Header />
-         <Row style={{ backgroundColor: '#b68973' }}>
+         <Row style={{ backgroundColor: '#fafafa' }}>
             <Col md={2} className='p-0'>
                <SideBar />
             </Col>

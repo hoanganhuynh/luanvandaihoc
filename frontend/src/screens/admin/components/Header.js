@@ -294,15 +294,15 @@ function Header(props) {
          <Navbar
             expand='lg'
             collapseOnSelect
-            className='p-0 pl-5 pr-5 m-0 shadow '
-            style={{ backgroundColor: '#edfead', height: '4rem' }}
+            className='p-0 pl-5 pr-5 m-0 shadow sticky-top'
+            style={{ backgroundColor: '#fafafa', height: '4rem' ,zIndex:'99' }}
          >
             <Container fluid>
                <LinkContainer to='/'>
                   <Navbar.Brand className='text-uppercase font-weight-bold flex-grow-1 '>
                      <Image
-                        src='/logo/logo_white.png'
-                        style={{ width: '5rem', height: '4rem', zIndex: '0' }}
+                        src='/logo/LOGO-LUANVAN20210821.png'
+                        style={{ width: '9.6rem', height: '4rem', zIndex: '0' }}
                      />
                   </Navbar.Brand>
                </LinkContainer>
@@ -336,7 +336,8 @@ function Header(props) {
                         role={undefined}
                         transition
                         disablePortal
-                        style={{ zIndex: '5' }}
+                        style={{ zIndex: '10'}}
+                        className='noti-list'
                      >
                         {({ TransitionProps, placement }) => (
                            <Grow {...TransitionProps}>

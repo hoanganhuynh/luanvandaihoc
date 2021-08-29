@@ -11,7 +11,8 @@ import {
    TagsOutlined,
    UserOutlined,
 } from '@ant-design/icons'
-import { Link } from '@material-ui/core'
+// import { Link } from '@material-ui/core'
+import { Link } from 'react-router-dom'
 import { Button, Menu } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
@@ -59,15 +60,7 @@ const SideBar = () => {
    return (
       <>
          <div className='side_bar'>
-            <Button
-               type='primary'
-               onClick={toggleCollapsed}
-               // style={{ marginBottom: 16 }}
-            >
-               {React.createElement(
-                  state ? MenuUnfoldOutlined : MenuFoldOutlined
-               )}
-            </Button>
+            
             <Menu
                // defaultSelectedKeys={selectedKey}
                // defaultOpenKeys={['sub1', 'sub2', 'sub3']}
@@ -77,12 +70,12 @@ const SideBar = () => {
                selectedKeys={selectedKey}
                openKeys={openKeys}
                onOpenChange={onOpenChange}
-               style={{ height: '100vh', backgroundColor: '#b68973' }}
+               style={{ height: '100vh', backgroundColor: '#111' }}
             >
                <Menu.Item key='/admin' icon={<PieChartOutlined />}>
                   <Link
-                     href='/admin'
-                     className='text-decoration-none '
+                     to='/admin'
+                     className='text-decoration-none text-white'
                      style={{ fontSize: '1rem' }}
                   >
                      Thống kê
@@ -90,8 +83,8 @@ const SideBar = () => {
                </Menu.Item>
                <Menu.Item key='/admin/userlist' icon={<UserOutlined />}>
                   <Link
-                     href='/admin/userlist'
-                     className='text-decoration-none'
+                     to='/admin/userlist'
+                     className='text-decoration-none text-white'
                      style={{ fontSize: '1rem' }}
                   >
                      Người dùng
@@ -99,8 +92,8 @@ const SideBar = () => {
                </Menu.Item>
                <Menu.Item key='/admin/categorieslist' icon={<BookOutlined />}>
                   <Link
-                     href='/admin/categorieslist'
-                     className='text-decoration-none'
+                     to='/admin/categorieslist'
+                     className='text-decoration-none text-white'
                      style={{ fontSize: '1rem' }}
                   >
                      Danh mục
@@ -111,7 +104,7 @@ const SideBar = () => {
                   icon={<ContainerOutlined />}
                >
                   <Link
-                     href='/admin/subcategorieslist'
+                     to='/admin/subcategorieslist'
                      className='text-decoration-none'
                      style={{ fontSize: '1rem' }}
                   >
@@ -120,7 +113,7 @@ const SideBar = () => {
                </Menu.Item>
                <Menu.Item key='/admin/salelist' icon={<PercentageOutlined />}>
                   <Link
-                     href='/admin/salelist'
+                     to='/admin/salelist'
                      className='text-decoration-none'
                      style={{ fontSize: '1rem' }}
                   >
@@ -129,7 +122,7 @@ const SideBar = () => {
                </Menu.Item>
                <Menu.Item key='/admin/codelist' icon={<QrcodeOutlined />}>
                   <Link
-                     href='/admin/codelist'
+                     to='/admin/codelist'
                      className='text-decoration-none'
                      style={{ fontSize: '1rem' }}
                   >
@@ -138,7 +131,7 @@ const SideBar = () => {
                </Menu.Item>
                <Menu.Item key='/admin/supplierlist' icon={<ShopOutlined />}>
                   <Link
-                     href='/admin/supplierlist'
+                     to='/admin/supplierlist'
                      className='text-decoration-none'
                      style={{ fontSize: '1rem' }}
                   >
@@ -150,7 +143,7 @@ const SideBar = () => {
                   icon={<ReconciliationOutlined />}
                >
                   <Link
-                     href='/admin/orderlist'
+                     to='/admin/orderlist'
                      className='text-decoration-none'
                      style={{ fontSize: '1rem' }}
                   >
@@ -169,7 +162,7 @@ const SideBar = () => {
                      // style={{ backgroundColor: '#587B7F' }}
                   >
                      <Link
-                        href='/admin/productlist'
+                        to='/admin/productlist'
                         className='text-decoration-none'
                         style={{ fontSize: '1rem' }}
                      >
@@ -183,7 +176,7 @@ const SideBar = () => {
                      // style={{ backgroundColor: '#587B7F' }}
                   >
                      <Link
-                        href='/admin/product/create'
+                        to='/admin/product/create'
                         className='text-decoration-none'
                      >
                         Thêm
