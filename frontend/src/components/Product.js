@@ -23,7 +23,7 @@ function Product({ product }) {
       dispatch(listSale())
    }, [dispatch])
 
-   console.log('list sale', sale)
+   
 
    return (
       <>

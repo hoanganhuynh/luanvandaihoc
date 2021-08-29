@@ -590,3 +590,8 @@ background: -webkit-linear-gradient(to right, #FFAF7B, #D76D77, #3A1C71);  /* Ch
 background: linear-gradient(to right, #FFAF7B, #D76D77, #3A1C71); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
+
+.hii {
+  color: rgb(255, 206, 72);
+
+}

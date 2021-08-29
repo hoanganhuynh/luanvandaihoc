@@ -492,7 +492,7 @@ const SubCategoriesListScreen = ({ history }) => {
                         <div className='d-flex justify-content-end'>
                            <Button
                               variant='outline-light'
-                              className='my-2 text-uppercase rounded-pill pt-2 pb-2'
+                              className='rounded-pill btn_color_created'
                               onClick={handleClickOpen}
                               size='normal'
                            >
