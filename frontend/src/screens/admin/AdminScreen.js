@@ -40,7 +40,7 @@ const AdminScreen = ({ history }) => {
    const orderList = useSelector((state) => state.orderList)
    const { ordersList } = orderList
 
-   console.log('order',  ordersList && ordersList.orders)
+   
    var size = ordersList && ordersList.orders.length;
    var countCancel = () => {
       let x = 0;

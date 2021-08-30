@@ -9,7 +9,7 @@ import { listAllProduct, listProducts } from '../../../actions/productActions'
 import { listSupplierAdm } from '../../../actions/supplierActions'
 import CountUp from 'react-countup';
 
-import { Carousel, Image, Skeleton } from 'antd'
+import { Image } from 'antd'
 
 function formatMoney(n, currency) {
    return n.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + currency
@@ -44,6 +44,17 @@ const ListNumbers = ({ history }) => {
 
    const orderList = useSelector((state) => state.orderList)
    const { ordersList } = orderList
+
+  
+
+   let obj = ordersList && ordersList.orders;
+   // let firstKey = Object.keys(obj)
+   console.log(obj)
+
+   const getNewValueOfOrder = obj && obj.find(e => e.orderStatus === "Đã giao hàng");
+   let value = getNewValueOfOrder && getNewValueOfOrder?.totalPrice;
+   console.log(value)
+   
 
    const userLogin = useSelector((state) => state.userLogin)
    const { userInfo } = userLogin
@@ -102,13 +113,24 @@ const ListNumbers = ({ history }) => {
 
                   <div className='mr-3 p-3'>
                      <p className='h2 text-white'> 
-                     <CountUp start={3131731} end={ordersList?.totalAmount &&
-                                  ordersList?.totalAmount} duration={1}/>đ
+                     <CountUp start={3131731} end={ordersList?.totalAmount} duration={1}/>đ
                      </p>
                      <p className='text-white'>Tổng doanh thu</p>
                      <Link className='text-light' to='admin/orderlist' >Chi tiết
                      <span className="fa fa-angle-right ml-2"></span>
                      </Link>
+                     {value == 0 ? (<span>+0đ</span>):
+                     (
+                        <span style={{position:'absolute', 
+                              right:'30px', 
+                              padding: '1px 8px', 
+                              backgroundColor:'#fff',
+                              color:'orange',
+                              borderRadius:'20px'
+                        }}
+                        >+ {value && value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}đ</span>
+
+                     )}
                   </div>
                   <div className='card-thongke-right p-2'>
                   <Image width='45px' src='/background/doanhthu.png' fluid />
