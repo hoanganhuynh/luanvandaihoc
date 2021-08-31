@@ -201,7 +201,7 @@ const getOrders = asyncHandler(async (req, res) => {
    let totalAmount = 0
 
    orders.forEach((order) => {
-      if (order.isPaid) {
+      if (order.orderStatus == 'Đã giao hàng') {
          totalAmount += order.totalPrice
       }
    })

@@ -1,6 +1,9 @@
 // import { Menu } from '@material-ui/core'
 // import { Link } from '@material-ui/core'
 import { MenuList } from '@material-ui/core'
+import SecurityIcon from '@material-ui/icons/Security';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
 import Avatar from '@material-ui/core/Avatar'
 import Badge from '@material-ui/core/Badge'
 import Buttonn from '@material-ui/core/Button'
@@ -23,7 +26,7 @@ import firebase from 'firebase'
 import moment from 'moment'
 import 'moment/locale/vi'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Container, Image, Nav, Navbar } from 'react-bootstrap'
+import { Container, Image, Nav, Navbar, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Link, useHistory } from 'react-router-dom'
@@ -136,6 +139,8 @@ function Header(props) {
 
    const userLogin = useSelector((state) => state.userLogin)
    const { userInfo } = userLogin
+
+   // console.log('user', userInfo)
 
    const dispatch = useDispatch()
 
@@ -417,10 +422,11 @@ function Header(props) {
                               }
                               aria-haspopup='true'
                               onClick={handleToggle}
-                              className='ml-2  mt-1 mb-1 rounded-circle'
+                              className='ml-2  mt-1 mb-1'
                            >
                               {userInfo ? (
-                                 <Image
+                                 <>
+                                 {/* <Image
                                     className='rounded-circle border border-grey'
                                     src={userDetails.user.avatar?.url}
                                     alt={
@@ -431,7 +437,28 @@ function Header(props) {
                                        height: '2.5rem',
                                     }}
                                     fluid
-                                 />
+                                 /> */}
+                                 {/* <div className='d-flex flex-column pr-3 mr-2' 
+                                       style={{borderRight:'1px solid #e0e0e0'}}>
+                                    <p className='mb-0 mx-2 text-capitalize' style={{color:'#111'}} >{userInfo.name}</p>
+                                    <strong className='text-capitalize text-left ml-2'
+                                          style={{fontSize:'11px', color:'#222'}}
+                                    >
+                                       <SecurityIcon className='mr-1' style={{width:'14px', fill:'#222'}}/>
+                                       Quản trị viên</strong>
+
+                                 </div> */}
+                                 <Button 
+                                 size="sm"
+                                 type='button'
+                                 variant="outline-danger"
+                                 className='rounded-pill ml-2'
+                                 onClick={logoutHandler}>
+                                 
+                                    Đăng xuất
+                                    <ExitToAppIcon className='ml-2' />
+                                 </Button>
+                                 </>
                               ) : (
                                  <Avatar className={classes.orange}>
                                     {userInfo.name.substring(0, 1)}
@@ -457,7 +484,7 @@ function Header(props) {
                                              id='menu-list-grow'
                                              onKeyDown={handleListKeyDown}
                                           >
-                                             <MenuItem onClick={handleClose}>
+                                             {/* <MenuItem onClick={handleClose}>
                                                 <Link
                                                    to='/profile'
                                                    className={classes.link}
@@ -475,9 +502,9 @@ function Header(props) {
                                                       Hồ sơ
                                                    </strong>
                                                 </Link>
-                                             </MenuItem>
+                                             </MenuItem> */}
 
-                                             <MenuItem
+                                             {/* <MenuItem
                                                 onClick={logoutHandler}
                                                 style={{
                                                    color: 'black',
@@ -502,7 +529,7 @@ function Header(props) {
                                                       Đăng Xuất
                                                    </strong>
                                                 </Link>
-                                             </MenuItem>
+                                             </MenuItem> */}
                                           </MenuList>
                                        </ClickAwayListener>
                                     </Paper>

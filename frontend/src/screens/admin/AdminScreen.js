@@ -110,6 +110,12 @@ const AdminScreen = ({ history }) => {
                className='pl-0 pt-4'
                style={{ backgroundColor: '#fff' }}
             >
+               <div className="categorylink mb-3 ml-3">
+               <span className="fa fa-home"></span>
+               <span className="fa fa-angle-right"></span>
+               <span>Dashboard</span>
+               
+            </div>
                <h3 className='ml-3'>Thống kê</h3>
                <ListNumbers />
                <h3 className='ml-3 mt-5 mb-3'>Biểu đồ doanh thu và thống kê đơn hàng</h3>
