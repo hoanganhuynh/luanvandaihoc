@@ -492,9 +492,6 @@
   font-weight: bold;
 }
 
-.MuiTypography-colorPrimary {
-  /* color: #3b3b3b !important; */
-}
 
 .MuiStepper-horizontal {
   padding: 0 !important;
@@ -511,7 +508,7 @@
 }
 .noti-list {
   top: 60px !important;
-  background-color: red !important;
+  /* background-color: red !important; */
 }
 
 .card-thongke {
@@ -593,5 +590,16 @@ background: linear-gradient(to right, #FFAF7B, #D76D77, #3A1C71); /* W3C, IE 10+
 
 .hii {
   color: rgb(255, 206, 72);
+
+}
+.pro-sidebar {
+  min-width: 225px !important;
+  width: 225px !important;
+}
+
+.pro-sidebar-inner {
+  background: #232526 !important;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to bottom, #232526, #414345) !important;  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to bottom, #232526, #414345) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
