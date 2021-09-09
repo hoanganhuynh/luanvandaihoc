@@ -1,7 +1,7 @@
-import { applyMiddleware, combineReducers, createStore } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import thunk from 'redux-thunk'
-import { cartReducer } from './reducers/cartReducers.js'
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+import { cartReducer } from './reducers/cartReducers.js';
 import {
    categoriesListReducer,
    categoriesListReducerAdm,
@@ -9,14 +9,14 @@ import {
    categoryDeleteReducer,
    categoryDetailsReducer,
    categoryUpdateReducer,
-} from './reducers/categoriesReducers.js'
+} from './reducers/categoriesReducers.js';
 import {
    codeCreateReducer,
    codeDeleteReducer,
    codeDetailsReducer,
    codeListReducer,
    codeUpdateReducer,
-} from './reducers/codeReducers.js'
+} from './reducers/codeReducers.js';
 import {
    orderCashReducer,
    orderConsultReducer,
@@ -30,7 +30,7 @@ import {
    orderPayReducer,
    orderUpdateByMemberReducer,
    orderUpdateReducer,
-} from './reducers/orderReducers.js'
+} from './reducers/orderReducers.js';
 import {
    productCreateReducer,
    productDeleteReducer,
@@ -46,14 +46,20 @@ import {
    productTopRatedReducer,
    productTopSoldReducer,
    productUpdateReducer,
-} from './reducers/productReducers'
+} from './reducers/productReducers';
+import {
+   approveStatusReducer,
+   listReviewsReducer,
+   deleteStatusReducer,
+   filterReviewReducer,
+} from './reducers/reviewsReducers.js';
 import {
    saleCreateReducer,
    saleDeleteReducer,
    saleDetailsReducer,
    saleListReducer,
    saleUpdateReducer,
-} from './reducers/saleReducer.js'
+} from './reducers/saleReducer.js';
 import {
    subCategoryCreateReducer,
    subCategoryDeleteReducer,
@@ -61,7 +67,7 @@ import {
    subCategoryListReducer,
    subCategoryListReducerAdm,
    subCategoryUpdateReducer,
-} from './reducers/subCategoryReducers.js'
+} from './reducers/subCategoryReducers.js';
 import {
    supplierCreateReducer,
    supplierDeleteReducer,
@@ -69,7 +75,7 @@ import {
    supplierListReducer,
    supplierListReducerAdm,
    supplierUpdateReducer,
-} from './reducers/supplierReducers'
+} from './reducers/supplierReducers';
 import {
    authReducer,
    userCreateAddressReducer,
@@ -85,9 +91,14 @@ import {
    userUpdateAddressReducer,
    userUpdateProfileReducer,
    userUpdateReducer,
-} from './reducers/userReducers'
+} from './reducers/userReducers';
 
 const reducer = combineReducers({
+   listReviews: listReviewsReducer,
+   approveStatus: approveStatusReducer,
+   deleteStatus: deleteStatusReducer,
+   filterReview: filterReviewReducer,
+
    productList: productListReducer,
    productDetails: productDetailsReducer,
    productDelete: productDeleteReducer,
@@ -166,19 +177,19 @@ const reducer = combineReducers({
    codeDetails: codeDetailsReducer,
    codeUpdate: codeUpdateReducer,
    codeDelete: codeDeleteReducer,
-})
+});
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
    ? JSON.parse(localStorage.getItem('cartItems'))
-   : []
+   : [];
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
    ? JSON.parse(localStorage.getItem('userInfo'))
-   : null
+   : null;
 
 const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
    ? JSON.parse(localStorage.getItem('shippingAddress'))
-   : {}
+   : {};
 
 const initialState = {
    cart: {
@@ -189,14 +200,14 @@ const initialState = {
       userInfo: userInfoFromStorage,
       shippingAddress: shippingAddressFromStorage,
    },
-}
+};
 
-const middleware = [thunk]
+const middleware = [thunk];
 
 const store = createStore(
    reducer,
    initialState,
    composeWithDevTools(applyMiddleware(...middleware))
-)
+);
 
-export default store
+export default store;

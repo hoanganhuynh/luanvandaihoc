@@ -97,7 +97,7 @@ const StyledBadge = withStyles((theme) => ({
       top: 0,
       border: `2px solid ${theme.palette.background.paper}`,
       padding: '11px 8px',
-      borderRadius:'50%',
+      borderRadius: '50%',
    },
 }))(Badge)
 
@@ -184,7 +184,6 @@ function Header(props) {
    }, [open, userInfo, user])
 
    return (
-
       <>
          <Navbar
             expand='lg'
@@ -199,7 +198,11 @@ function Header(props) {
                      <Image
                         className=''
                         src='/logo/LOGO-LUANVAN20210821.png'
-                        style={{ width: '10rem', height: '4.2rem', zIndex: '0' }}
+                        style={{
+                           width: '10rem',
+                           height: '4.2rem',
+                           zIndex: '0',
+                        }}
                      />
                   </Navbar.Brand>
                </LinkContainer>
@@ -494,11 +497,10 @@ function Header(props) {
                </Navbar.Collapse>
             </Container>
          </Navbar>
-         
 
-            {/* <Row>
+         {/* <Row>
           <Col md={12} className='pl-5'> */}
-            {/* <div className='d-flex justify-content-around'>
+         {/* <div className='d-flex justify-content-around'>
             {category &&
               category.map((cat) => (
                 <div className='container_link_color'>
@@ -519,45 +521,58 @@ function Header(props) {
                 </div>
               ))}
           </div> */}
-            <div className="p-2">
-               <ul className="navbar-4">
-                  <li id="cate"><a href='#'></a><span className="fa fa-bars"></span> Danh mục</li>
-                  <li><a href='#'></a><span className="fa fa-home"></span> Trang chủ</li>
-                  <li><a href='#'></a>Trang chủ</li>
-                  <li><a href='#'></a>Trang chủ</li>
-                  <li><a href='#'></a>Trang chủ</li>
-               </ul>
-               <div id='float-cate' className='float-cate'>
-                  <div id="menu">
-                     <ul className="parent-menu">
-                        {category &&
-                           category.map((cat) => (
-                              <li>
-                                    {cat.name}
-                                    <ul>
-                                       {Sub &&
-                                          Sub?.map((s) => (
-                                             s.category === cat._id &&
-                                          <li>
-                                                <Link to={`/product/${s._id}/category`}>
-                                                   { s.name}
+         <div className='p-2'>
+            <ul className='navbar-4'>
+               <li id='cate'>
+                  <a href='#'></a>
+                  <span className='fa fa-bars'></span> Danh mục
+               </li>
+               <li>
+                  <a href='#'></a>
+                  <span className='fa fa-home'></span> Trang chủ
+               </li>
+               <li>
+                  <a href='#'></a>Trang chủ
+               </li>
+               <li>
+                  <a href='#'></a>Trang chủ
+               </li>
+               <li>
+                  <a href='#'></a>Trang chủ
+               </li>
+            </ul>
+            <div id='float-cate' className='float-cate'>
+               <div id='menu'>
+                  <ul className='parent-menu'>
+                     {category &&
+                        category.map((cat) => (
+                           <li>
+                              {cat.name}
+                              <ul>
+                                 {Sub &&
+                                    Sub?.map(
+                                       (s) =>
+                                          s.category === cat._id && (
+                                             <li>
+                                                <Link
+                                                   to={`/product/${s._id}/category`}
+                                                >
+                                                   {s.name}
                                                 </Link>
                                              </li>
-                                          ))
-                                       }
-                                       
-                                    </ul>
-                                    <span className="fa fa-chevron-right"></span>
-                              </li>
-                           ))}
-                     </ul>
-                  </div>
+                                          )
+                                    )}
+                              </ul>
+                              <span className='fa fa-chevron-right'></span>
+                           </li>
+                        ))}
+                  </ul>
                </div>
             </div>
+         </div>
 
-            {/* </Col>
+         {/* </Col>
         </Row> */}
-         
       </>
    )
 }
