@@ -1,4 +1,4 @@
-var mongoose = require('mongoose')
+var mongoose = require('mongoose');
 
 const reviewSchema = mongoose.Schema(
    {
@@ -20,11 +20,17 @@ const reviewSchema = mongoose.Schema(
          required: true,
          ref: 'User',
       },
+      status: {
+         type: String,
+         required: false,
+         default: 'Chưa duyệt',
+         enum: ['Đã duyệt', 'Chưa duyệt', 'Xoá'],
+      },
    },
    {
       timestamps: true,
    }
-)
+);
 
 const productSchema = mongoose.Schema(
    {
@@ -121,8 +127,8 @@ const productSchema = mongoose.Schema(
    {
       timestamps: true,
    }
-)
+);
 
-const Product = mongoose.model('Product', productSchema)
+const Product = mongoose.model('Product', productSchema);
 
-module.exports = Product
+module.exports = Product;

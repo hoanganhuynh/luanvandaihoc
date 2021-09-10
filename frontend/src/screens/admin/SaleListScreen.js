@@ -1,67 +1,67 @@
-import Checkbox from '@material-ui/core/Checkbox'
-import Dialog from '@material-ui/core/Dialog'
-import DialogContent from '@material-ui/core/DialogContent'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import IconButton from '@material-ui/core/IconButton'
-import Paper from '@material-ui/core/Paper'
-import { lighten, makeStyles } from '@material-ui/core/styles'
-import Switch from '@material-ui/core/Switch'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
-import TablePagination from '@material-ui/core/TablePagination'
-import TableRow from '@material-ui/core/TableRow'
-import TableSortLabel from '@material-ui/core/TableSortLabel'
-import Toolbar from '@material-ui/core/Toolbar'
-import Tooltip from '@material-ui/core/Tooltip'
-import Typography from '@material-ui/core/Typography'
-import { Close, Message } from '@material-ui/icons'
-import DeleteIcon from '@material-ui/icons/Delete'
-import FilterListIcon from '@material-ui/icons/FilterList'
-import clsx from 'clsx'
-import { format, utcToZonedTime } from 'date-fns-tz'
-import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
-import { Button, Col, Form, Row } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import { LinkContainer } from 'react-router-bootstrap'
-import { createSale, deleteSale, listSale } from '../../actions/saleAction'
-import Announcement from '../../components/Announcement'
-import Loader from '../../components/Loader'
-import MessageSuccess from '../../components/MessageSuccess'
-import SkeletonEffect from '../../components/SkeletonEffect'
-import '../../notisfied.css'
-import Header from './components/Header'
-import SideBar from './components/SideBar'
+import Checkbox from '@material-ui/core/Checkbox';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import IconButton from '@material-ui/core/IconButton';
+import Paper from '@material-ui/core/Paper';
+import { lighten, makeStyles } from '@material-ui/core/styles';
+import Switch from '@material-ui/core/Switch';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import Toolbar from '@material-ui/core/Toolbar';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import { Close, Message } from '@material-ui/icons';
+import DeleteIcon from '@material-ui/icons/Delete';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import clsx from 'clsx';
+import { format, utcToZonedTime } from 'date-fns-tz';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Form, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { LinkContainer } from 'react-router-bootstrap';
+import { createSale, deleteSale, listSale } from '../../actions/saleAction';
+import Announcement from '../../components/Announcement';
+import Loader from '../../components/Loader';
+import MessageSuccess from '../../components/MessageSuccess';
+import SkeletonEffect from '../../components/SkeletonEffect';
+import '../../notisfied.css';
+import Header from './components/Header';
+import SideBar from './components/SideBar';
 
-format(new Date(2014, 1, 11), 'dd/MM/yyyy')
+format(new Date(2014, 1, 11), 'dd/MM/yyyy');
 
 function descendingComparator(a, b, orderBy) {
    if (b[orderBy] < a[orderBy]) {
-      return -1
+      return -1;
    }
    if (b[orderBy] > a[orderBy]) {
-      return 1
+      return 1;
    }
-   return 0
+   return 0;
 }
 
 function getComparator(order, orderBy) {
    return order === 'desc'
       ? (a, b) => descendingComparator(a, b, orderBy)
-      : (a, b) => -descendingComparator(a, b, orderBy)
+      : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
 function stableSort(array, comparator) {
-   const stabilizedThis = array.map((el, index) => [el, index])
+   const stabilizedThis = array.map((el, index) => [el, index]);
    stabilizedThis.sort((a, b) => {
-      const order = comparator(a[0], b[0])
-      if (order !== 0) return order
-      return a[1] - b[1]
-   })
-   return stabilizedThis.map((el) => el[0])
+      const order = comparator(a[0], b[0]);
+      if (order !== 0) return order;
+      return a[1] - b[1];
+   });
+   return stabilizedThis.map((el) => el[0]);
 }
 
 const headCells = [
@@ -86,7 +86,7 @@ const headCells = [
    },
 
    { id: 'action', numeric: true, disablePadding: false, label: '' },
-]
+];
 
 function EnhancedTableHead(props) {
    const {
@@ -97,15 +97,15 @@ function EnhancedTableHead(props) {
       numSelected,
       rowCount,
       onRequestSort,
-   } = props
+   } = props;
    const createSortHandler = (property) => (event) => {
-      onRequestSort(event, property)
-   }
+      onRequestSort(event, property);
+   };
 
    return (
       <TableHead>
          <TableRow>
-            <TableCell padding='checkbox'>
+            <TableCell padding="checkbox">
                <Checkbox
                   indeterminate={numSelected > 0 && numSelected < rowCount}
                   checked={rowCount > 0 && numSelected === rowCount}
@@ -116,10 +116,10 @@ function EnhancedTableHead(props) {
             {headCells.map((headCell) => (
                <TableCell
                   key={headCell.id}
-                  align='center'
+                  align="center"
                   padding={headCell.disablePadding ? 'none' : 'default'}
                   sortDirection={orderBy === headCell.id ? order : false}
-                  className='pl-5'
+                  className="pl-5"
                   style={{ fontWeight: '700' }}
                >
                   <TableSortLabel
@@ -140,7 +140,7 @@ function EnhancedTableHead(props) {
             ))}
          </TableRow>
       </TableHead>
-   )
+   );
 }
 
 EnhancedTableHead.propTypes = {
@@ -151,7 +151,7 @@ EnhancedTableHead.propTypes = {
    order: PropTypes.oneOf(['asc', 'desc']).isRequired,
    orderBy: PropTypes.string.isRequired,
    rowCount: PropTypes.number.isRequired,
-}
+};
 
 const useToolbarStyles = makeStyles((theme) => ({
    root: {
@@ -171,7 +171,7 @@ const useToolbarStyles = makeStyles((theme) => ({
    title: {
       flex: '1 1 100%',
    },
-}))
+}));
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -196,120 +196,120 @@ const useStyles = makeStyles((theme) => ({
       top: 20,
       width: 1,
    },
-}))
+}));
 
 const SaleListScreen = ({ history }) => {
-   const classes = useStyles()
-   const [order, setOrder] = React.useState('asc')
-   const [orderBy, setOrderBy] = React.useState('calories')
-   const [selected, setSelected] = React.useState([])
-   const [page, setPage] = React.useState(0)
-   const [dense, setDense] = React.useState(false)
-   const [rowsPerPage, setRowsPerPage] = React.useState(10)
+   const classes = useStyles();
+   const [order, setOrder] = React.useState('asc');
+   const [orderBy, setOrderBy] = React.useState('calories');
+   const [selected, setSelected] = React.useState([]);
+   const [page, setPage] = React.useState(0);
+   const [dense, setDense] = React.useState(false);
+   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
    const handleRequestSort = (event, property) => {
-      const isAsc = orderBy === property && order === 'asc'
-      setOrder(isAsc ? 'desc' : 'asc')
-      setOrderBy(property)
-   }
+      const isAsc = orderBy === property && order === 'asc';
+      setOrder(isAsc ? 'desc' : 'asc');
+      setOrderBy(property);
+   };
 
    const handleSelectAllClick = (event) => {
       if (event.target.checked) {
-         const newSelecteds = sale.map((cat) => cat._id)
-         setSelected(newSelecteds)
-         return
+         const newSelecteds = sale.map((cat) => cat._id);
+         setSelected(newSelecteds);
+         return;
       }
-      setSelected([])
-   }
+      setSelected([]);
+   };
 
    const handleClick = (event, name) => {
-      const selectedIndex = selected.indexOf(name)
-      let newSelected = []
+      const selectedIndex = selected.indexOf(name);
+      let newSelected = [];
 
       if (selectedIndex === -1) {
-         newSelected = newSelected.concat(selected, name)
+         newSelected = newSelected.concat(selected, name);
       } else if (selectedIndex === 0) {
-         newSelected = newSelected.concat(selected.slice(1))
+         newSelected = newSelected.concat(selected.slice(1));
       } else if (selectedIndex === selected.length - 1) {
-         newSelected = newSelected.concat(selected.slice(0, -1))
+         newSelected = newSelected.concat(selected.slice(0, -1));
       } else if (selectedIndex > 0) {
          newSelected = newSelected.concat(
             selected.slice(0, selectedIndex),
             selected.slice(selectedIndex + 1)
-         )
+         );
       }
 
-      setSelected(newSelected)
-   }
+      setSelected(newSelected);
+   };
 
    const handleChangePage = (event, newPage) => {
-      setPage(newPage)
-   }
+      setPage(newPage);
+   };
 
    const handleChangeRowsPerPage = (event) => {
-      setRowsPerPage(parseInt(event.target.value, 10))
-      setPage(0)
-   }
+      setRowsPerPage(parseInt(event.target.value, 10));
+      setPage(0);
+   };
 
    const handleChangeDense = (event) => {
-      setDense(event.target.checked)
-   }
+      setDense(event.target.checked);
+   };
 
-   const isSelected = (name) => selected.indexOf(name) !== -1
+   const isSelected = (name) => selected.indexOf(name) !== -1;
 
-   const dispatch = useDispatch()
+   const dispatch = useDispatch();
 
-   const [open, setOpen] = useState(false)
-   const [name, setName] = useState('')
+   const [open, setOpen] = useState(false);
+   const [name, setName] = useState('');
 
    const handleClickOpen = () => {
-      setOpen(true)
-   }
+      setOpen(true);
+   };
 
    const handleClose = () => {
-      setOpen(false)
-   }
+      setOpen(false);
+   };
 
-   const userLogin = useSelector((state) => state.userLogin)
-   const { userInfo } = userLogin
+   const userLogin = useSelector((state) => state.userLogin);
+   const { userInfo } = userLogin;
 
    // const categoriesListAdm = useSelector((state) => state.categoriesListAdm)
    // const { loading, error, category } = categoriesListAdm
 
-   const saleList = useSelector((state) => state.saleList)
-   const { loading, error, sale } = saleList
+   const saleList = useSelector((state) => state.saleList);
+   const { loading, error, sale } = saleList;
 
-   const saleDelete = useSelector((state) => state.saleDelete)
+   const saleDelete = useSelector((state) => state.saleDelete);
    const {
       loading: loadingDelete,
       error: errorDelete,
       success: successDelete,
-   } = saleDelete
+   } = saleDelete;
 
-   const saleCreate = useSelector((state) => state.saleCreate)
+   const saleCreate = useSelector((state) => state.saleCreate);
    const {
       loading: loadingCreate,
       error: errorCreate,
       success: successCreate,
       sale: createdProduct,
-   } = saleCreate
+   } = saleCreate;
 
    const emptyRows =
       sale !== undefined &&
-      rowsPerPage - Math.min(rowsPerPage, sale.length - page * rowsPerPage)
+      rowsPerPage - Math.min(rowsPerPage, sale.length - page * rowsPerPage);
 
    const deleteHandle = (id) => {
       if (window.confirm('You are sure?')) {
-         dispatch(deleteSale(id))
-         setSelected([])
+         dispatch(deleteSale(id));
+         setSelected([]);
       }
-   }
+   };
 
    const EnhancedTableToolbar = (props) => {
-      const classes = useToolbarStyles()
-      const { numSelected } = props
+      const classes = useToolbarStyles();
+      const { numSelected } = props;
 
-      const did = sale.find((cat) => cat._id)
+      const did = sale.find((cat) => cat._id);
 
       return (
          <Toolbar
@@ -320,69 +320,69 @@ const SaleListScreen = ({ history }) => {
             {numSelected > 0 ? (
                <Typography
                   className={classes.title}
-                  color='inherit'
-                  variant='subtitle1'
-                  component='div'
+                  color="inherit"
+                  variant="subtitle1"
+                  component="div"
                >
                   {numSelected} selected
                </Typography>
             ) : (
                <Typography
                   className={classes.title}
-                  variant='h6'
-                  id='tableTitle'
-                  component='div'
+                  variant="h6"
+                  id="tableTitle"
+                  component="div"
                >
                   <h2>DANH SÁCH MỤC GIẢM GIÁ</h2>
                </Typography>
             )}
 
             {numSelected > 0 ? (
-               <Tooltip title='Delete'>
+               <Tooltip title="Delete">
                   <IconButton
-                     aria-label='delete'
+                     aria-label="delete"
                      onClick={() => deleteHandle(selected)}
                   >
                      <DeleteIcon />
                   </IconButton>
                </Tooltip>
             ) : (
-               <Tooltip title='Filter list'>
-                  <IconButton aria-label='filter list'>
+               <Tooltip title="Filter list">
+                  <IconButton aria-label="filter list">
                      <FilterListIcon />
                   </IconButton>
                </Tooltip>
             )}
          </Toolbar>
-      )
-   }
+      );
+   };
 
    EnhancedTableToolbar.propTypes = {
       numSelected: PropTypes.number.isRequired,
-   }
+   };
 
    useEffect(() => {
       if (userInfo) {
-         dispatch(listSale())
+         dispatch(listSale());
       }
-   }, [dispatch, userInfo, successCreate, successDelete])
+   }, [dispatch, userInfo, successCreate, successDelete]);
 
    const submitHandler = (e) => {
-      e.preventDefault()
-      dispatch(createSale(name))
-      setOpen(false)
-   }
+      e.preventDefault();
+      dispatch(createSale(name));
+      setOpen(false);
+   };
 
    return (
       <>
          <Header />
          <Row style={{ backgroundColor: '#fafafa' }}>
-            <Col md={2} className='p-0'>
+            <Col md={2} className="p-0">
                <SideBar />
             </Col>
-            <Col md={10} className='pl-0'>
+            <Col md={10} className="pl-0">
                {loadingDelete && (
-                     <MessageSuccess variant='Đã xoá thành công'></MessageSuccess>
+                     <MessageSuccess variant="Đã xoá thành công"></MessageSuccess>
                   ) && <SkeletonEffect />}
                {errorDelete && <Message>{errorDelete}</Message>}
                {loadingCreate && (
@@ -394,7 +394,7 @@ const SaleListScreen = ({ history }) => {
                {loading ? (
                   <SkeletonEffect />
                ) : error ? (
-                  <Announcement variant='danger'>{error}</Announcement>
+                  <Announcement variant="danger">{error}</Announcement>
                ) : (
                   <>
                      <div>
@@ -403,41 +403,41 @@ const SaleListScreen = ({ history }) => {
                            disableEscapeKeyDown
                            open={open}
                            onClose={handleClose}
-                           aria-labelledby='form-dialog-title'
-                           maxWidth='xl'
+                           aria-labelledby="form-dialog-title"
+                           maxWidth="xl"
                         >
-                           <div className='d-flex justify-content-end'>
+                           <div className="d-flex justify-content-end">
                               <Button
                                  onClick={handleClose}
-                                 className='p-1 m-1 rounded-pill'
-                                 variant='light'
+                                 className="p-1 m-1 rounded-pill"
+                                 variant="light"
                               >
                                  <Close />
                               </Button>
                            </div>
 
                            <DialogContent style={{ width: '30rem' }}>
-                              <h4 className='text-center'>Tạo mục giảm giá</h4>
+                              <h4 className="text-center">Tạo mục giảm giá</h4>
                               <Form onSubmit={submitHandler}>
                                  <Form.Group>
-                                    <Form.Label as='p' className='mb-1'>
+                                    <Form.Label as="p" className="mb-1">
                                        Giá trị
                                     </Form.Label>
                                     <Form.Control
-                                       className='border border-grey rounded-pill'
-                                       type='name'
-                                       size='normal'
-                                       placeholder='Enter name'
+                                       className="border border-grey rounded-pill"
+                                       type="name"
+                                       size="normal"
+                                       placeholder="Enter name"
                                        value={name}
                                        onChange={(e) => setName(e.target.value)}
                                     ></Form.Control>
                                  </Form.Group>
-                                 <div className='pl-3 pr-3 text-center'>
+                                 <div className="pl-3 pr-3 text-center">
                                     <Button
-                                       type='submit'
-                                       size='sm'
-                                       variant='outline-light'
-                                       className='rounded-pill btn-b btn_color_created pl-5 pr-5'
+                                       type="submit"
+                                       size="sm"
+                                       variant="outline-light"
+                                       className="rounded-pill btn-b btn_color_created pl-5 pr-5"
                                        style={{
                                           fontSize: '1rem',
                                           letterSpacing: '0.25rem',
@@ -451,14 +451,14 @@ const SaleListScreen = ({ history }) => {
                         </Dialog>
                      </div>
                      <div className={classes.root}>
-                        <div className='d-flex justify-content-end'>
+                        <div className="d-flex justify-content-end">
                            <Button
-                              variant='outline-light'
-                              className='rounded-pill btn_color_created'
+                              variant="outline-light"
+                              className="rounded-pill btn_color_created"
                               onClick={handleClickOpen}
-                              size='normal'
+                              size="normal"
                            >
-                              <i className='fas fa-plus'></i> Tạo mục giảm giá
+                              <i className="fas fa-plus"></i> Tạo mục giảm giá
                            </Button>
                         </div>
                         <Paper
@@ -469,7 +469,7 @@ const SaleListScreen = ({ history }) => {
                            // }}
                         >
                            <TableContainer
-                              className='text-center p-5'
+                              className="text-center p-5"
                               style={{
                                  borderRadius: '1rem',
                               }}
@@ -479,9 +479,9 @@ const SaleListScreen = ({ history }) => {
                               />
                               <Table
                                  className={classes.table}
-                                 aria-labelledby='tableTitle'
+                                 aria-labelledby="tableTitle"
                                  size={dense ? 'small' : 'medium'}
-                                 aria-label='enhanced table'
+                                 aria-label="enhanced table"
                               >
                                  <EnhancedTableHead
                                     classes={classes}
@@ -504,8 +504,8 @@ const SaleListScreen = ({ history }) => {
                                        .map((cat, index) => {
                                           const isItemSelected = isSelected(
                                              cat._id
-                                          )
-                                          const labelId = `enhanced-table-checkbox-${index}`
+                                          );
+                                          const labelId = `enhanced-table-checkbox-${index}`;
 
                                           return (
                                              <TableRow
@@ -513,13 +513,13 @@ const SaleListScreen = ({ history }) => {
                                                 onClick={(event) =>
                                                    handleClick(event, cat._id)
                                                 }
-                                                role='checkbox'
+                                                role="checkbox"
                                                 aria-checked={isItemSelected}
                                                 tabIndex={-1}
                                                 key={cat._id}
                                                 selected={isItemSelected}
                                              >
-                                                <TableCell padding='checkbox'>
+                                                <TableCell padding="checkbox">
                                                    <Checkbox
                                                       checked={isItemSelected}
                                                       inputProps={{
@@ -529,21 +529,21 @@ const SaleListScreen = ({ history }) => {
                                                    />
                                                 </TableCell>
                                                 <TableCell
-                                                   component='th'
+                                                   component="th"
                                                    id={labelId}
-                                                   scope='row'
-                                                   padding='none'
-                                                   align='center'
+                                                   scope="row"
+                                                   padding="none"
+                                                   align="center"
                                                 >
                                                    {cat._id}
                                                 </TableCell>
                                                 <TableCell
-                                                   align='left'
-                                                   className='text-center'
+                                                   align="left"
+                                                   className="text-center"
                                                 >
                                                    {cat.name}
                                                 </TableCell>
-                                                <TableCell align='center'>
+                                                <TableCell align="center">
                                                    {format(
                                                       new utcToZonedTime(
                                                          cat.createdAt,
@@ -556,7 +556,7 @@ const SaleListScreen = ({ history }) => {
                                                       }
                                                    )}
                                                 </TableCell>
-                                                <TableCell align='center'>
+                                                <TableCell align="center">
                                                    {format(
                                                       new utcToZonedTime(
                                                          cat.updatedAt,
@@ -570,20 +570,20 @@ const SaleListScreen = ({ history }) => {
                                                    )}
                                                 </TableCell>
 
-                                                <TableCell align='center'>
+                                                <TableCell align="center">
                                                    <LinkContainer
                                                       to={`/admin/sale/${cat._id}/edit`}
                                                    >
                                                       <Button
-                                                         variant='outline-light'
-                                                         className='btn-sm rounded-pill btn_color_details'
+                                                         variant="outline-light"
+                                                         className="btn-sm rounded-pill btn_color_details"
                                                       >
                                                          CHI TIẾT
                                                       </Button>
                                                    </LinkContainer>
                                                 </TableCell>
                                              </TableRow>
-                                          )
+                                          );
                                        })}
                                     {emptyRows > 0 && (
                                        <TableRow
@@ -600,7 +600,7 @@ const SaleListScreen = ({ history }) => {
                            </TableContainer>
                            <TablePagination
                               rowsPerPageOptions={[10, 15, 25]}
-                              component='div'
+                              component="div"
                               count={sale.length}
                               rowsPerPage={rowsPerPage}
                               page={page}
@@ -615,7 +615,7 @@ const SaleListScreen = ({ history }) => {
                                  onChange={handleChangeDense}
                               />
                            }
-                           label='Dense padding'
+                           label="Dense padding"
                         />
                      </div>
                   </>
@@ -623,7 +623,7 @@ const SaleListScreen = ({ history }) => {
             </Col>
          </Row>
       </>
-   )
-}
+   );
+};
 
-export default SaleListScreen
+export default SaleListScreen;
