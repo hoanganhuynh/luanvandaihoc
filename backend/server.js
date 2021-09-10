@@ -40,7 +40,7 @@ connectDB().then((res) => {
 
    const io = require('./io').init(server);
    io.on('connection', (socket) => {
-      console.log('socket', socket.id);
+      // console.log('socket', socket.id);
    });
 });
 

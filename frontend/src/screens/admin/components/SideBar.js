@@ -141,7 +141,7 @@ const SideBar = () => {
                </SubMenu>
 
                <MenuItem icon={<PersonIcon />}>
-                  Quánh giá
+                  Đánh giá
                   <Link to="/admin/listreviews" />
                </MenuItem>
 

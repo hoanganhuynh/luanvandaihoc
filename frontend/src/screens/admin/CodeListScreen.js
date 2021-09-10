@@ -409,6 +409,12 @@ const CodeListScreen = ({ history }) => {
                <SideBar />
             </Col>
             <Col md={10} className='pl-0'>
+               <div className="categorylink mb-3 ml-3 mt-3">
+                     <span className="fa fa-home"></span>
+                     <span className="fa fa-angle-right"></span>
+                     <span>Danh sách mã giảm giá</span>
+                  </div>
+                  
                {loadingDelete && (
                      <MessageSuccess variant='Đã xoá thành công'></MessageSuccess>
                   ) && <SkeletonEffect />}

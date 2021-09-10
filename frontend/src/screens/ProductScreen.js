@@ -174,7 +174,7 @@ function ProductScreen({ history, match }) {
       toast.success(
          <div>
             <CheckCircleOutlineIcon className='pr-1' fontSize='large' />
-            Đã đánh giá thành công
+            Đánh giá của bạn đang được xem xét !
          </div>,
          {
             className: 'Toastify__toast--success',

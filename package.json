@@ -39,5 +39,10 @@
     "react-toastify": "^7.0.2",
     "slugify": "^1.5.0",
     "socket.io": "^4.0.1"
+  },
+  "eslintConfig": {
+    "rules": { 
+      "no-unused-vars": "off" 
+    }
   }
 }

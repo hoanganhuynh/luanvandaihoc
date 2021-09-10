@@ -370,7 +370,13 @@ function ProductListScreen({ history, match }) {
                   <Announcement variant='danger'>{error}</Announcement>
                ) : (
                   <>
+                     <div className="categorylink mb-3 ml-3 mt-3">
+                              <span className="fa fa-home"></span>
+                              <span className="fa fa-angle-right"></span>
+                              <span>Danh sách cây cảnh</span>
+                           </div>
                      <div className='text-right bg-light'>
+                     
                         <LinkContainer to='/admin/product/create'>
                            <Button
                               variant='outline-dark'
