@@ -532,7 +532,7 @@ border-radius: 4px 0 0 4px;
   color: orange;
 }
 
-.ant-image-img{
+.card-thongke-right .ant-image .ant-image-img{
   filter: invert(1);
   opacity: .5;
   transform: scale(2) rotate(21deg);
