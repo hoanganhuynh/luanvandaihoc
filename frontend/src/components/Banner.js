@@ -8,7 +8,7 @@ const Banner = () => {
             <Image
                className='d-block'
                style={{ width: '100%', height: '85vh' }}
-               src='/banner/dau-an-kankoo-23042021142425.jpg'
+               src='/banner/qua-tang-doanh-nghiep-2.jpg'
                alt='First slide'
             />
          </Carousel.Item>
