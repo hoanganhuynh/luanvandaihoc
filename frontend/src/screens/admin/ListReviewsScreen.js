@@ -83,7 +83,7 @@ const headCells = [
    { id: 'date', numeric: true, disablePadding: false, label: 'SẢN PHẨM' },
    { id: 'status', numeric: true, disablePadding: false, label: 'TRẠNG THÁI' },
 
-   { id: 'action', numeric: false, disablePadding: false, label: '' },
+   { id: 'action', numeric: false, disablePadding: false, label: 'HÀNH ĐỘNG' },
 ];
 
 function EnhancedTableHead(props) {
@@ -670,32 +670,69 @@ function ListReviewsScreen({ history, match }) {
                                                       )}
                                                    </TableCell>
 
-                                                   <TableCell align='center'>
-                                                      <Button
-                                                         variant='outline-success'
-                                                         className='btn-sm rounded-pill'
-                                                         onClick={() =>
-                                                            approveStatusOfReview(
-                                                               pro._id,
-                                                               cat._id
-                                                            )
-                                                         }
-                                                      >
-                                                         Duyệt
-                                                      </Button>
-                                                      <Button
-                                                         variant='danger'
-                                                         onClick={() =>
-                                                            deleteStatusOfReview(
-                                                               pro._id,
-                                                               cat._id
-                                                            )
-                                                         }
-                                                         className='btn-sm rounded-pill'
-                                                      >
-                                                         Xoá
-                                                      </Button>
-                                                   </TableCell>
+                                                   {cat.status === 'Xoá' ? (
+                                                         <TableCell align='center'>
+                                                         <Button
+                                                            variant='outline-success'
+                                                            className='btn-sm rounded-pill'
+                                                            onClick={() =>
+                                                               approveStatusOfReview(
+                                                                  pro._id,
+                                                                  cat._id
+                                                               )
+                                                            }
+                                                         >
+                                                            Khôi phục
+                                                         </Button>
+                                                      </TableCell>
+                                                      ) : cat.status ===
+                                                        'Đã duyệt' ? (
+                                                         <TableCell align='center'>
+                                                      
+                                                            <Button
+                                                               variant='danger'
+                                                               onClick={() =>
+                                                                  deleteStatusOfReview(
+                                                                     pro._id,
+                                                                     cat._id
+                                                                  )
+                                                               }
+                                                               className='btn-sm rounded-pill'
+                                                            >
+                                                               Xoá
+                                                            </Button>
+                                                         </TableCell>
+                                                      ) : (
+                                                         <TableCell align='center'>
+                                                         <Button
+                                                            variant='outline-success'
+                                                            className='btn-sm rounded-pill'
+                                                            onClick={() =>
+                                                               approveStatusOfReview(
+                                                                  pro._id,
+                                                                  cat._id
+                                                               )
+                                                            }
+                                                         >
+                                                            Duyệt
+                                                         </Button>
+                                                         <Button
+                                                               variant='danger'
+                                                               onClick={() =>
+                                                                  deleteStatusOfReview(
+                                                                     pro._id,
+                                                                     cat._id
+                                                                  )
+                                                               }
+                                                               className='btn-sm rounded-pill'
+                                                            >
+                                                               Xoá
+                                                            </Button>
+                                                      </TableCell>
+                                                      )}
+
+
+
                                                 </TableRow>
                                              );
                                           })

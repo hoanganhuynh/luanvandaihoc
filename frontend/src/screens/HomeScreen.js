@@ -144,10 +144,9 @@ function HomeScreen({ match, history }) {
                      </div>
                   </div>
                   <p className='text-justify'>
-                     Chương trình khuyến mãi mừng ngày quốc tết thiếu nhi
-                     01/06/2021. Hệ thống Natural Food xin tặng khách hàng mã
-                     giảm giá <strong>THIEUNHI0106</strong> với giá trị là
-                     30,000đ cho mỗi đơn hàng.
+                     Hệ thống CayCanh Shop xin tặng khách hàng mã
+                     giảm giá <strong>COVID</strong> với giá trị là
+                     50,000đ cho mỗi đơn hàng.
                   </p>
                   <p>Xin trân trọng cảm ơn!</p>
                </DialogContent>

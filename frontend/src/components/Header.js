@@ -528,17 +528,14 @@ function Header(props) {
                   <span className='fa fa-bars'></span> Danh mục
                </li>
                <li>
-                  <a href='#'></a>
+                  <a href='/'></a>
                   <span className='fa fa-home'></span> Trang chủ
                </li>
                <li>
-                  <a href='#'></a>Trang chủ
+                  <a href='#'></a>Giới thiệu
                </li>
                <li>
-                  <a href='#'></a>Trang chủ
-               </li>
-               <li>
-                  <a href='#'></a>Trang chủ
+                  <a href='#'></a>Liên hệ
                </li>
             </ul>
             <div id='float-cate' className='float-cate'>
