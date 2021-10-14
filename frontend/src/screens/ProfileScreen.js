@@ -233,16 +233,12 @@ function ProfileScreen({ location, history }) {
                   <Col
                      md={4}
                      className='pt-5 shadow'
-                     style={{
-                        backgroundColor: '#977bd5',
-                        borderTopLeftRadius: '1rem',
-                        borderBottomLeftRadius: '1rem',
-                     }}
+                     
                   >
                      <div
                         className='text-center mt-5 m-auto'
                         style={{
-                           border: '5px solid #55595c',
+                           
                            borderRadius: '50%',
                            width: '20rem',
                            height: '20.6rem',
@@ -253,8 +249,8 @@ function ProfileScreen({ location, history }) {
                               <>
                                  <Image
                                     style={{
-                                       width: '20rem',
-                                       height: '20rem',
+                                       width: '10rem',
+                                       height: '10rem',
                                     }}
                                     src={
                                        avatar ? avatar?.url : user.avatar?.url
@@ -318,8 +314,9 @@ function ProfileScreen({ location, history }) {
                               className='text-decoration-none shadow'
                            >
                               <Button
+                                 
                                  variant='outline-light'
-                                 className='rounded-pill shadow '
+                                 className='rounded-pill btn_color_created'
                                  style={{
                                     fontSize: '1rem',
                                     letterSpacing: '0.25rem',
@@ -334,12 +331,7 @@ function ProfileScreen({ location, history }) {
                   <Col
                      md={8}
                      className='pt-4 pb-4  bg-light shadow border-0'
-                     style={{
-                        backgroundColor:
-                           'radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);',
-                        borderTopRightRadius: '1rem',
-                        borderBottomRightRadius: '1rem',
-                     }}
+                     
                   >
                      <h2 className='text-center'>Thông tin cá nhân</h2>
                      <Form onSubmit={submitHandler} className='pl-4 pr-4 pt-3'>

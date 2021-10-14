@@ -67,7 +67,7 @@ const App = () => {
    return (
       <>
          <BackTop />
-         {!userInfo?.isAdmin && <KonmunicateChat />}
+         {/* {!userInfo?.isAdmin && <KonmunicateChat />} */}
          <Router>
             <div>
                <ThemeProvider theme={THEME}>

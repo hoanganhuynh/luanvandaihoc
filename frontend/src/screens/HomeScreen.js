@@ -122,7 +122,7 @@ function HomeScreen({ match, history }) {
          <Meta />
          <Header />
          <div>
-            <Dialog
+            {/* <Dialog
                onClose={handleClose}
                aria-labelledby='customized-dialog-title'
                open={open}
@@ -150,7 +150,7 @@ function HomeScreen({ match, history }) {
                   </p>
                   <p>Xin trân trọng cảm ơn!</p>
                </DialogContent>
-            </Dialog>
+            </Dialog> */}
          </div>
          {/* {!keyword && (
         <ProductCarousel className='m-0' style={{ width: '100vh' }} />

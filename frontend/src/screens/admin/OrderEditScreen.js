@@ -131,7 +131,42 @@ const OrderEditScreen = ({ match, history }) => {
                               <Col md={6}>
                                  <div>
                                     <h5>
-                                       {order?.orderStatus == 'Huỷ' || order?.orderStatus == 'Chờ xác nhận' && order.isPaid == false ? (
+                                    <p>Trạng thái đơn hàng: {order?.orderStatus}</p>
+                                          <FormControl className={classes.formControl}>
+                                    <InputLabel
+                                       id='demo-controlled-open-select-label'
+                                       style={{ fontSize: '1.2rem' }}
+                                    >
+                                       Vui lòng chọn trạng thái đơn hàng
+                                    </InputLabel>
+                                    <Select
+                                       labelId='demo-controlled-open-select-label'
+                                       id='demo-controlled-open-select'
+                                       open={open}
+                                       onClose={handleClose}
+                                       onOpen={handleOpen}
+                                       value={orderStatus}
+                                       onChange={(e) =>
+                                          setOrderStatus(e.target.value)
+                                       }
+                                       className='text-danger text-center text-uppercase'
+                                    >
+                                       {stateOrder.map((t) => (
+                                          <MenuItem
+                                             className='justify-content-center'
+                                             value={t}
+                                          >
+                                             {t}
+                                          </MenuItem>
+                                       ))}
+                                    </Select>
+                                 </FormControl>
+
+
+                                       {/* {order?.orderStatus == 'Huỷ' || 
+                                       order?.orderStatus == 'Chờ xác nhận' && 
+                                       order.isPaid == false || 
+                                       order.paymentMethod !== 'Thanh toán bằng tiền mặt' ? (
                                           <p>Trạng thái đơn hàng: {order?.orderStatus}</p>
                                        ) : (
                                        <div>
@@ -165,7 +200,7 @@ const OrderEditScreen = ({ match, history }) => {
                                        ))}
                                     </Select>
                                  </FormControl>
-                                       </div>) }
+                                       </div>) } */}
                                        {/* Trạng thái đơn hàng: {order?.orderStatus} */}
                                     </h5>
                                  </div>
