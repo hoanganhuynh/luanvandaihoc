@@ -12,7 +12,7 @@ const Banner = () => {
                alt='First slide'
             />
          </Carousel.Item>
-         <Carousel.Item interval={5000}>
+         {/* <Carousel.Item interval={5000}>
             <Image
                className='d-block '
                style={{ width: '100%', height: '65vh' }}
@@ -35,7 +35,7 @@ const Banner = () => {
                src='/banner/thuc-pham-giam-soc-20042021213548.jpg'
                alt='Four slide'
             />
-         </Carousel.Item>
+         </Carousel.Item> */}
       </Carousel>
    )
 }

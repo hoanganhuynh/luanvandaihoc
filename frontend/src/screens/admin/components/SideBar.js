@@ -142,7 +142,7 @@ const SideBar = () => {
 
                <MenuItem icon={<PersonIcon />}>
                   Đánh giá
-                  {/* <Link to="/admin/listreviews" /> */}
+                  <Link to="/admin/listreviews" />
                </MenuItem>
 
                <MenuItem icon={<PersonIcon />}>
@@ -161,7 +161,7 @@ const SideBar = () => {
 
                <MenuItem icon={<LoyaltyIcon />}>
                   Sale
-                  {/* <Link to="/admin/salelist" /> */}
+                  <Link to="/admin/salelist" />
                </MenuItem>
 
                <MenuItem icon={<ConfirmationNumberIcon />}>

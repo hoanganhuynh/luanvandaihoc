@@ -77,7 +77,9 @@ const OrderEditScreen = ({ match, history }) => {
 
    console.log('orderstuas', order?.orderStatus)
 
-   const stateOrder = ['Chờ xác nhận', 'Đang vận chuyển', 'Đã giao hàng', 'Huỷ']
+   const stateOrder = ['Đang vận chuyển', 'Đã giao hàng', 'Huỷ']
+   const stateOrder_two = ['Đang vận chuyển', 'Đã giao hàng', 'Huỷ']
+   const stateOrder_three = ['Đã giao hàng']
    const [orderStatus, setOrderStatus] = useState(order?.orderStatus)
 
    const submitHandler = (e) => {
@@ -139,13 +141,41 @@ const OrderEditScreen = ({ match, history }) => {
                                     >
                                        Vui lòng chọn trạng thái đơn hàng
                                     </InputLabel>
-                                    <Select
+                                    {order && order?.orderStatus === 'Đang vận chuyển' ? 
+                                    (<Select
                                        labelId='demo-controlled-open-select-label'
                                        id='demo-controlled-open-select'
                                        open={open}
                                        onClose={handleClose}
                                        onOpen={handleOpen}
                                        value={orderStatus}
+
+                                       onChange={(e) =>
+                                          setOrderStatus(e.target.value)
+                                       }
+                                       className='text-danger text-center text-uppercase'
+                                    >
+                                       {stateOrder_three.map((t) => (
+                                          <MenuItem
+                                             className='justify-content-center'
+                                             value={t}
+                                          >
+                                             {t}
+                                          </MenuItem>
+                                       ))}
+                                    </Select>)
+                                    : 
+                                    order?.orderStatus === 'Đã giao hàng' ? 
+                                    ('') 
+                                    : 
+                                    (<Select
+                                       labelId='demo-controlled-open-select-label'
+                                       id='demo-controlled-open-select'
+                                       open={open}
+                                       onClose={handleClose}
+                                       onOpen={handleOpen}
+                                       value={orderStatus}
+
                                        onChange={(e) =>
                                           setOrderStatus(e.target.value)
                                        }
@@ -159,7 +189,32 @@ const OrderEditScreen = ({ match, history }) => {
                                              {t}
                                           </MenuItem>
                                        ))}
-                                    </Select>
+                                    </Select>)
+                                    }
+                                    {/* <Select
+                                       labelId='demo-controlled-open-select-label'
+                                       id='demo-controlled-open-select'
+                                       open={open}
+                                       onClose={handleClose}
+                                       onOpen={handleOpen}
+                                       value={orderStatus}
+
+                                       onChange={(e) =>
+                                          setOrderStatus(e.target.value)
+                                       }
+                                       className='text-danger text-center text-uppercase'
+                                    >
+                                       {stateOrder.map((t) => (
+                                          <MenuItem
+                                             className='justify-content-center'
+                                             value={t}
+                                          >
+                                             {t}
+                                          </MenuItem>
+                                       ))}
+                                    </Select> */}
+                                  
+                                    
                                  </FormControl>
 
 
@@ -212,7 +267,7 @@ const OrderEditScreen = ({ match, history }) => {
                            <Row>
                               <Col md={6} className='border-0 '>
                                  <Card
-                                    className='rounded card_color '
+                                    className=' card_color '
                                     style={{
                                        height: '13rem',
                                        backgroundColor: '#F8F8F8',
@@ -449,7 +504,7 @@ const OrderEditScreen = ({ match, history }) => {
                               {order.orderItems.map((item, index) => (
                                  <div
                                     key={index}
-                                    className='p-3 card_color shadow border mb-1'
+                                    // className='p-3 card_color shadow border mb-1'
                                     style={{ backgroundColor: '#F8F8F8' }}
                                  >
                                     <Row>
@@ -504,7 +559,9 @@ const OrderEditScreen = ({ match, history }) => {
                            >
                               <Button
                                  type='submit'
-                                 variant='outline-light rounded-pill mt-4 btn_color'
+                                 // variant='outline-light rounded-pill mt-4 btn_color'
+                                 variant='outline-light'
+                                 className='btn-block btn-success rounded-pill add-to-card btn btn-outline-light'
                                  size='normal'
                                  style={{
                                     width: '14rem',
