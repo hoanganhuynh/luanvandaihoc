@@ -41,8 +41,8 @@
     "socket.io": "^4.0.1"
   },
   "eslintConfig": {
-    "rules": { 
-      "no-unused-vars": "off" 
+    "rules": {
+      "no-unused-vars": "off"
     }
   }
 }
