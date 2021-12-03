@@ -44,6 +44,15 @@ import {
    ORDER_UPDATE_REQUEST,
    ORDER_UPDATE_RESET,
    ORDER_UPDATE_SUCCESS,
+   ORDERS_SHIPPER_REQUEST,
+   ORDERS_SHIPPER_SUCCESS,
+   ORDERS_SHIPPER_FAIL,
+   SHIPPER_UPDATE_ORDER_REQUEST,
+   SHIPPER_UPDATE_ORDER_RESET,
+   SHIPPER_UPDATE_ORDER_SUCCESS,
+   SHIPPER_UPDATE_ORDER_FAIL,
+   CHOOSE_SHIPPER_SUCCESS,
+   CHOOSE_SHIPPER_RESET
 } from '../constants/orderConstants'
 
 export const orderCreateReducer = (state = {}, action) => {
@@ -241,6 +250,32 @@ export const orderUpdateReducer = (state = { order: [] }, action) => {
          return { loading: false, error: action.payload }
       case ORDER_UPDATE_RESET:
          return { order: [] }
+      case CHOOSE_SHIPPER_SUCCESS:
+         return { loading: false, isUpdated: action.payload }
+      case CHOOSE_SHIPPER_RESET:
+         return { ...state, isUpdated: false }
+      default:
+         return state
+   }
+}
+
+export const orderShipperReducer = (state = { orders: [] }, action) => {
+   switch (action.type) {
+      case ORDERS_SHIPPER_REQUEST:
+         return { loading: true }
+      case ORDERS_SHIPPER_SUCCESS:
+         return { loading: false, orders: action.payload }
+      case ORDERS_SHIPPER_FAIL:
+         return { loading: false, error: action.payload }
+
+      case SHIPPER_UPDATE_ORDER_REQUEST:
+         return { ...state, loading: true }
+      case SHIPPER_UPDATE_ORDER_SUCCESS:
+         return { ...state, loading: false, isUpdated: action.payload }
+      case SHIPPER_UPDATE_ORDER_RESET:
+         return { ...state, loading: false, isUpdated: false }
+      case SHIPPER_UPDATE_ORDER_FAIL:
+         return { ...state, loading: false, error: action.payload }
       default:
          return state
    }

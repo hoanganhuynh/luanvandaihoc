@@ -35,7 +35,6 @@ const userSchema = mongoose.Schema(
             thanhPho: { type: String, required: false },
             huyen: { type: String, required: false },
             xa: { type: String, required: false },
-            diaDiem: { type: String, required: false },
             diaChi: { type: String, required: false },
             role: { type: Boolean, default: false },
             numberPhone: {
@@ -62,6 +61,12 @@ const userSchema = mongoose.Schema(
          type: Boolean,
          required: true,
          default: false,
+      },
+      role: {
+         type: String,
+      },
+      numberPlate: {
+         type: String, required: false
       },
 
       notifications: {

@@ -7,12 +7,14 @@ const allReviews = asyncHandler(async (req, res) => {
 
       const list = product.filter((r) => r.reviews.length !== 0);
 
+      
       setTimeout(() => {
          res.json(list);
       }, 100);
    } catch (error) {
       console.log(error);
    }
+   
 });
 
 const approveStatusOfReview = asyncHandler(async (req, res) => {

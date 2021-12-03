@@ -20,12 +20,12 @@ const reviewSchema = mongoose.Schema(
          required: true,
          ref: 'User',
       },
-      status: {
-         type: String,
-         required: false,
-         default: 'Chưa duyệt',
-         enum: ['Đã duyệt', 'Chưa duyệt', 'Xoá'],
-      },
+         status: {
+            type: String,
+            required: false,
+            default: 'Chưa duyệt',
+            enum: ['Đã duyệt', 'Chưa duyệt', 'Xoá'],
+         },
    },
    {
       timestamps: true,

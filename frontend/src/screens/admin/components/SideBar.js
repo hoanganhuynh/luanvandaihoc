@@ -22,13 +22,15 @@ import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber'; // m
 import FilterVintageIcon from '@material-ui/icons/FilterVintage'; // sp
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
+
 import { useDispatch, useSelector } from 'react-redux';
 
 // import { Link } from '@material-ui/core'
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { useLocation } from 'react-router-dom';
+
 
 import {
    ProSidebar,
@@ -110,25 +112,31 @@ const SideBar = () => {
                         className="mr-1"
                         style={{ width: '14px', fill: '#fafafa' }}
                      />
-                     Quản trị viên
+                     {userInfo.role && userInfo.role === 'admin' ? ('Quản trị viên') : 'Nhân viên bán hàng'}
                   </strong>
                </div>
             </SidebarHeader>
+            
+               {/* <Fragment> */}
             <Menu iconShape="circle">
+            {userInfo.role && userInfo.role === 'admin' && (
+               <Fragment>
                <MenuItem icon={<DashboardIcon />}>
                   Dashboard
                   <Link to="/admin" />
                </MenuItem>
                <MenuItem icon={<PersonIcon />}>
-                  Người dùng
+                  Khách hàng
                   <Link to="/admin/userlist" />
                </MenuItem>
-
                <MenuItem icon={<AssignmentIcon />}>
                   Đơn hàng
                   <Link to="/admin/orderlist" />
                </MenuItem>
-
+               <MenuItem icon={<AssignmentIcon />}>
+                  Đánh giá
+                  <Link to="/admin/listreviews" />
+               </MenuItem>
                <SubMenu title="Sản phẩm" icon={<FilterVintageIcon />}>
                   <MenuItem>
                      Danh sách
@@ -139,17 +147,10 @@ const SideBar = () => {
                      <Link to="/admin/product/create" />
                   </MenuItem>
                </SubMenu>
-
-               <MenuItem icon={<PersonIcon />}>
-                  Đánh giá
-                  <Link to="/admin/listreviews" />
-               </MenuItem>
-
                <MenuItem icon={<PersonIcon />}>
                   Nhà cung cấp
                   <Link to="/admin/supplierlist" />
                </MenuItem>
-
                <MenuItem icon={<CategoryIcon />}>
                   Danh mục
                   <Link to="/admin/categorieslist" />
@@ -158,17 +159,36 @@ const SideBar = () => {
                   Danh mục con
                   <Link to="/admin/subcategorieslist" />
                </MenuItem>
-
                <MenuItem icon={<LoyaltyIcon />}>
                   Sale
                   <Link to="/admin/salelist" />
                </MenuItem>
-
                <MenuItem icon={<ConfirmationNumberIcon />}>
                   Mã giảm giá
                   <Link to="/admin/codelist" />
                </MenuItem>
+               <SubMenu title="Nhân viên" icon={<FilterVintageIcon />}>
+                  <MenuItem>
+                     Danh sách
+                     <Link to="/admin/list-user" />
+                  </MenuItem>
+                  <MenuItem>
+                     Thêm nhân viên
+                     <Link to="/admin/create-user" />
+                  </MenuItem>
+               </SubMenu>
+               </Fragment>
+            )}
+                  {userInfo.role && userInfo.role === 'order' && (
+                        <MenuItem icon={<AssignmentIcon />}>
+                        Đơn hàng
+                        <Link to="/admin/orderlist" />
+                     </MenuItem>
+                     )}
             </Menu>
+            
+
+               
          </ProSidebar>
          ;
       </>

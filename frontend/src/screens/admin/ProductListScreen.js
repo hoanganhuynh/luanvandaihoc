@@ -276,7 +276,7 @@ function ProductListScreen({ history, match }) {
    const { userInfo } = userLogin
 
    useEffect(() => {
-      if (!userInfo.isAdmin) {
+      if (!userInfo.role && userInfo.role === 'admin') {
          history.push('/login')
       }
 

@@ -1,7 +1,8 @@
 var asyncHandler = require('express-async-handler')
 var User = require('../models/userModel.js')
-var generateToken = require('../utils/generateToken.js')
-
+// var generateToken = require('../utils/generateToken.js')
+// var generateToken = require('../utlis/generateToken')
+var generateToken = require('../utils/generateToken')
 //* @desc       Auth users & get token
 //* @route      GET /api/users/login
 //* @access     Public
@@ -17,7 +18,31 @@ const authUser = asyncHandler(async (req, res) => {
          email: user.email,
          avatar: user.avatar,
          sex: user.sex,
-         isAdmin: user.isAdmin,
+         role: user.role ? user.role : '',
+         token: generateToken(user._id),
+      })
+   } else {
+      res.status(404)
+      throw new Error('Invalid email or password')
+   }
+})
+
+const authShipper = asyncHandler(async (req, res) => {
+   const { email, password } = req.body
+
+   const user = await User.findOne({ email })
+   if(user.role !== 'shipper') {
+      res.status(404)
+      throw new Error('Vui lòng đăng nhập tài khoản shipper')
+   }
+
+   if (user && (await user.matchPassword(password))) {
+      res.json({
+         _id: user._id,
+         name: user.name,
+         email: user.email,
+         avatar: user.avatar,
+         sex: user.sex,
          token: generateToken(user._id),
       })
    } else {
@@ -45,7 +70,7 @@ const registerUser = asyncHandler(async (req, res) => {
          name: user.name,
          email: user.email,
          avatar: user.avatar,
-         isAdmin: user.isAdmin,
+         role: user.role ? user.role : '',
          token: generateToken(user._id),
       })
    } else {
@@ -60,10 +85,33 @@ const registerUser = asyncHandler(async (req, res) => {
          name: user.name,
          email: user.email,
          avatar: user.avatar,
-         isAdmin: user.isAdmin,
+         role: user.role ? user.role : '',
          token: generateToken(user._id),
       })
    }
+})
+
+const createUser = asyncHandler(async (req, res) => {
+   const { name, email, password, numberPlate, role } = req.body
+
+   console.log('avatar', req.body.avatar)
+   const avatar = JSON.parse(req.body.avatar)
+   console.log('avt', avatar)
+      const user = await User.create({
+         name,
+         email,
+         avatar: {
+            public_id: avatar.public_id,
+            url: avatar.url
+         },
+         password,
+         role,
+         numberPlate
+      })
+      res.status(201).json({
+         success: true
+      })
+
 })
 
 //* @desc       Get user profile
@@ -132,6 +180,8 @@ const getUsers = asyncHandler(async (req, res) => {
       res.json(users)
    }, 100)
 })
+
+
 
 //* @desc       Delete user user
 //* @route      DELETE /api/users/:id
@@ -245,7 +295,7 @@ const getUserAddress = asyncHandler(async (req, res) => {
 //* @access     Private
 const updateUserAddress = asyncHandler(async (req, res) => {
    const id = req.user._id
-   const { thanhPho, huyen, xa, diaChi, diaDiem, numberPhone } = req.body
+   const { thanhPho, huyen, xa, diaChi, numberPhone } = req.body
    const idAddress = req.body.idAddress
 
    // console.log(req.body)
@@ -259,7 +309,6 @@ const updateUserAddress = asyncHandler(async (req, res) => {
                'address.$.huyen': huyen,
                'address.$.xa': xa,
                'address.$.diaChi': diaChi,
-               'address.$.diaDiem': diaDiem,
                'address.$.numberPhone': numberPhone,
             },
          }
@@ -375,4 +424,6 @@ module.exports = {
    updateRoleUserAddress,
    updateUserAddress,
    getUserAddress,
+   createUser,
+   authShipper
 }

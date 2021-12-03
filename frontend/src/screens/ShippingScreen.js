@@ -145,7 +145,7 @@ export const ShippingScreen = ({ history }) => {
                               <Form.Label as='p' className='mb-1 mt-2'>
                                  <strong>Địa chỉ giao hàng</strong>
                               </Form.Label>
-                              {user.address?.map((add) => (
+                              {user && user.address?.map((add) => (
                                  <div
                                     className='p-3 mt-1 mb-1'
                                     style={{

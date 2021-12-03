@@ -63,7 +63,7 @@ const headCells = [
       id: 'id',
       numeric: false,
       disablePadding: true,
-      label: 'Mã người dùng',
+      label: 'ID',
    },
    { id: 'name', numeric: true, disablePadding: false, label: 'TÊN' },
    {
@@ -72,7 +72,7 @@ const headCells = [
       disablePadding: false,
       label: 'ĐỊA CHỈ EMAIL',
    },
-   // { id: 'isAdmin', numeric: true, disablePadding: false, label: 'ADMIN' },
+   { id: 'isAdmin', numeric: true, disablePadding: false, label: 'Phân quyền' },
    { id: 'action', numeric: true, disablePadding: false, label: 'Hành động' },
 ]
 
@@ -146,16 +146,16 @@ const useToolbarStyles = makeStyles((theme) => ({
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(1),
    },
-   // highlight:
-   //    theme.palette.type === 'light'
-   //       ? {
-   //          color: theme.palette.secondary.main,
-   //          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-   //       }
-   //       : {
-   //          color: theme.palette.text.primary,
-   //          backgroundColor: theme.palette.secondary.dark,
-   //       },
+   highlight:
+      theme.palette.type === 'light'
+         ? {
+            color: theme.palette.secondary.main,
+            backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+         }
+         : {
+            color: theme.palette.text.primary,
+            backgroundColor: theme.palette.secondary.dark,
+         },
    title: {
       flex: '1 1 100%',
    },
@@ -186,7 +186,7 @@ const useStyles = makeStyles((theme) => ({
    },
 }))
 
-function UserListScreen({ history }) {
+function ListUserScreen({ history }) {
    const classes = useStyles()
    const [order, setOrder] = React.useState('asc')
    const [orderBy, setOrderBy] = React.useState('calories')
@@ -200,14 +200,13 @@ function UserListScreen({ history }) {
       setOrder(isAsc ? 'desc' : 'asc')
       setOrderBy(property)
    }
-
    const userList = useSelector((state) => state.userList)
    const { loading, error, users } = userList
-   const showUsers = users && users.filter(user => !user.role)
 
+   const shippers = users && users.filter(user => user.role)
    const handleSelectAllClick = (event) => {
       if (event.target.checked) {
-         const newSelecteds = showUsers.map((user) => user._id)
+         const newSelecteds = shippers.map((user) => user._id)
          setSelected(newSelecteds)
          return
       }
@@ -252,9 +251,10 @@ function UserListScreen({ history }) {
    const dispatch = useDispatch()
 
 
+
    const emptyRows =
-      showUsers !== undefined &&
-      rowsPerPage - Math.min(rowsPerPage, showUsers.length - page * rowsPerPage)
+      users !== undefined &&
+      rowsPerPage - Math.min(rowsPerPage, shippers.length - page * rowsPerPage)
 
    const userLogin = useSelector((state) => state.userLogin)
    const { userInfo } = userLogin
@@ -272,7 +272,7 @@ function UserListScreen({ history }) {
       const classes = useToolbarStyles()
       const { numSelected } = props
 
-      const did = showUsers.find((user) => user._id)
+      const did = shippers.find((user) => user._id)
 
       return (
          <Toolbar
@@ -296,10 +296,10 @@ function UserListScreen({ history }) {
                id='tableTitle'
                component='div'
             >
-               <h2 style={{ fontSize: '20px', float: 'left' }}>Danh sách tài khoản Khách hàng</h2>
+               <h2 style={{ fontSize: '20px', float: 'left' }}>Danh sách nhân viên</h2>
             </Typography>
             {/* <Link to="/admin/create-user">
-               <div className="btn btn-primary">Them shipper</div></Link> */}
+               <div className="btn btn-primary">Thêm shipper</div></Link> */}
             {/* )} */}
 
             {/* {numSelected > 0 ? (
@@ -327,11 +327,11 @@ function UserListScreen({ history }) {
    }
 
    useEffect(() => {
-      if (userInfo && userInfo.role && userInfo.role === 'admin') {
+      // if (userInfo && userInfo.role && userInfo.role === 'admin') {
          dispatch(listUsers())
-      } else {
-         history.push('/login')
-      }
+      // } else {
+      //    history.push('/login')
+      // }
    }, [dispatch, history, successDelete, userInfo])
 
    return (
@@ -384,11 +384,11 @@ function UserListScreen({ history }) {
                                     orderBy={orderBy}
                                     onSelectAllClick={handleSelectAllClick}
                                     onRequestSort={handleRequestSort}
-                                    rowCount={showUsers.length}
+                                    rowCount={shippers.length}
                                  />
                                  <TableBody>
                                     {stableSort(
-                                       showUsers,
+                                       shippers,
                                        getComparator(order, orderBy)
                                     )
                                        .slice(
@@ -442,9 +442,10 @@ function UserListScreen({ history }) {
                                                 <TableCell align='center'>
                                                    {user.email}
                                                 </TableCell>
-                                                {/* <TableCell align='center'>
+                                                <TableCell align='center'>
                                                    {' '}
-                                                   {user.role && user.role === 'admin' ? (
+                                                   {user.role && user.role}
+                                                   {/* {user.isAdmin ? (
                                                       <i
                                                          className='fas fa-check'
                                                          style={{
@@ -458,8 +459,8 @@ function UserListScreen({ history }) {
                                                             color: 'red',
                                                          }}
                                                       ></i>
-                                                   )}
-                                                </TableCell> */}
+                                                   )} */}
+                                                </TableCell>
                                                 <TableCell align='center'>
                                                    <LinkContainer
                                                       to={`/admin/user/${user._id}/edit`}
@@ -508,7 +509,7 @@ function UserListScreen({ history }) {
                            <TablePagination
                               rowsPerPageOptions={[5, 10, 25]}
                               component='div'
-                              count={showUsers.length}
+                              count={shippers.length}
                               rowsPerPage={rowsPerPage}
                               page={page}
                               onChangePage={handleChangePage}
@@ -533,4 +534,4 @@ function UserListScreen({ history }) {
    )
 }
 
-export default UserListScreen
+export default ListUserScreen
