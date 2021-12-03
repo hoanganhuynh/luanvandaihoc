@@ -64,14 +64,21 @@ function ShipperLogin({ location, history }) {
    return (
       <>
          {/* <Header /> */}
-         <Row className='shadow p-3 card_color ml-4 mr-4' style={{position:'relative', top:'50px'}}>
+         <Row className=' p-3  ml-4 mr-4' style={{position:'relative', top:'30px'}}>
             <Col md={12}>
-               <div className='pt-5 mt-5'>
+               <div className='pt-5 d-flex flex-column align-items-center'>
                   {error && <Message variant='danger'>{error}</Message>}
                   {loading && <ProgressLine />}
+                  <Image
+                              style={{ zIndex: '2' }}
+                              src='/background/shipper.jpeg'
+                              width='180px'
+                              className='mb-5'
+                              // src={product && product.images[0].url}
+                           />
                   <Form onSubmit={submitHandler}>
-                     <h2 className='text-center'>Đăng nhập Shipper</h2>
-                     <Form.Group controlId='email' className='pt-3'>
+                     <h4 className='text-center text-success'>Đăng nhập Shipper</h4>
+                     <Form.Group controlId='email' className='pt-4'>
                         <Form.Label as='p' className='mb-1'>
                            Địa chỉ email
                         </Form.Label>
@@ -99,7 +106,7 @@ function ShipperLogin({ location, history }) {
                         ></Form.Control>
                      </Form.Group>
 
-                     <div className='mt-2'>
+                     <div className='mt-4'>
                         <Button
                            type='submit'
                            variant='outline-light'

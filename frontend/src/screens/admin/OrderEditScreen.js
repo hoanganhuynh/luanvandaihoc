@@ -67,6 +67,8 @@ const OrderEditScreen = ({ match, history }) => {
    
    const { order, loading } = orderDetails
 
+   console.log('orderDetils: ', order && order.shipper);
+
 
    const userLogin = useSelector((state) => state.userLogin)
    const { userInfo } = userLogin
@@ -86,7 +88,7 @@ const OrderEditScreen = ({ match, history }) => {
 
    const shippers = users && users.filter(u => u.role && u.role === 'shipper')
 
-   console.log('h', shippers);
+   console.log('shippers array', shippers);
 
    // console.log('orderstuas', order?.orderStatus)
 
@@ -175,7 +177,7 @@ const OrderEditScreen = ({ match, history }) => {
                                     </h5>
                                  </div>
                                  
-                                 <div>Thông tin người giao hàng: {shippers && shippers[0].name} </div>
+                                 <div>Thông tin người giao hàng: {order && order.shipper && order.shipper.name} ({order && order.shipper && order.shipper.numberPlate}) </div>
                               
                                  <div>
                                     <h5>
