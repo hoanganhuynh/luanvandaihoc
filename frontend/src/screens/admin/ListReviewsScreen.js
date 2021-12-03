@@ -228,6 +228,7 @@ function ListReviewsScreen({ history, match }) {
    const dispatch = useDispatch();
 
    const listReviews = useSelector((state) => state.listReviews);
+   
    const { loading, error, products } = listReviews;
 
    const ord = products;
@@ -266,20 +267,28 @@ function ListReviewsScreen({ history, match }) {
    const userLogin = useSelector((state) => state.userLogin);
    const { userInfo } = userLogin;
 
+   // useEffect(() => {
+   //    if (userInfo && userInfo.isAdmin) {
+   //       dispatch(listAllReviews());
+   //    } else {
+   //       history.push('/login');
+   //    }
+   // }, [
+   //    dispatch,
+   //    history,
+   //    userInfo,
+   //    successApprove,
+   //    successDelete,
+   //    successFilter,
+   // ]);
+
    useEffect(() => {
-      if (userInfo && userInfo.isAdmin) {
-         dispatch(listAllReviews());
+      if (userInfo && userInfo.role && userInfo.role === 'admin') {
+         dispatch(listAllReviews())
       } else {
-         history.push('/login');
+         history.push('/login')
       }
-   }, [
-      dispatch,
-      history,
-      userInfo,
-      successApprove,
-      successDelete,
-      successFilter,
-   ]);
+   }, [dispatch, history, successDelete, userInfo])
 
    const EnhancedTableToolbar = (props) => {
       const classes = useToolbarStyles();

@@ -24,9 +24,16 @@ import {
    USER_LIST_REQUEST,
    USER_LIST_RESET,
    USER_LIST_SUCCESS,
+   CREATE_USER_FAIL,
+   CREATE_USER_REQUEST,
+   CREATE_USER_RESET,
+   CREATE_USER_SUCCESS,
    USER_LOGIN_FAIL,
    USER_LOGIN_REQUEST,
    USER_LOGIN_SUCCESS,
+   SHIPPER_LOGIN_FAIL,
+   SHIPPER_LOGIN_REQUEST,
+   SHIPPER_LOGIN_SUCCESS,
    USER_LOGOUT,
    USER_REGISTER_FAIL,
    USER_REGISTER_REQUEST,
@@ -50,10 +57,13 @@ import {
 export const userLoginReducer = (state = { products: [] }, action) => {
    switch (action.type) {
       case USER_LOGIN_REQUEST:
+      case SHIPPER_LOGIN_REQUEST:
          return { loading: true }
       case USER_LOGIN_SUCCESS:
+      case SHIPPER_LOGIN_SUCCESS:
          return { loading: false, userInfo: action.payload }
       case USER_LOGIN_FAIL:
+      case SHIPPER_LOGIN_FAIL:
          return { loading: false, error: action.payload }
       case USER_LOGOUT:
          return {}
@@ -80,6 +90,7 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
       case USER_DETAILS_REQUEST:
          return { ...state, loading: true }
       case USER_DETAILS_SUCCESS:
+         console.log('usreRe2', action.payload)
          return { loading: false, success: true, user: action.payload }
       case USER_DETAILS_FAIL:
          return { loading: false, error: action.payload }
@@ -200,6 +211,21 @@ export const userUpdateReducer = (state = {}, action) => {
    }
 }
 
+export const createUserReducer = (state = {}, action) => {
+   switch (action.type) {
+      case CREATE_USER_REQUEST:
+         return { loading: true }
+      case CREATE_USER_SUCCESS:
+         return { loading: false, success: action.payload }
+      case CREATE_USER_FAIL:
+         return { loading: false, error: action.payload }
+      case CREATE_USER_RESET:
+         return { ...state, success: false}
+      default:
+         return state
+   }
+}
+
 export const authReducer = (state = { user: {} }, action) => {
    switch (action.type) {
       case USER_LOGIN_REQUEST:
@@ -213,6 +239,7 @@ export const authReducer = (state = { user: {} }, action) => {
       case USER_LOGIN_SUCCESS:
       case REGISTER_USER_SUCCESS:
       case USER_DETAILS_SUCCESS:
+         console.log('userRe', action.payload)
          return {
             ...state,
             loading: false,

@@ -188,7 +188,7 @@ function Header(props) {
          <Navbar
             expand='lg'
             collapseOnSelect
-            className='p-0 pl-5 pr-5 m-0 shadow'
+            className='p-0 pl-5 pr-5 m-0 shadow header-shipper'
             style={{ backgroundColor: '#fff', height: '5rem' }}
          >
             <Container fluid>
@@ -243,7 +243,7 @@ function Header(props) {
                                     src={
                                        userDetails.user
                                           ? userDetails.user?.avatar?.url
-                                          : userDetails.user.avatar?.url
+                                          : userDetails.user?.avatar?.url
                                     }
                                     alt={
                                        userDetails.user && userDetails.user.name
@@ -287,7 +287,7 @@ function Header(props) {
                                              id='menu-list-grow'
                                              onKeyDown={handleListKeyDown}
                                           >
-                                             {userInfo && userInfo.isAdmin && (
+                                             {userInfo && userInfo.role && userInfo.role === 'admin' && (
                                                 <MenuItem onClick={handleClose}>
                                                    <Link
                                                       to='/admin'

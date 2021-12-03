@@ -9,10 +9,11 @@ import React, { useEffect, useState } from 'react'
 import { Col, Image, ListGroup, Row, Button, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getOrderDetails, updateOrder } from '../../actions/orderActions'
+import { getOrderDetails, updateOrder, chooseShipper } from '../../actions/orderActions'
+import { listUsers } from '../../actions/userActions'
 import SkeletonEffect from '../../components/SkeletonEffect'
 import Message from '../../components/Message'
-import { ORDER_UPDATE_RESET } from '../../constants/orderConstants'
+import { CHOOSE_SHIPPER_RESET, ORDER_UPDATE_RESET } from '../../constants/orderConstants'
 import MessageSuccess from '../../components/MessageSuccess'
 import { format, utcToZonedTime } from 'date-fns-tz'
 import SideBar from './components/SideBar'
@@ -46,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
 const OrderEditScreen = ({ match, history }) => {
    const classes = useStyles()
    const [open, setOpen] = React.useState(false)
+   const [shipper, setShipper] = useState("")
 
    const handleClose = () => {
       setOpen(false)
@@ -60,10 +62,17 @@ const OrderEditScreen = ({ match, history }) => {
    const orderId = match.params.id
 
    const orderDetails = useSelector((state) => state.orderDetails)
+
+   
+   
    const { order, loading } = orderDetails
+
 
    const userLogin = useSelector((state) => state.userLogin)
    const { userInfo } = userLogin
+
+   const {users} = useSelector((state) => state.userList)
+   const {isUpdated} = useSelector((state) => state.orderUpdate)
 
    const orderUpdate = useSelector((state) => state.orderUpdate)
    const {
@@ -75,19 +84,27 @@ const OrderEditScreen = ({ match, history }) => {
    const orderPay = useSelector((state) => state.orderPay)
    const { loading: loadingPay, success: successPay } = orderPay
 
-   console.log('orderstuas', order?.orderStatus)
+   const shippers = users && users.filter(u => u.role && u.role === 'shipper')
 
-   const stateOrder = ['Đang vận chuyển', 'Đã giao hàng', 'Huỷ']
-   const stateOrder_two = ['Đang vận chuyển', 'Đã giao hàng', 'Huỷ']
-   const stateOrder_three = ['Đã giao hàng']
+   console.log('h', shippers);
+
+   // console.log('orderstuas', order?.orderStatus)
+
+   const stateOrder = ['Chờ xác nhận', 'Đang vận chuyển', 'Đã giao hàng', 'Huỷ']
    const [orderStatus, setOrderStatus] = useState(order?.orderStatus)
+   const stateOrder_three = ['Đã giao hàng']
 
    const submitHandler = (e) => {
       e.preventDefault()
-      dispatch(updateOrder({ _id: orderId, orderStatus }))
+      if(shipper) {
+         dispatch(chooseShipper(orderId, {shipper: shipper}))
+      } else {
+         dispatch(updateOrder({ _id: orderId, orderStatus }))
+      }
    }
 
    useEffect(() => {
+      dispatch(listUsers())
       if (userInfo) {
          if (successUpdate) {
             dispatch({ type: ORDER_UPDATE_RESET })
@@ -95,7 +112,11 @@ const OrderEditScreen = ({ match, history }) => {
             dispatch(getOrderDetails(orderId))
          }
       }
-   }, [dispatch, orderId, successUpdate])
+
+      if(isUpdated) {
+         dispatch({type: CHOOSE_SHIPPER_RESET})
+      }
+   }, [dispatch, orderId, successUpdate, isUpdated])
 
    return (
       <>
@@ -131,9 +152,34 @@ const OrderEditScreen = ({ match, history }) => {
                                  </p>
                               </Col>
                               <Col md={6}>
+                              
+                                 <div>
+                                 {!order.shipper && shippers &&
+                                    (
+                                       <select onChange={(e) => setShipper(e.target.value)} style={{
+                                                                                                fontSize:'18px',
+                                                                                                backgroundColor:'#1cb8ee',
+                                                                                                color:'white',
+                                                                                                padding:'4px',
+                                                                                                marginTop:'17px'
+
+                                       }}>
+                                          <option hidden>Chọn shipper</option>
+                                          {shippers.map(shipper => (
+                                             <option value={shipper._id}>{shipper.name}</option>
+                                          ))}
+                                       </select>
+                                    )}
+                                    <h5 className='text-info pb-1' style={{paddingTop:'10px', color:'#3ba66b'}}>
+                                       Trạng thái đơn hàng: {order?.orderStatus}
+                                    </h5>
+                                 </div>
+                                 
+                                 <div>Thông tin người giao hàng: {shippers && shippers[0].name} </div>
+                              
                                  <div>
                                     <h5>
-                                    <p>Trạng thái đơn hàng: {order?.orderStatus}</p>
+                                    {/* <p>Trạng thái đơn hàng: {order?.orderStatus}</p> */}
                                           <FormControl className={classes.formControl}>
                                     <InputLabel
                                        id='demo-controlled-open-select-label'

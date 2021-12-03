@@ -76,8 +76,10 @@ function LoginScreen({ location, history }) {
 
    useEffect(() => {
       if (userInfo) {
-         if (userInfo?.isAdmin === true) {
+         if (userInfo?.role && userInfo.role === 'admin') {
             history.push('/admin')
+         } else if (userInfo?.role && userInfo.role === 'order') {
+            history.push('/admin/orderlist')
          } else {
             history.push(redirect)
          }

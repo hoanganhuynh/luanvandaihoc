@@ -13,6 +13,7 @@ var {
    updateUser,
    updateUserAddress,
    updateUserProfile,
+   createUser,
 } = require('../controllers/userControllers.js')
 var { admin, protect } = require('../middleware/authMiddleware.js')
 
@@ -27,6 +28,8 @@ router.route('/').get(getUsers).post(registerUser)
 router.route('/createaddress').post(protect, createUserAddress)
 router.route('/deleteaddress').post(protect, deleteUserAddress)
 router.route('/roleaddress').post(protect, updateRoleUserAddress)
+router.route('/admin/create').post(protect, admin, createUser)
+
 router
    .route('/address')
    .post(protect, updateUserAddress)

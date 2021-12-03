@@ -36,6 +36,13 @@ import {
    ORDER_UPDATE_FAIL,
    ORDER_UPDATE_REQUEST,
    ORDER_UPDATE_SUCCESS,
+   ORDERS_SHIPPER_FAIL,
+   ORDERS_SHIPPER_REQUEST,
+   ORDERS_SHIPPER_SUCCESS,
+   SHIPPER_UPDATE_ORDER_FAIL,
+   SHIPPER_UPDATE_ORDER_REQUEST,
+   SHIPPER_UPDATE_ORDER_SUCCESS,
+   CHOOSE_SHIPPER_SUCCESS
 } from '../constants/orderConstants'
 
 export const createOrder = (order) => async (dispatch, getState) => {
@@ -103,6 +110,91 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
                : error.message,
       })
    }
+}
+
+export const ordersShipper = () => async (dispatch, getState) => {
+   try {
+      dispatch({
+         type: ORDERS_SHIPPER_REQUEST,
+      })
+
+      const {
+         userLogin: { userInfo },
+      } = getState()
+
+      const config = {
+         headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+         },
+      }
+
+      const { data } = await axios.get(`/api/shipper/orders`, config)
+
+      dispatch({
+         type: ORDERS_SHIPPER_SUCCESS,
+         payload: data.orders,
+      })
+   } catch (error) {
+      dispatch({
+         type: ORDERS_SHIPPER_FAIL,
+         payload:
+            error.response && error.response.data.message
+               ? error.response.data.message
+               : error.message,
+      })
+   }
+}
+
+export const shipperUpdateOrder = (id) => async (dispatch, getState) => {
+   try {
+      dispatch({
+         type: SHIPPER_UPDATE_ORDER_REQUEST,
+      })
+
+      const {
+         userLogin: { userInfo },
+      } = getState()
+
+      const config = {
+         headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+         },
+      }
+
+      const { data } = await axios.post(`/api/shipper/order/${id}`, config)
+
+      dispatch({
+         type: SHIPPER_UPDATE_ORDER_SUCCESS,
+         payload: data.success,
+      })
+   } catch (error) {
+      dispatch({
+         type: SHIPPER_UPDATE_ORDER_FAIL,
+         payload:
+            error.response && error.response.data.message
+               ? error.response.data.message
+               : error.message,
+      })
+   }
+}
+
+export const chooseShipper = (id, dataShipper) => async (dispatch, getState) => {
+      const {
+         userLogin: { userInfo },
+      } = getState()
+
+      const config = {
+         headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+         },
+      }
+
+      const { data } = await axios.post(`/api/orders/shipper/${id}`, dataShipper, config)
+
+      dispatch({
+         type: CHOOSE_SHIPPER_SUCCESS,
+         payload: data.success,
+      })
 }
 
 export const payOrder =

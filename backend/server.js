@@ -21,6 +21,8 @@ var bodyParser = require('body-parser');
 var cloudinary = require('cloudinary');
 var fileUpload = require('express-fileupload');
 
+var shipperRoutes = require('./routes/shipperRoutes.js')
+
 const { Server } = require('socket.io');
 const io = new Server();
 
@@ -80,6 +82,8 @@ app.use('/api/reviews', reviewsRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/uploads', uploadRoutes);
 app.use('/api/uploadImages', uploadImageRoutes);
+
+app.use('/api/shipper', shipperRoutes)
 
 app.get('/api/config/paypal', (req, res) =>
    res.send(process.env.PAYPAL_CLIENT_ID)

@@ -38,7 +38,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
             discount,
          })
 
-         console.log(order)
+         // console.log(order)
          order.orderItems.map(async (item) => {
             const p = item.product
             const q = item.qty
@@ -96,6 +96,7 @@ const getOrderById = asyncHandler(async (req, res) => {
       'user',
       'name email'
    )
+   .populate('shipper')
 
    if (order) {
       setTimeout(() => {
@@ -194,9 +195,13 @@ const getMyOrders = asyncHandler(async (req, res) => {
 //* @route      GET /api/orders
 //* @access     Private/Admin
 const getOrders = asyncHandler(async (req, res) => {
+   console.log('toi day chua')
    const orders = await Order.find({})
       .sort({ createdAt: -1 })
       .populate('user', 'id name')
+      .populate('shipper')
+
+      console.log('order',orders)
 
    let totalAmount = 0
 
@@ -295,6 +300,32 @@ const updateStatusByMember = asyncHandler(async (req, res) => {
    }
 })
 
+const updateShipperForOrder = asyncHandler(async (req, res) => {
+   const order = await Order.findById(req.params.id)
+
+   order.shipper = req.body.shipper;
+   order.orderStatus = 'Đang vận chuyển'
+
+   order.save();
+
+   return res.status(200).json({
+      success: true
+   })
+})
+
+const shipperUpdateStatus = asyncHandler(async (req, res) => {
+   const order = await Order.findById(req.params.id)
+
+   order.orderStatus = 'Đã giao hàng';
+   order.deliveredAt = Date.now();
+
+   order.save();
+
+   return res.status(200).json({
+      success: true
+   })
+})
+
 const filterOrder = asyncHandler(async (req, res) => {
    try {
       const order = await Order.find({
@@ -314,6 +345,22 @@ const filterOrder = asyncHandler(async (req, res) => {
    }
 })
 
+const ordersShipper = asyncHandler(async (req, res) => {
+   const orders = await Order.find({
+      shipper: req.user._id,
+      orderStatus: {
+        $in: ["Đang vận chuyển", "Đã giao hàng"],
+      },
+    })
+      .populate("user")
+      .sort({ createdAt: -1 });
+  
+    res.status(200).json({
+      success: true,
+      orders,
+    });
+})
+
 module.exports = {
    addOrderItems,
    getOrderById,
@@ -326,4 +373,7 @@ module.exports = {
    updateStatusByMember,
    filterOrder,
    updateOrderToPaidCash,
+   updateShipperForOrder,
+   shipperUpdateStatus,
+   ordersShipper
 }

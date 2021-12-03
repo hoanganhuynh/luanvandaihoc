@@ -6,6 +6,10 @@ import { Card, Col, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { listOrders } from '../../../actions/orderActions'
 import { listAllProduct, listProducts } from '../../../actions/productActions'
+import { filterOrder} from '../../../actions/orderActions'
+
+import { listUsers } from '../../../actions/userActions'
+import { listCode} from '../../../actions/codeAction'
 import { listSupplierAdm } from '../../../actions/supplierActions'
 import CountUp from 'react-countup';
 
@@ -61,17 +65,17 @@ const ListNumbers = ({ history }) => {
 
    let outOfStock = 0
    let productOut = []
-   products && products.map((product) => {
-      if (product.countInStock == 0) {
-         productOut.push(product)
-         outOfStock += 1
-      }
-   })
+   // products && products.map((product) => {
+   //    if (product.countInStock == 0) {
+   //       productOut.push(product)
+   //       outOfStock += 1
+   //    }
+   // })
 
    
 
    useEffect(() => {
-      if (!userInfo.isAdmin) {
+      if (!userInfo.role && userInfo.role === 'admin') {
          history.push('/login')
       }
 
@@ -79,6 +83,9 @@ const ListNumbers = ({ history }) => {
          dispatch(listOrders())
          dispatch(listAllProduct())
          dispatch(listSupplierAdm())
+         dispatch(listUsers())
+         dispatch(listCode())
+         dispatch(filterOrder())
       }
    }, [dispatch, history, userInfo])
 

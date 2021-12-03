@@ -37,7 +37,6 @@ const orderSchema = mongoose.Schema(
          thanhPho: { type: String, required: false },
          huyen: { type: String, required: false },
          xa: { type: String, required: false },
-         diaDiem: { type: String, required: false },
          diaChi: { type: String, required: false },
          numberPhone: {
             type: String,
@@ -110,6 +109,11 @@ const orderSchema = mongoose.Schema(
          default: 'Chờ xác nhận',
          enum: ['Chờ xác nhận', 'Đang vận chuyển', 'Đã giao hàng', 'Huỷ'],
       },
+      shipper: {
+         type: mongoose.Schema.Types.ObjectId,
+         required: false,
+         ref: 'User',
+      }
    },
    {
       timestamps: true,

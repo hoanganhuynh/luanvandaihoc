@@ -299,7 +299,7 @@ function Header(props) {
          <Navbar
             expand='lg'
             collapseOnSelect
-            className='p-0 pl-5 pr-5 m-0 shadow sticky-top'
+            className='p-0 pl-5 pr-5 m-0 shadow sticky-top header-shipper'
             style={{ backgroundColor: '#fafafa', height: '4rem' ,zIndex:'99' }}
          >
             <Container fluid>
