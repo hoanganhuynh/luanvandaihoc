@@ -72,6 +72,12 @@ const headCells = [
       disablePadding: false,
       label: 'ĐỊA CHỈ EMAIL',
    },
+   {
+      id: 'numberPhoneShipper',
+      numeric: true,
+      disablePadding: false,
+      label: 'Số điện thoại',
+   },
    { id: 'isAdmin', numeric: true, disablePadding: false, label: 'Phân quyền' },
    { id: 'action', numeric: true, disablePadding: false, label: 'Hành động' },
 ]
@@ -441,6 +447,9 @@ function ListUserScreen({ history }) {
                                                 </TableCell>
                                                 <TableCell align='center'>
                                                    {user.email}
+                                                </TableCell>
+                                                <TableCell align='center'>
+                                                   {user.numberPhoneShipper}
                                                 </TableCell>
                                                 <TableCell align='center'>
                                                    {' '}

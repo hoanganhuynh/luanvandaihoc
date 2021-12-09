@@ -40,6 +40,7 @@ function CreateUserScreen({ location, history }) {
    const [avatar, setAvatar] = useState(null)
    const [password, setPassword] = useState('')
    const [numberPlate, setNumberPlate] = useState('')
+   const [numberPhoneShipper, setNumberPhoneShipper] = useState('')
    const [confirmPassword, setConfirmPassword] = useState('')
    const [message, setMessage] = useState(null)
    const [uploading, setUploading] = useState(false)
@@ -64,6 +65,7 @@ function CreateUserScreen({ location, history }) {
       formData.set('password', password)
       formData.set('role', role)
       formData.set('numberPlate', numberPlate)
+      formData.set('numberPhoneShipper', numberPhoneShipper)
       formData.set('avatar', JSON.stringify(avatar))
       console.log('avatar', formData.get('avatar'))
       console.log('avatar1', JSON.stringify(avatar))
@@ -165,6 +167,18 @@ function CreateUserScreen({ location, history }) {
                            placeholder='Nhập mật khẩu'
                            value={password}
                            onChange={(e) => setPassword(e.target.value)}
+                           className='border border-grey rounded-pill'
+                        ></Form.Control>
+                     </Form.Group>
+                     <Form.Group controlId='numberPhoneShipper'>
+                        <Form.Label as='p' className='mb-1'>
+                           Số điện thoại
+                        </Form.Label>
+                        <Form.Control
+                           type='text'
+                           placeholder='Nhập số điện thoại'
+                           value={numberPhoneShipper}
+                           onChange={(e) => setNumberPhoneShipper(e.target.value)}
                            className='border border-grey rounded-pill'
                         ></Form.Control>
                      </Form.Group>

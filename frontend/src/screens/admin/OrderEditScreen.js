@@ -177,7 +177,7 @@ const OrderEditScreen = ({ match, history }) => {
                                     </h5>
                                  </div>
                                  
-                                 <div>Thông tin người giao hàng: {order && order.shipper && order.shipper.name} ({order && order.shipper && order.shipper.numberPlate}) </div>
+                                 <div>Thông tin người giao hàng: {order && order.shipper && order.shipper.name} ({order && order.shipper && order.shipper.numberPlate} - Sđt: {order && order.shipper && order.shipper.numberPhoneShipper} ) </div>
                               
                                  <div>
                                     <h5>

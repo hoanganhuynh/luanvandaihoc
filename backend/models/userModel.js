@@ -56,6 +56,12 @@ const userSchema = mongoose.Schema(
             required: false,
          },
       },
+      numberPhoneShipper: {
+         type: String, required: false,
+         minLength: [10, 'Số điện thoại ít nhất là 10 số'],
+         maxLength: [10, 'Số điện thoại nhiều nhất là 10 số'],
+      },
+
 
       isAdmin: {
          type: Boolean,

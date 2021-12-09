@@ -61,6 +61,8 @@ import ListOrdersShipper from './screens/shipper/ListOrdersShipper'
 import UpdateOrderShipper from './screens/shipper/UpdateOrderShipper'
 import OrdersDelivered from './screens/shipper/OrdersDelivered'
 
+import OrderListScreenOfShipper from './screens/admin/OrderListScreenOfShipper'
+
 const THEME = createMuiTheme({
    typography: {
       fontFamily: ` "Arial", sans-serif`,
@@ -336,6 +338,14 @@ const App = () => {
                      component={OrderEditScreen}
                      exact
                   />
+                  <ProtectedRoute
+                  isAdmin={true}
+                  isOrder={true}
+                  path='/admin/orderlistofscreen'
+                  component={OrderListScreenOfShipper}
+                  exact
+               />
+
 
 
                   {/* <ProtectedRoute

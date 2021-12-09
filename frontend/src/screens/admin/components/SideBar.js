@@ -160,6 +160,10 @@ const SideBar = () => {
                   <Link to="/admin/subcategorieslist" />
                </MenuItem>
                <MenuItem icon={<LoyaltyIcon />}>
+                  Shipper
+                  <Link to="/admin/orderlistofscreen" />
+               </MenuItem>
+               <MenuItem icon={<LoyaltyIcon />}>
                   Sale
                   <Link to="/admin/salelist" />
                </MenuItem>

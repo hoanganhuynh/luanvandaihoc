@@ -92,7 +92,7 @@ const registerUser = asyncHandler(async (req, res) => {
 })
 
 const createUser = asyncHandler(async (req, res) => {
-   const { name, email, password, numberPlate, role } = req.body
+   const { name, email, password, numberPlate, role, numberPhoneShipper } = req.body
 
    console.log('avatar', req.body.avatar)
    const avatar = JSON.parse(req.body.avatar)
@@ -106,7 +106,8 @@ const createUser = asyncHandler(async (req, res) => {
          },
          password,
          role,
-         numberPlate
+         numberPlate,
+         numberPhoneShipper
       })
       res.status(201).json({
          success: true
