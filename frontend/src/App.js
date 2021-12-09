@@ -72,6 +72,8 @@ const App = () => {
    const userLogin = useSelector((state) => state.userLogin)
    const { userInfo } = userLogin
 
+   console.log('user', userInfo);
+
    const userDetails = useSelector((state) => state.userDetails)
    const { user } = userDetails
 
@@ -84,7 +86,7 @@ const App = () => {
    return (
       <>
          <BackTop />
-         {userInfo?.role && userInfo.role !== 'admin' && userInfo.role !== 'order' && <KonmunicateChat />}
+         {userInfo && userInfo?.role === '' ? <KonmunicateChat />  : ''} 
          <Router>
          
             <div>
