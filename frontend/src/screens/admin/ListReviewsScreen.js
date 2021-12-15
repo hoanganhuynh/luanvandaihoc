@@ -680,20 +680,7 @@ function ListReviewsScreen({ history, match }) {
                                                    </TableCell>
 
                                                    {cat.status === 'Xoá' ? (
-                                                         <TableCell align='center'>
-                                                         <Button
-                                                            variant='outline-success'
-                                                            className='btn-sm rounded-pill'
-                                                            onClick={() =>
-                                                               approveStatusOfReview(
-                                                                  pro._id,
-                                                                  cat._id
-                                                               )
-                                                            }
-                                                         >
-                                                            Khôi phục
-                                                         </Button>
-                                                      </TableCell>
+                                                         ''
                                                       ) : cat.status ===
                                                         'Đã duyệt' ? (
                                                          <TableCell align='center'>

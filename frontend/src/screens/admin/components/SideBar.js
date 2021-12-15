@@ -21,6 +21,8 @@ import LoyaltyIcon from '@material-ui/icons/Loyalty'; // sale
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber'; // mgg
 import FilterVintageIcon from '@material-ui/icons/FilterVintage'; // sp
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import GradeIcon from '@material-ui/icons/Grade';
+import TwoWheelerIcon from '@material-ui/icons/TwoWheeler';
 
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -133,7 +135,7 @@ const SideBar = () => {
                   Đơn hàng
                   <Link to="/admin/orderlist" />
                </MenuItem>
-               <MenuItem icon={<AssignmentIcon />}>
+               <MenuItem icon={<GradeIcon />}>
                   Đánh giá
                   <Link to="/admin/listreviews" />
                </MenuItem>
@@ -159,7 +161,7 @@ const SideBar = () => {
                   Danh mục con
                   <Link to="/admin/subcategorieslist" />
                </MenuItem>
-               <MenuItem icon={<LoyaltyIcon />}>
+               <MenuItem icon={<TwoWheelerIcon />}>
                   Shipper
                   <Link to="/admin/orderlistofscreen" />
                </MenuItem>
@@ -171,7 +173,7 @@ const SideBar = () => {
                   Mã giảm giá
                   <Link to="/admin/codelist" />
                </MenuItem>
-               <SubMenu title="Nhân viên" icon={<FilterVintageIcon />}>
+               <SubMenu title="Nhân viên" icon={<PersonIcon />}>
                   <MenuItem>
                      Danh sách
                      <Link to="/admin/list-user" />
