@@ -29,7 +29,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Container, Image, Nav, Navbar, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, Redirect, useHistory } from 'react-router-dom'
 import OpenSocket from 'socket.io-client'
 import { listCategories } from '../../../actions/categoryAction'
 import {

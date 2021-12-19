@@ -186,10 +186,16 @@ const SideBar = () => {
                </Fragment>
             )}
                   {userInfo.role && userInfo.role === 'order' && (
+                     <Fragment>
                         <MenuItem icon={<AssignmentIcon />}>
                         Đơn hàng
                         <Link to="/admin/orderlist" />
                      </MenuItem>
+                     <MenuItem icon={<TwoWheelerIcon />}>
+                  Shipper
+                  <Link to="/admin/orderlistofscreen" />
+               </MenuItem>
+                     </Fragment>
                      )}
             </Menu>
             

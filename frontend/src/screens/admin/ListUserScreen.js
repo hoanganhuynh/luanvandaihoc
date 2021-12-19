@@ -343,7 +343,7 @@ function ListUserScreen({ history }) {
    return (
       <>
          <Header />
-         <Row style={{ backgroundColor: '#3ba66b' }}>
+         <Row style={{ backgroundColor: '#ffffff' }}>
             <Col md={2} className='p-0'>
                <SideBar />
             </Col>
