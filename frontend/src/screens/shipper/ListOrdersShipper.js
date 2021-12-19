@@ -46,7 +46,7 @@ function ListOrdersShipper({ location, history }) {
                               // src={product && product.images[0].url}
                            />
                    <h5 className='py-5 d-flex justify-content-center'>Bạn chưa có đơn hàng nào !</h5> </div>:
-               <p className='py-2 d-flex justify-content-center'>🔔 Bạn có <span className='mx-1 font-weight-bold'>{showOrders && showOrders?.length} </span> đơn hàng cần giao 🔔</p>}
+               <p className='py-2 d-flex justify-content-center'>🔔 Bạn có <span className='mx-1 font-weight-bold'>{showOrders && showOrders?.length ||'0'} </span> đơn hàng cần giao 🔔</p>}
               
                {showOrders && showOrders.map(order => (
                   <div className=" p-3 mb-3 mr-2 ml-2" style={{borderRadius:'7px', backgroundColor:'#f9fff8', borderBottom: '1px solid #d1d1d1'}}>
@@ -61,7 +61,7 @@ function ListOrdersShipper({ location, history }) {
                      <div>Số điện thoại: {order.shippingAddress && order.shippingAddress.numberPhone}</div>
                      <div>Địa chỉ giao hàng: {order.shippingAddress.diaChi}, {order.shippingAddress.xa}, {order.shippingAddress.huyen}, {order.shippingAddress.thanhPho}</div>
                      <Link to={`/shipper/order/${order._id}`}>
-                        <div className="d-flex justify-content-end" 
+                        <div className="btn btn-warning d-flex justify-content-center" 
                               ><span>Xem chi tiết</span></div>
                      </Link>
                   </div>

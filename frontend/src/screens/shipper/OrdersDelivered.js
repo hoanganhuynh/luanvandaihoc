@@ -14,6 +14,8 @@ function OrdersDelivered({ location, history }) {
 
    const showOrders = orders && orders.filter(order => order.orderStatus === 'Đã giao hàng')
 
+   console.log('h',showOrders);
+
    useEffect(() => {
       dispatch(ordersShipper())
    }, [dispatch])
@@ -28,11 +30,13 @@ function OrdersDelivered({ location, history }) {
                   
                   <div className="text-center  text-success " style={{fontSize:'20px', padding:'10px', color:'white', position:'relative', left:'60px'}}><strong style={{color:'white'}}>ĐƠN HÀNG ĐÃ GIAO</strong></div>
                 </div>
+                <p className='ml-5 mt-3'>Tổng cộng: {showOrders && showOrders.length || '0'} đơn hàng đã giao.</p>
                {showOrders && showOrders.map(order => (
                   <div className=" p-3 mb-3" style={{
                    
                      margin:'10px',
-                     backgroundColor:'#f9fff8'
+                     backgroundColor:'#f9fff8',
+                     borderBottom:'1px solid #dddddd'
                      
                   }}>
                      <div className="text-danger d-flex">Mã đơn hàng: <div style={{color:'black'}}>{order._id}</div></div>
@@ -40,8 +44,9 @@ function OrdersDelivered({ location, history }) {
                      <div>Tên khách hàng: {order.user && order.user.name}</div>
                      <div>Số điện thoại: {order.shippingAddress && order.shippingAddress.numberPhone}</div>
                      <div>Địa chỉ giao hàng: {order.shippingAddress.diaChi}, {order.shippingAddress.xa}, {order.shippingAddress.huyen}, {order.shippingAddress.thanhPho}</div>
+                     <div>Phương thức thanh toán: {order.paymentMethod}</div>
                      <Link to={`/shipper/order/${order._id}`}>
-                        <div className="d-flex justify-content-end"><span>Xem chi tiết</span></div>
+                        <div className="btn btn-warning d-flex justify-content-center mt-2"><span>Xem chi tiết</span></div>
                      </Link>
                      
                      

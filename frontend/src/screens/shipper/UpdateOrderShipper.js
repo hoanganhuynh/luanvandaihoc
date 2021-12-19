@@ -16,6 +16,8 @@ function UpdateOrderShipper({ location, history, match }) {
    const orderDetails = useSelector((state) => state.orderDetails)
    const { order, loading, error } = orderDetails
 
+   console.log('chi tiet', orderDetails);
+
    useEffect(() => {
       dispatch(getOrderDetails(match.params.id))
 
@@ -35,6 +37,12 @@ function UpdateOrderShipper({ location, history, match }) {
                   <div>Trạng thái đơn hàng: <div style={{color:'green', fontWeight:'bold', display:'flex'}}>{order && order.orderStatus}</div></div>
                   
                </div>
+
+               <div className="bg-white p-2 mt-3 ml-2 mr-2">
+                  <div>Thông tin thanh toán: <p className='text-success font-weight-bold'>{orderDetails && orderDetails.order && orderDetails.order.paymentMethod}</p></div>
+                  <div className='font-weight-bold'>Tổng đơn: {orderDetails && orderDetails.order && orderDetails.order.totalPrice}</div>
+               </div>
+
                <div className="bg-white p-2 mt-2 ml-2 mr-2">
                   <strong>Thông tin khách hàng:</strong>
                   <div>Họ tên: {order && order.user.name}</div>
@@ -58,16 +66,16 @@ function UpdateOrderShipper({ location, history, match }) {
                   
                </div>
                {order && order.orderStatus === 'Đang vận chuyển' && (
-                     <div className="btn btn-success m-2" style={{
+                     <div className="btn btn-success mb-5" style={{
                         position:'relative',
-                        left:'250px',
-                        borderRadius:'7px'
+                        left:'20px',
+                        
                                                          
-                     }} onClick={() => dispatch(shipperUpdateOrder(order && order._id))}>Đã giao</div>
+                     }} onClick={() => dispatch(shipperUpdateOrder(order && order._id))}>Xác nhận đã giao</div>
                   )}
                <div style={{
                    padding:'4px',
-                   backgroundColor:'grey',
+                   backgroundColor:'lightgray',
                    width:'80px',
                    marginLeft:'10px',
                    marginTop:'10px',
